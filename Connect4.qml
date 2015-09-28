@@ -1,15 +1,14 @@
 import QtQuick 2.0
+import "."
 
 Rectangle {
 	id: main
 
-	width: 600
-	height: 400
+	width: Style.window_width
+	height: Style.window_height
 
-	color: "#27315D"
+	color: Style.color_bg
 
-	property color color_player1: "#E6D82E"
-	property color color_player2: "#E63B2E"
 	property int player: 1
 
 	function play(index) {
@@ -32,8 +31,8 @@ Rectangle {
 	Grid {
 		id: grid
 		anchors.fill: parent
-		rows: 6
-		columns: 7
+		rows: Config.rows
+		columns: Config.columns
 
 		property int cellLength: Math.min(parent.width / columns, parent.height / rows)
 
@@ -45,45 +44,33 @@ Rectangle {
 				width: parent.cellLength; height: parent.cellLength
 
 				Rectangle {
-					property color normal: "#D7D7D7"
-					property color hover: "#ACACAC"
-
 					property int played: 0
 	
 					anchors.fill: parent
 					anchors.margins: parent.width * 0.1
-					border.color: "#273140"
+					border.color: Style.color_cell_border
 					border.width: 3
 					radius: width / 2
-					color: normal 
+					color: Style.color_empty 
 
 					function play(player) {
 						if (played) return false
 						played = player
-						normal = player == 1 ? main.color_player1 : color_player2
-						color = normal
-						hover = normal
+						color = player == 1 ? Style.color_player1 : Style.color_player2
 
 						console.log("played: " + index)
 						return true
 					}
-
-					MouseArea {
-						anchors.fill: parent
-						hoverEnabled: true
-
-						onEntered: { 
-							parent.color = parent.hover
-						}
-						onExited: {
-							parent.color = parent.normal
-						}
-						onClicked: {
-							main.playCol(index % grid.columns)
-						}
-					}
 				}
 			}
+
+		}
+	}
+	MouseArea {
+		anchors.fill: parent
+		onClicked: {
+	//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / grid.cellLength) | 0))
+			playCol((mouse.x / grid.cellLength) | 0)
 		}
 	}
 }

@@ -1,0 +1,2 @@
+singleton Style Style.qml
+singleton Config Config.qml
