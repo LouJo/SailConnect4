@@ -4,6 +4,8 @@ import QtQuick 2.0
 QtObject {
 	property int window_width: 600
 	property int window_height: 400
+	property int cell_border_width: 3
+	property double cell_margin: 0.07
 
 	property color color_bg: "#27315D"
 	property color color_cell_border: "#273140"

@@ -1,32 +1,16 @@
 import QtQuick 2.0
+import "Controller.js" as Controller
 import "."
 
 Rectangle {
 	id: main
 
+	property bool canPlay: true
+
 	width: Style.window_width
 	height: Style.window_height
 
 	color: Style.color_bg
-
-	property int player: 1
-
-	function play(index) {
-		if (repeater.itemAt(index).children[0].play(player)) {
-			player = 3 - player
-			return true
-		}
-		else return false
-	}
-
-	function playCol(x) {
-		y = grid.rows - 1
-		while (y >= 0) {
-			if (play(x + y * grid.columns)) return true
-			y--
-		}
-		return false
-	}
 
 	Grid {
 		id: grid
@@ -35,6 +19,7 @@ Rectangle {
 		columns: Config.columns
 
 		property int cellLength: Math.min(parent.width / columns, parent.height / rows)
+		property int cellMargin: cellLength * Style.cell_margin
 
 		Repeater {
 			model: parent.rows * parent.columns
@@ -47,9 +32,9 @@ Rectangle {
 					property int played: 0
 	
 					anchors.fill: parent
-					anchors.margins: parent.width * 0.1
+					anchors.margins: grid.cellMargin
 					border.color: Style.color_cell_border
-					border.width: 3
+					border.width: Style.cell_border_width
 					radius: width / 2
 					color: Style.color_empty 
 
@@ -69,8 +54,12 @@ Rectangle {
 	MouseArea {
 		anchors.fill: parent
 		onClicked: {
+			if (!canPlay) {
+				console.log("Cannot play for the moment")
+				return
+			}
 	//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / grid.cellLength) | 0))
-			playCol((mouse.x / grid.cellLength) | 0)
+			Controller.playCol((mouse.x / grid.cellLength) | 0)
 		}
 	}
 }
