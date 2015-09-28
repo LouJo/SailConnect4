@@ -8,6 +8,27 @@ Rectangle {
 
 	color: "#27315D"
 
+	property color color_player1: "#E6D82E"
+	property color color_player2: "#E63B2E"
+	property int player: 1
+
+	function play(index) {
+		if (repeater.itemAt(index).children[0].play(player)) {
+			player = 3 - player
+			return true
+		}
+		else return false
+	}
+
+	function playCol(x) {
+		y = grid.rows - 1
+		while (y >= 0) {
+			if (play(x + y * grid.columns)) return true
+			y--
+		}
+		return false
+	}
+
 	Grid {
 		id: grid
 		anchors.fill: parent
@@ -18,6 +39,7 @@ Rectangle {
 
 		Repeater {
 			model: parent.rows * parent.columns
+			id: repeater
 
 			Item {
 				width: parent.cellLength; height: parent.cellLength
@@ -25,6 +47,8 @@ Rectangle {
 				Rectangle {
 					property color normal: "#D7D7D7"
 					property color hover: "#ACACAC"
+
+					property int played: 0
 	
 					anchors.fill: parent
 					anchors.margins: parent.width * 0.1
@@ -32,6 +56,17 @@ Rectangle {
 					border.width: 3
 					radius: width / 2
 					color: normal 
+
+					function play(player) {
+						if (played) return false
+						played = player
+						normal = player == 1 ? main.color_player1 : color_player2
+						color = normal
+						hover = normal
+
+						console.log("played: " + index)
+						return true
+					}
 
 					MouseArea {
 						anchors.fill: parent
@@ -42,6 +77,9 @@ Rectangle {
 						}
 						onExited: {
 							parent.color = parent.normal
+						}
+						onClicked: {
+							main.playCol(index % grid.columns)
 						}
 					}
 				}
