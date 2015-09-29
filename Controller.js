@@ -9,7 +9,7 @@ function playCol(x) {
 	if (x >= grid.columns) return false;
 
 	board.canPlay = false
-	y = grid.rows - 1
+	var y = grid.rows - 1
 	while (y >= 0) {
 		if (playIndex(x + y * grid.columns)) {
 			changePlayer()
@@ -30,5 +30,3 @@ function playIndex(index) {
 		return false
 	}
 }
-
-
