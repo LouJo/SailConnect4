@@ -5,61 +5,83 @@ import "."
 Rectangle {
 	id: main
 
-	property bool canPlay: true
-
 	width: Style.window_width
 	height: Style.window_height
+	color: Style.color_main_bg
 
-	color: Style.color_bg
+	property int info_height: height * Style.infos_height
+	property int board_height: height - info_height
+	property int board_width: board_height * Config.columns / Config.rows
 
-	Grid {
-		id: grid
-		anchors.fill: parent
-		rows: Config.rows
-		columns: Config.columns
+	Rectangle {
+		id: board
 
-		property int cellLength: Math.min(parent.width / columns, parent.height / rows)
-		property int cellMargin: cellLength * Style.cell_margin
+		width: parent.board_width
+		height: parent.board_height
 
-		Repeater {
-			model: parent.rows * parent.columns
-			id: repeater
+		property bool canPlay: true
 
-			Item {
-				width: parent.cellLength; height: parent.cellLength
+		color: Style.color_board_bg
 
-				Rectangle {
-					property int played: 0
-	
-					anchors.fill: parent
-					anchors.margins: grid.cellMargin
-					border.color: Style.color_cell_border
-					border.width: Style.cell_border_width
-					radius: width / 2
-					color: Style.color_empty 
+		Grid {
+			id: grid
+			rows: Config.rows
+			columns: Config.columns
 
-					function play(player) {
-						if (played) return false
-						played = player
-						color = player == 1 ? Style.color_player1 : Style.color_player2
+			property int cellLength: Math.min(parent.width / columns, parent.height / rows)
+			property int cellMargin: cellLength * Style.cell_margin
 
-						console.log("played: " + index)
-						return true
+			width: parent.width
+			height: cellLength * columns
+
+			Repeater {
+				model: parent.rows * parent.columns
+				id: repeater
+
+				Item {
+					width: parent.cellLength; height: parent.cellLength
+
+					Rectangle {
+						property int played: 0
+
+						anchors.fill: parent
+						anchors.margins: grid.cellMargin
+						border.color: Style.color_cell_border
+						border.width: Style.cell_border_width
+						radius: width / 2
+						color: Style.color_empty 
+
+						function play(player) {
+							if (played) return false
+							played = player
+							color = player == 1 ? Style.color_player1 : Style.color_player2
+
+							console.log("played: " + index)
+							return true
+						}
 					}
 				}
-			}
 
+			}
+		}
+		MouseArea {
+			anchors.fill: parent
+			onClicked: {
+				if (!board.canPlay) {
+					console.log("Cannot play for the moment")
+					return
+				}
+		//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / grid.cellLength) | 0))
+				Controller.playCol((mouse.x / grid.cellLength) | 0)
+			}
 		}
 	}
-	MouseArea {
-		anchors.fill: parent
-		onClicked: {
-			if (!canPlay) {
-				console.log("Cannot play for the moment")
-				return
-			}
-	//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / grid.cellLength) | 0))
-			Controller.playCol((mouse.x / grid.cellLength) | 0)
-		}
+
+	Rectangle {
+		id: info
+		width: parent.board_width
+		height: parent.info_height
+		color: parent.color_board_bg
+		//anchors.y: parent.board_height
 	}
 }

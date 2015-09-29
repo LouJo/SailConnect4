@@ -6,8 +6,11 @@ QtObject {
 	property int window_height: 400
 	property int cell_border_width: 3
 	property double cell_margin: 0.07
+	property double infos_height: 0.2
 
-	property color color_bg: "#27315D"
+	property color color_main_bg: "#BBBBBB"
+	property color color_board_bg: "#27315D"
+	property color color_info_bg: "#27315D"
 	property color color_cell_border: "#273140"
 	property color color_empty: "#D7D7D7"
 

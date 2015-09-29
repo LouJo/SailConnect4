@@ -6,17 +6,19 @@ function changePlayer()
 }
 
 function playCol(x) {
-	main.canPlay = false
+	if (x >= grid.columns) return false;
+
+	board.canPlay = false
 	y = grid.rows - 1
 	while (y >= 0) {
 		if (playIndex(x + y * grid.columns)) {
 			changePlayer()
-			main.canPlay = true
+			board.canPlay = true
 			return true
 		}
 		y--
 	}
-	main.canPlay = true
+	board.canPlay = true
 	return false
 }
 
