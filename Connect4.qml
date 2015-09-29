@@ -9,9 +9,9 @@ Rectangle {
 	height: Style.window_height
 	color: Style.color_main_bg
 
-	property int info_height: height * Style.infos_height
-	property int board_height: height - info_height
-	property int board_width: board_height * Config.columns / Config.rows
+	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
+	property int board_height: board_width * Config.rows / Config.columns
+	property int info_height: board_height / (1 - Style.infos_height) * Style.infos_height
 
 	Rectangle {
 		id: board
@@ -81,7 +81,69 @@ Rectangle {
 		id: info
 		width: parent.board_width
 		height: parent.info_height
-		color: parent.color_board_bg
-		//anchors.y: parent.board_height
+		anchors.top: board.bottom
+		color: Style.color_info_bg
+
+		Item {
+			id: info_player1
+			property string player_name: Config.player1_default_name
+			property int points: 0
+			property color player_color: Style.color_player1
+
+			anchors.left: parent.left
+			anchors.top: parent.top
+			width: parent.width / 2
+			height: parent.height
+
+			Text {
+				width: parent.width; height: parent.height / 2
+				anchors.top: parent.top
+				text: parent.player_name
+				font.pixelSize: width / 8 + 1
+				color: parent.player_color
+				horizontalAlignment: Text.AlignHCenter
+				verticalAlignment: Text.AlignVCenter
+			}
+
+			Text {
+				width: parent.width; height: parent.height / 2
+				color: parent.player_color
+				horizontalAlignment: Text.AlignHCenter
+				font.pixelSize: width / 12 + 1
+				x: 0; y: parent.height / 2
+				text: parent.points
+			}
+		}
+
+		Item {
+			id: info_player2
+			property string player_name: Config.player2_default_name
+			property int points: 0
+			property color player_color: Style.color_player2
+
+			anchors.left: info_player1.right
+			anchors.top: parent.top
+			width: parent.width / 2
+			height: parent.height
+
+			Text {
+				width: parent.width; height: parent.height / 2
+				anchors.top: parent.top
+				text: parent.player_name
+				font.pixelSize: width / 8 + 1
+				color: parent.player_color
+				horizontalAlignment: Text.AlignHCenter
+				verticalAlignment: Text.AlignVCenter
+			}
+
+			Text {
+				width: parent.width; height: parent.height / 2
+				color: parent.player_color
+				horizontalAlignment: Text.AlignHCenter
+				font.pixelSize: width / 12 + 1
+				x: 0; y: parent.height / 2
+				text: parent.points
+			}
+		}
 	}
 }
