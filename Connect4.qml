@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 import "Controller.js" as Controller
 import "."
 
@@ -13,26 +14,35 @@ Rectangle {
 	property int board_height: board_width * Config.rows / Config.columns
 	property int info_height: board_height / (1 - Style.infos_height) * Style.infos_height
 
+	Component.onCompleted: {
+		Controller.begin()
+	}
+
 	Rectangle {
 		id: board
 
 		width: parent.board_width
 		height: parent.board_height
 
-		property bool canPlay: true
+		property bool canPlay: false
 
-		color: Style.color_board_bg
+		Rectangle {
+			id: board_bg
+			anchors.fill: parent
+			color: Style.color_board_bg
+			visible: false
+		}
 
 		Grid {
 			id: grid
 			rows: Config.rows
 			columns: Config.columns
+			visible: false
 
 			property int cellLength: Math.min(parent.width / columns, parent.height / rows)
 			property int cellMargin: cellLength * Style.cell_margin
 
-			width: parent.width
-			height: cellLength * columns
+			anchors.fill: parent
 
 			Repeater {
 				model: parent.rows * parent.columns
@@ -61,9 +71,16 @@ Rectangle {
 						}
 					}
 				}
-
 			}
 		}
+
+		Blend {
+			anchors.fill: parent
+			source: board_bg
+			foregroundSource: grid
+			mode: "normal"
+		}
+
 		MouseArea {
 			anchors.fill: parent
 			onClicked: {
@@ -95,6 +112,10 @@ Rectangle {
 			width: parent.width / 2
 			height: parent.height
 
+			function setPlaying(e) {
+				children[0].font.underline = e
+			}
+
 			Text {
 				width: parent.width; height: parent.height / 2
 				anchors.top: parent.top
@@ -125,6 +146,10 @@ Rectangle {
 			anchors.top: parent.top
 			width: parent.width / 2
 			height: parent.height
+
+			function setPlaying(e) {
+				children[0].font.underline = e
+			}
 
 			Text {
 				width: parent.width; height: parent.height / 2
