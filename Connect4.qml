@@ -23,13 +23,15 @@ Rectangle {
 
 		width: parent.board_width
 		height: parent.board_height
+		antialiasing: true
 
 		property bool canPlay: false
+		color: Style.color_board_bg
 
 		Rectangle {
 			id: board_bg
 			anchors.fill: parent
-			color: Style.color_board_bg
+			color: "transparent"
 			visible: false
 		}
 
@@ -39,8 +41,9 @@ Rectangle {
 			columns: Config.columns
 			visible: false
 
-			property int cellLength: Math.min(parent.width / columns, parent.height / rows)
-			property int cellMargin: cellLength * Style.cell_margin
+			property double cellLength: Math.min(parent.width / columns, parent.height / rows)
+			property double cellMargin: cellLength * Style.cell_margin
+			property double borderWidth: cellLength / 40
 
 			anchors.fill: parent
 
@@ -48,37 +51,86 @@ Rectangle {
 				model: parent.rows * parent.columns
 				id: repeater
 
+				// Holes in the grid
 				Item {
 					width: parent.cellLength; height: parent.cellLength
 
 					Rectangle {
-						property int played: 0
-
 						anchors.fill: parent
 						anchors.margins: grid.cellMargin
 						border.color: Style.color_cell_border
-						border.width: Style.cell_border_width
+						border.width: grid.borderWidth
 						radius: width / 2
 						color: Style.color_empty 
 
-						function play(player) {
-							if (played) return false
-							played = player
-							color = player == 1 ? Style.color_player1 : Style.color_player2
-
-							console.log("played: " + index)
-							return true
-						}
+						// Text { text: index }
 					}
 				}
 			}
 		}
 
 		Blend {
+			id: "board_mask"
 			anchors.fill: parent
 			source: board_bg
 			foregroundSource: grid
 			mode: "normal"
+		}
+
+		// balls
+		Item {
+			id: balls
+
+			property double ballLength: grid.cellLength - grid.cellMargin * 2
+			property double ballOffset: grid.cellMargin
+
+			visible: false
+			anchors.fill: parent
+
+			Repeater {
+				model: grid.rows * grid.columns
+				id: balls_repeater
+
+				Rectangle {
+					property bool played: false 
+					width: parent.ballLength; height: parent.ballLength
+
+					property int row: Math.floor(index / grid.columns)
+					property double posX: (index % grid.columns) * grid.cellLength + parent.ballOffset
+					property double posY: row * grid.cellLength + parent.ballOffset
+					property int timeAnimation: Style.timeAnimationRow * (row + 1)
+					property double currentY: 0
+
+					x: posX
+					y: played ? posY : -parent.ballLength
+					radius: width / 2
+					color: "transparent"
+					border.color: Style.color_ball_border
+					border.width: grid.borderWidth
+
+					//Text { text: index; x:10; y:10; color:"red" }
+
+					Behavior on y {
+						NumberAnimation { duration: timeAnimation }
+					}
+
+					function play(player) {
+						if (played) return false
+						color = player == 1 ? Style.color_player1 : Style.color_player2
+						played = true
+						timeAnimation = 0
+						console.log("played: " + index)
+
+						return true
+					}
+				}
+			}
+		}
+
+		OpacityMask {
+			anchors.fill: parent
+			source: balls
+			maskSource: board_mask
 		}
 
 		MouseArea {

@@ -12,8 +12,12 @@ QtObject {
 	property color color_board_bg: "#27315D"
 	property color color_info_bg: "#27315D"
 	property color color_cell_border: "#273140"
+	property color color_ball_border: "#878787"
+
 	property color color_empty: "#D7D7D7"
 
 	property color color_player1: "#E6D82E"
 	property color color_player2: "#E63B2E"
+
+	property int timeAnimationRow: 60
 }

@@ -40,7 +40,7 @@ function playCol(x) {
 }
 
 function playIndex(index) {
-	if (repeater.itemAt(index).children[0].play(player)) {
+	if (balls_repeater.itemAt(index).play(player)) {
 		return true
 	}
 	else {
