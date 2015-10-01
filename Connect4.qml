@@ -26,7 +26,6 @@ Rectangle {
 
 		width: parent.board_width
 		height: parent.board_height
-		antialiasing: true
 
 		// grid holes/balls definitions
 		property int rows: Config.rows
@@ -36,6 +35,7 @@ Rectangle {
 		property double cellMargin: cellLength * Style.cell_margin
 		property double cellBorderWidth: cellLength / 40
 		property double ballLength: cellLength - cellMargin * 2
+		property double ballInterior: ballLength - cellBorderWidth * 2
 
 		property bool canPlay: false
 
@@ -50,16 +50,20 @@ Rectangle {
 
 		Item {
 			id: grid
-			visible: true
+			visible: false
 			anchors.fill: parent
 
 			Repeater {
 				model: board.nbCells
 
-				// Holes in the grid
+				// Holes in the grid, don't covers balls border
 				Case {
 					idx: index
-					border.color: Style.color_cell_border
+					x: posX + board.cellBorderWidth
+					y: posY + board.cellBorderWidth
+					width: board.ballInterior
+					height: board.ballInterior
+					border.color: "transparent"
 					color: Style.color_empty 
 
 					// Text { text: index }
@@ -73,6 +77,23 @@ Rectangle {
 			source: board_bg
 			foregroundSource: grid
 			mode: "normal"
+		}
+
+		// hole borders
+		Item {
+			id: holeBorders
+			anchors.fill: parent
+
+			Repeater {
+				model: board.nbCells
+
+				Case {
+					idx: index
+					color: "transparent"
+					border.color: Style.color_cell_border
+					border.width: board.cellBorderWidth * 1.5
+				}
+			}
 		}
 
 		// balls
