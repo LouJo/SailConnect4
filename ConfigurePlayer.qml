@@ -5,12 +5,23 @@ import QtQuick.Layouts 1.0
 GroupBox {
 	Layout.fillWidth: true
 
-	RowLayout {
-		Label { text: "Name" }
-		TextField { text: name }
-		CheckBox {
-			text: "IA"
+	ColumnLayout {
+		RowLayout {
+			Label { text: "Name" }
+			TextField { text: name }
+		}
+		ExclusiveGroup { id: player }
+		RowLayout {
+			RadioButton {
+				text: "Human"
+				checked: true
+				exclusiveGroup: player
+			}
+			RadioButton {
+				text: "IA"
+				checked: false
+				exclusiveGroup: player
+			}
 		}
 	}
 }
-
