@@ -31,6 +31,7 @@ Rectangle {
 		// grid holes/balls definitions
 		property int rows: Config.rows
 		property int columns: Config.columns
+		property int nbCells: rows * columns
 		property double cellLength: Math.min(width / columns, height / rows)
 		property double cellMargin: cellLength * Style.cell_margin
 		property double cellBorderWidth: cellLength / 40
@@ -53,7 +54,7 @@ Rectangle {
 			anchors.fill: parent
 
 			Repeater {
-				model: parent.rows * parent.columns
+				model: board.nbCells
 
 				// Holes in the grid
 				Case {
@@ -84,7 +85,7 @@ Rectangle {
 			anchors.fill: parent
 
 			Repeater {
-				model: grid.rows * grid.columns
+				model: board.nbCells
 				id: balls_repeater
 
 				Case {
@@ -130,7 +131,7 @@ Rectangle {
 					console.log("Cannot play for the moment")
 					return
 				}
-		//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / boand.cellLength) | 0))
+				//console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / board.cellLength) | 0))
 				Controller.playCol((mouse.x / board.cellLength) | 0)
 			}
 		}

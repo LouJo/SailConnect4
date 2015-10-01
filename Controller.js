@@ -23,12 +23,12 @@ function begin()
 }
 
 function playCol(x) {
-	if (x >= grid.columns) return false;
+	if (x >= board.columns) return false;
 
 	enablePlay(false)
-	var y = grid.rows - 1
+	var y = board.rows - 1
 	while (y >= 0) {
-		if (playIndex(x + y * grid.columns)) {
+		if (playIndex(x + y * board.columns)) {
 			changePlayer()
 			enablePlay(true)
 			return true
