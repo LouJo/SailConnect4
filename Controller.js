@@ -35,7 +35,10 @@ function playCol(x) {
 		}
 		y--
 	}
+
+	win(Math.floor(Math.random()*2) + 1); reset(); return; // TODO
 	enablePlay(true)
+
 	return false
 }
 
@@ -46,4 +49,16 @@ function playIndex(index) {
 	else {
 		return false
 	}
+}
+
+function reset() {
+	enablePlay(false)
+	for (var i = 0; i < board.nbCells; i++) balls_repeater.itemAt(i).reset();
+	player = 1
+	enablePlay(true)
+}
+
+function win(player) {
+	var obj = player == 1 ? info_player1 : info_player2
+	obj.points++
 }

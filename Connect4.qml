@@ -113,7 +113,9 @@ Rectangle {
 					idx: index
 					property bool played: false 
 
-					property int timeAnimation: Style.timeAnimationRow * (row + 1)
+					property int timeAnimationDefault: Style.timeAnimationRow * (row + 1)
+					property int timeAnimation: timeAnimationDefault
+					property bool bounce: true
 
 					y: played ? posY : -board.ballLength
 
@@ -123,17 +125,28 @@ Rectangle {
 					//Text { text: index; x:10; y:10; color:"red" }
 
 					Behavior on y {
-						NumberAnimation { duration: timeAnimation }
+						NumberAnimation {
+							duration: bounce ? timeAnimation : timeAnimationDefault / 2
+							easing.type: bounce ? Easing.OutBounce : Easing.Linear
+							easing.amplitude: bounce ? 1 : 0
+						}
 					}
 
 					function play(player) {
 						if (played) return false
 						color = player == 1 ? Style.color_player1 : Style.color_player2
+						bounce = true
 						played = true
 						timeAnimation = 0
 						console.log("played: " + index)
 
 						return true
+					}
+
+					function reset() {
+						bounce = false
+						played = false
+						timeAnimation = timeAnimationDefault
 					}
 				}
 			}

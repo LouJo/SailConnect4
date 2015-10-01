@@ -19,5 +19,5 @@ QtObject {
 	property color color_player1: "#E6D82E"
 	property color color_player2: "#E63B2E"
 
-	property int timeAnimationRow: 60
+	property int timeAnimationRow: 100
 }
