@@ -17,6 +17,9 @@ Rectangle {
 	Component.onCompleted: {
 		Controller.begin()
 	}
+	
+	Case {
+	}
 
 	Rectangle {
 		id: board
@@ -25,7 +28,16 @@ Rectangle {
 		height: parent.board_height
 		antialiasing: true
 
+		// grid holes/balls definitions
+		property int rows: Config.rows
+		property int columns: Config.columns
+		property double cellLength: Math.min(width / columns, height / rows)
+		property double cellMargin: cellLength * Style.cell_margin
+		property double cellBorderWidth: cellLength / 40
+		property double ballLength: cellLength - cellMargin * 2
+
 		property bool canPlay: false
+
 		color: Style.color_board_bg
 
 		Rectangle {
@@ -35,36 +47,21 @@ Rectangle {
 			visible: false
 		}
 
-		Grid {
+		Item {
 			id: grid
-			rows: Config.rows
-			columns: Config.columns
-			visible: false
-
-			property double cellLength: Math.min(parent.width / columns, parent.height / rows)
-			property double cellMargin: cellLength * Style.cell_margin
-			property double borderWidth: cellLength / 40
-
+			visible: true
 			anchors.fill: parent
 
 			Repeater {
 				model: parent.rows * parent.columns
-				id: repeater
 
 				// Holes in the grid
-				Item {
-					width: parent.cellLength; height: parent.cellLength
+				Case {
+					idx: index
+					border.color: Style.color_cell_border
+					color: Style.color_empty 
 
-					Rectangle {
-						anchors.fill: parent
-						anchors.margins: grid.cellMargin
-						border.color: Style.color_cell_border
-						border.width: grid.borderWidth
-						radius: width / 2
-						color: Style.color_empty 
-
-						// Text { text: index }
-					}
+					// Text { text: index }
 				}
 			}
 		}
@@ -81,8 +78,7 @@ Rectangle {
 		Item {
 			id: balls
 
-			property double ballLength: grid.cellLength - grid.cellMargin * 2
-			property double ballOffset: grid.cellMargin
+			property double ballOffset: board.cellMargin
 
 			visible: false
 			anchors.fill: parent
@@ -91,22 +87,16 @@ Rectangle {
 				model: grid.rows * grid.columns
 				id: balls_repeater
 
-				Rectangle {
+				Case {
+					idx: index
 					property bool played: false 
-					width: parent.ballLength; height: parent.ballLength
 
-					property int row: Math.floor(index / grid.columns)
-					property double posX: (index % grid.columns) * grid.cellLength + parent.ballOffset
-					property double posY: row * grid.cellLength + parent.ballOffset
 					property int timeAnimation: Style.timeAnimationRow * (row + 1)
-					property double currentY: 0
 
-					x: posX
-					y: played ? posY : -parent.ballLength
-					radius: width / 2
+					y: played ? posY : -board.ballLength
+
 					color: "transparent"
 					border.color: Style.color_ball_border
-					border.width: grid.borderWidth
 
 					//Text { text: index; x:10; y:10; color:"red" }
 
@@ -140,8 +130,8 @@ Rectangle {
 					console.log("Cannot play for the moment")
 					return
 				}
-		//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / grid.cellLength) | 0))
-				Controller.playCol((mouse.x / grid.cellLength) | 0)
+		//		console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / boand.cellLength) | 0))
+				Controller.playCol((mouse.x / board.cellLength) | 0)
 			}
 		}
 	}
