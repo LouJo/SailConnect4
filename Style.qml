@@ -2,8 +2,12 @@ pragma Singleton
 import QtQuick 2.0
 
 QtObject {
-	property int window_width: 600
-	property int window_height: 400
+	
+	// main
+	property int window_width: 680
+	property int window_height: 500
+
+	// board
 	property int cell_border_width: 3
 	property double cell_margin: 0.07
 	property double infos_height: 0.2
@@ -20,4 +24,24 @@ QtObject {
 	property color color_player2: "#E63B2E"
 
 	property int timeAnimationRow: 100
+
+	// buttons
+	property double buttonHeightRelation: 0.3
+	property double buttonWidthMainRelationOnR: 0.6
+	property double buttonWidthMainRelationOnB: 0.8
+	property double button_radius: 0.3
+
+	property color color1_button: "#EEEEEE"
+	property color color2_button: "#ADADAD"
+
+	property color color1_button_clicked: "#b2bbe8"
+	property color color2_button_clicked: "#7781b1"
+
+	property color color_button_border: "#2c6887"
+	property color color_menu_bg: "#4f5c62"
+	property color color_button_text: "#2c6887"
+
+	property int button_border_width: 1
+
+	property int button_reset_interval: 200
 }

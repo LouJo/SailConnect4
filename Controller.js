@@ -36,7 +36,6 @@ function playCol(x) {
 		y--
 	}
 
-	win(Math.floor(Math.random()*2) + 1); reset(); return; // TODO
 	enablePlay(true)
 
 	return false
@@ -51,6 +50,13 @@ function playIndex(index) {
 	}
 }
 
+function new_game()
+{
+	console.log("new game")
+	win(Math.floor(Math.random()*2) + 1);
+	reset();
+}
+
 function reset() {
 	enablePlay(false)
 	for (var i = 0; i < board.nbCells; i++) balls_repeater.itemAt(i).reset();
@@ -61,4 +67,8 @@ function reset() {
 function win(player) {
 	var obj = player == 1 ? info_player1 : info_player2
 	obj.points++
+}
+
+function exit() {
+	Qt.quit()
 }
