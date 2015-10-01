@@ -19,15 +19,15 @@ ApplicationWindow {
 		anchors.margins: margin
 		spacing: 10
 
-		ConfigurePlayer {
+		ControlsPlayer {
 			title: "Player 1"
-			property string name: Config.player1_default_name
+			property string name: Config.player1_name
 			property double force: Config.player1_force
 		}
 
-		ConfigurePlayer {
+		ControlsPlayer {
 			title: "Player 2"
-			property string name: Config.player2_default_name
+			property string name: Config.player2_name
 			property double force: Config.player2_force
 		}
 

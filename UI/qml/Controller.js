@@ -1,3 +1,5 @@
+.pragma library
+
 var player = 1
 
 function setPlayerPlaying(e)
@@ -65,7 +67,7 @@ function reset() {
 }
 
 function win(player) {
-	var obj = player == 1 ? info_player1 : info_player2
+	var obj = player == 1 ? main.info.info_player1 : main.info.info_player2
 	obj.points++
 }
 
