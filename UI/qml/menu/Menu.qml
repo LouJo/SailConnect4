@@ -27,6 +27,12 @@ Rectangle {
 	ButtonMenu {
 		property int idx: 1
 		property string buttonText: "Configuration"
+
+		onActivated: {
+			var conf = Qt.createComponent("../config/Configure.qml")
+			var win = conf.createObject(menu)
+			win.show()
+		}
 	}
 
 	ButtonMenu {

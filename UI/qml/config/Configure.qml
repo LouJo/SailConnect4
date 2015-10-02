@@ -20,25 +20,51 @@ ApplicationWindow {
 		spacing: 10
 
 		ControlsPlayer {
+			id: p1
 			title: "Player 1"
-			property string name: Config.player1_name
-			property double force: Config.player1_force
+			name: Config.player1_name
+			force: Config.player1_force
+			type: Config.player1_type
+
+			onNameEdited: Config.player1_name = new_name
+			onSubmit: {
+				Config.player1_force = force
+				Config.player1_type = getType()
+			}
 		}
 
 		ControlsPlayer {
+			id: p2
 			title: "Player 2"
-			property string name: Config.player2_name
-			property double force: Config.player2_force
+			name: Config.player2_name
+			force: Config.player2_force
+			type: Config.player2_type
+
+			onNameEdited: Config.player2_name = new_name
+			onSubmit: {
+				Config.player2_force = force
+				Config.player2_type = getType()
+			}
 		}
 
 		Button {
 			text: "Erase scores"
 			Layout.alignment: Qt.AlignCenter
+
+			onClicked: {
+				Config.player1_points = 0
+				Config.player2_points = 0
+			}
 		}
+
 		Button {
-			text: "Close"
+			text: "Submit"
 			Layout.alignment: Qt.AlignCenter
-			onClicked: close()
+			onClicked: {
+				p1.submitAll()
+				p2.submitAll()
+				close()
+			}
 		}
 	}
 }
