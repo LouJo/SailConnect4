@@ -3,9 +3,10 @@ import QtGraphicalEffects 1.0
 
 import "Controller.js" as Controller
 
-import "board"
-import "config"
-import "menu"
+import "."
+import "./board"
+import "./config"
+import "./menu"
 
 Rectangle {
 	id: main
@@ -37,8 +38,6 @@ Rectangle {
 			width: main.board_width
 			height: main.board_height
 			canPlay: game.canPlay
-
-			onPlayCol: console.log(col)
 		}
 
 		Infos {
@@ -51,10 +50,18 @@ Rectangle {
 	}
 	
 	Menu {
+		id: menu
+		x: main.menuOnRight ? main.game_width : 0
+		y: main.menuOnRight ? 0 : main.game_height
+		width: main.menuOnRight ? main.width - main.game_width : main.width
+		height: main.menuOnRight ? main.height : main.height - main.game_height
 	}
 
 	Component.onCompleted: {
-//		Controller.begin()
-		game.canPlay = true
+		board.playCol.connect(Controller.playCol)
+		menu.exit.connect(Controller.exit)
+		menu.new_game.connect(Controller.new_game)
+
+		Controller.begin()
 	}
 }

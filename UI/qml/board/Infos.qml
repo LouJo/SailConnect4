@@ -14,7 +14,7 @@ Rectangle {
 	Item {
 		id: info_player1
 		property string player_name: Config.player1_name
-		property int points: 0
+		property int points: Config.player1_points
 		property color player_color: Style.color_player1
 
 		anchors.left: parent.left
@@ -31,7 +31,7 @@ Rectangle {
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
 
-			font.underline: playerPlaying == 1
+			font.underline: info.playerPlaying == 1
 		}
 
 		Text {
@@ -47,7 +47,7 @@ Rectangle {
 	Item {
 		id: info_player2
 		property string player_name: Config.player2_name
-		property int points: 0
+		property int points: Config.player2_points
 		property color player_color: Style.color_player2
 
 		anchors.left: info_player1.right
@@ -64,7 +64,7 @@ Rectangle {
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
 
-			font.underline: playerPlaying == 2
+			font.underline: info.playerPlaying == 2
 		}
 
 		Text {

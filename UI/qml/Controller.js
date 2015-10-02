@@ -1,21 +1,15 @@
-.pragma library
-
-var player = 1
-
-function setPlayerPlaying(e)
-{
-	info.playerPlaying = e ? player : 0
-}
+/*
+ * Controller for Main
+ */
 
 function changePlayer()
 {
-	player = 3 - player;
+	game.player = 3 - game.player;
 }
 
 function enablePlay(e)
 {
-	setPlayerPlaying(e);
-	board.canPlay = e;
+	game.canPlay = e;
 }
 
 function begin()
@@ -43,7 +37,7 @@ function playCol(x) {
 }
 
 function playIndex(index) {
-	if (balls_repeater.itemAt(index).play(player)) {
+	if (board.play(index, game.player)) {
 		return true
 	}
 	else {
@@ -60,14 +54,14 @@ function new_game()
 
 function reset() {
 	enablePlay(false)
-	for (var i = 0; i < board.nbCells; i++) balls_repeater.itemAt(i).reset();
-	player = 1
+	board.reset()
+	game.player = 1
 	enablePlay(true)
 }
 
 function win(player) {
-	var obj = player == 1 ? main.info.info_player1 : main.info.info_player2
-	obj.points++
+	if (player == 1) Config.player1_points++
+	else Config.player2_points++
 }
 
 function exit() {

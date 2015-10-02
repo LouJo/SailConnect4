@@ -12,4 +12,7 @@ QtObject {
 
 	property double player1_force: DefaultConfig.player1_force
 	property double player2_force: DefaultConfig.player2_force
+
+	property int player1_points: 0
+	property int player2_points: 0
 }

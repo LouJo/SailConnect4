@@ -21,7 +21,7 @@ Rectangle {
 
 	color: Style.color_board_bg
 
-	signal playCol()
+	signal playCol(int col)
 
 	Rectangle {
 		id: board_bg
@@ -132,6 +132,15 @@ Rectangle {
 				}
 			}
 		}
+
+		function reset() {
+			for (var i = 0; i < board.nbCells; i++) 
+				balls_repeater.itemAt(i).reset()
+		}
+
+		function play(idx, player) {
+			return balls_repeater.itemAt(idx).play(player)
+		}
 	}
 
 	OpacityMask {
@@ -151,4 +160,7 @@ Rectangle {
 			board.playCol((mouse.x / board.cellLength) | 0)
 		}
 	}
+
+	function reset() { balls.reset() }
+	function play(idx, player) { return balls.play(idx, player); }
 }
