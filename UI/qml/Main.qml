@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Window 2.2
+import QtQuick.Window 2.0
 
 import "Controller.js" as Controller
 
@@ -8,13 +8,11 @@ import "./board"
 import "./config"
 import "./menu"
 
-Rectangle {
+Item {
 	id: main
 
 	width: Style.window_width
 	height: Style.window_height
-
-	color: Style.color_main_bg
 
 	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
 	property int board_height: board_width * Config.rows / Config.columns
@@ -24,12 +22,15 @@ Rectangle {
 	property int game_height: board_height + info_height
 	property bool menuOnRight: height - game_height < width - game_width
 
-	Item {
+	Rectangle {
 		id: game
+		objectName: "game"
 		x: 0
 		y: 0
 		width: main.game_width
 		height: main.game_height
+
+		color: Style.color_main_bg
 
 		property bool canPlay: false
 		property int player: 1
@@ -63,6 +64,6 @@ Rectangle {
 		menu.exit.connect(Controller.exit)
 		menu.new_game.connect(Controller.new_game)
 
-		Controller.begin()
+	//	Controller.begin()
 	}
 }
