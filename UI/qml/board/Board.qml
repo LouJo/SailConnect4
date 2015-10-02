@@ -7,9 +7,6 @@ import "../menu"
 Rectangle {
 	id: board
 
-	width: parent.board_width
-	height: parent.board_height
-
 	// grid holes/balls definitions
 	property int rows: Config.rows
 	property int columns: Config.columns
@@ -23,6 +20,8 @@ Rectangle {
 	property bool canPlay: false
 
 	color: Style.color_board_bg
+
+	signal playCol()
 
 	Rectangle {
 		id: board_bg
@@ -149,7 +148,7 @@ Rectangle {
 				return
 			}
 			//console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / board.cellLength) | 0))
-			main.Controller.playCol((mouse.x / board.cellLength) | 0)
+			board.playCol((mouse.x / board.cellLength) | 0)
 		}
 	}
 }

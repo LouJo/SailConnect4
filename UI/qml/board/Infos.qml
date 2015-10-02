@@ -7,10 +7,9 @@ import "../menu"
 
 Rectangle {
 	id: info
-	width: parent.board_width
-	height: parent.info_height
-	anchors.top: board.bottom
 	color: Style.color_info_bg
+
+	property int playerPlaying: 0
 
 	Item {
 		id: info_player1
@@ -23,10 +22,6 @@ Rectangle {
 		width: parent.width / 2
 		height: parent.height
 
-		function setPlaying(e) {
-			children[0].font.underline = e
-		}
-
 		Text {
 			width: parent.width; height: parent.height / 2
 			anchors.top: parent.top
@@ -35,6 +30,8 @@ Rectangle {
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
+
+			font.underline: playerPlaying == 1
 		}
 
 		Text {
@@ -58,10 +55,6 @@ Rectangle {
 		width: parent.width / 2
 		height: parent.height
 
-		function setPlaying(e) {
-			children[0].font.underline = e
-		}
-
 		Text {
 			width: parent.width; height: parent.height / 2
 			anchors.top: parent.top
@@ -70,6 +63,8 @@ Rectangle {
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
+
+			font.underline: playerPlaying == 2
 		}
 
 		Text {

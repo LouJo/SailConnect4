@@ -4,8 +4,7 @@ var player = 1
 
 function setPlayerPlaying(e)
 {
-	var item = player == 1 ? info_player1 : info_player2;
-	item.setPlaying(e);
+	info.playerPlaying = e ? player : 0
 }
 
 function changePlayer()

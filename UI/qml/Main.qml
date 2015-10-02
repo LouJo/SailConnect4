@@ -22,20 +22,39 @@ Rectangle {
 	property int game_height: board_height + info_height
 	property bool menuOnRight: height - game_height < width - game_width
 
-	Board {
-		id: board
-		property alias main: main
-	}
+	Item {
+		id: game
+		x: 0
+		y: 0
+		width: game_width
+		height: game_height
 
-	Infos {
-		id: info
+		property bool canPlay: false
+		property int player: 1
+
+		Board {
+			id: board
+			width: main.board_width
+			height: main.board_height
+			canPlay: game.canPlay
+
+			onPlayCol: console.log(col)
+		}
+
+		Infos {
+			id: info
+			width: main.board_width
+			height: main.info_height
+			anchors.top: board.bottom
+			playerPlaying: game.canPlay ? game.player : 0
+		}
 	}
 	
 	Menu {
-		property alias main: main
 	}
 
 	Component.onCompleted: {
-		Controller.begin()
+//		Controller.begin()
+		game.canPlay = true
 	}
 }
