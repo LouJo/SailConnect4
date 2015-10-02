@@ -3,20 +3,24 @@
    Implemented with qml
 */
 
-#include <QQuickView>
-#include <QGuiApplication>
+#include "UI.h"
 
-#include "../include/UIInterface.h"
+UI::UI(int argc, char* argv[])
+{
+	app = new QGuiApplication(argc, argv);
+	view = new view(QUrl("qrc:///Main.qml"));
+	view->setResizeMode(view.SizeRootObjectToView);
+}
+
+void UI::Launch()
+{
+	viem->show();
+	app->exec();
+}
 
 int main(int argc, char *argv[])
 {
-	QGuiApplication app(argc, argv);
-	QQuickView view(QUrl("qrc:///Main.qml"));
-
-	view.setResizeMode(view.SizeRootObjectToView);
-
-	view.show();
-	app.exec();
-
+	UI ui(argc, argv);
+	UI.Launch();
 	return 0;
 }
