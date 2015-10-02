@@ -14,8 +14,8 @@ class ControllerInterface {
 
 	virtual void NewGame();
 	virtual void ResetScores();
-	virtual void ExitGame();
 	virtual void PlayAtCol(int col);
 
 	virtual void ConfigSetPlayer(int player, const ConfigPlayer &config);
+	virtual void ExitGame();
 };

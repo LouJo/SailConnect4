@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+<file>Main.qml</file>
+<file>Style.qml</file>
+<file>config/qmldir</file>
+<file>config/Config.qml</file>
+<file>config/ControlsPlayer.qml</file>
+<file>config/Configure.qml</file>
+<file>config/DefaultConfig.qml</file>
+<file>board/qmldir</file>
+<file>board/Infos.qml</file>
+<file>board/Board.qml</file>
+<file>board/Case.qml</file>
+<file>menu/qmldir</file>
+<file>menu/ButtonGeneric.qml</file>
+<file>menu/ButtonMenu.qml</file>
+<file>menu/Menu.qml</file>
+<file>Controller.js</file>
+</qresource>
+</RCC>

@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick.Window 2.2
 
 import "Controller.js" as Controller
 
@@ -13,6 +13,7 @@ Rectangle {
 
 	width: Style.window_width
 	height: Style.window_height
+
 	color: Style.color_main_bg
 
 	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
@@ -27,8 +28,8 @@ Rectangle {
 		id: game
 		x: 0
 		y: 0
-		width: game_width
-		height: game_height
+		width: main.game_width
+		height: main.game_height
 
 		property bool canPlay: false
 		property int player: 1
