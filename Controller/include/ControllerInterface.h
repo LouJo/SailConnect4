@@ -1,9 +1,13 @@
-#include <string>
 
 /* Generic interface for Controller */
 
+#include <string>
+
 class ControllerInterface {
 	public:
+
+	// types definitions for game config
+
 	typedef enum { TypeHuman, TypeIA } PlayerType_t;
 
 	struct ConfigPlayer {
@@ -12,10 +16,17 @@ class ControllerInterface {
 		PlayerType_t type;
 	};
 
+	struct Config {
+		ConfigPlayer configPlayer[2];
+		int rows, columns;
+	};
+
+	// methods for UI calls
+
 	virtual void NewGame();
 	virtual void ResetScores();
 	virtual void PlayAtCol(int col);
 
-	virtual void ConfigSetPlayer(int player, const ConfigPlayer &config);
+	virtual void ConfigSet(const Config &config);
 	virtual void ExitGame();
 };

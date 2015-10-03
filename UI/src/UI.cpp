@@ -55,6 +55,10 @@ bool UI::PlayAtIndex(int player, int idx)
 	return ret.toBool();
 }
 
+void UI::SetConfig(const ControllerInterface::Config &config)
+{
+}
+
 void UI::SetScore(int player, int score)
 {
 	if (player == 1) config->setProperty("player1_points", score);

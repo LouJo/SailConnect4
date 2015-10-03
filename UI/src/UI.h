@@ -25,12 +25,13 @@ class UI : public QObject, public UIInterface {
 	UI(int &argc, char *argv[]);
 	~UI() {}
 
-	void Launch();
-	void EnablePlay(bool en);
 	void ChangePlayer(int player);
-	bool PlayAtIndex(int player, int idx);
-	void SetScore(int player, int score);
-	void ResetBoard();
 	void Exit();
+	void EnablePlay(bool en);
+	void Launch();
 	void Loop();
+	bool PlayAtIndex(int player, int idx);
+	void ResetBoard();
+	void SetConfig(const ControllerInterface::Config &config);
+	void SetScore(int player, int score);
 };
