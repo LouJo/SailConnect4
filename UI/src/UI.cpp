@@ -8,28 +8,31 @@
 UI::UI(int argc, char* argv[])
 {
 	app = new QGuiApplication(argc, argv);
+	engine = new QQmlApplicationEngine();
 	view = new QQuickView(QUrl("qrc:///Main.qml"));
 	view->setResizeMode(view->SizeRootObjectToView);
 
-	main = game = NULL;
+	qDebug() << "Qt: init UI";
 	main = view->rootObject();
-//	game = main->findChild<QObject*>("game");
+	game = main->findChild<QObject*>("game");
+	menu = main->findChild<QObject*>("menu");
+
+	qDebug() << "Qt: init UI done";
 }
 
 void UI::Launch()
 {
-	connect(main, SIGNAL(ready()), this, SLOT(SlotReady()));
 	view->show();
-	app->exec();
 }
 
 void UI::EnablePlay(bool en)
 {
-	if (game) game->setProperty("canPlay", QVariant(true));
+	game->setProperty("canPlay", QVariant(en));
 }
 
 void UI::ChangePlayer(int player)
 {
+	game->setProperty("player", QVariant(player));
 }
 
 void UI::PlayAtIndex(int player, int idx)
@@ -42,18 +45,25 @@ void UI::SetScore(int player, int score)
 
 void UI::Exit()
 {
+	app->quit();
+}
+
+void UI::Loop()
+{
+	app->exec();
 }
 
 void UI::SlotReady()
 {
-	qDebug() << "ready ";
+	qDebug() << "qt: ready ";
 }
 
 int main(int argc, char *argv[])
 {
 	UI *ui = new UI(argc, argv);
 	ui->Launch();
+	ui->EnablePlay(true);
+	ui->Loop();
 
-	//ui->EnablePlay(true);
-	return 0;
+	qDebug() << "qt: quit";
 }

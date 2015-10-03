@@ -9,6 +9,7 @@ import "./menu"
 
 Item {
 	id: main
+	objectName: "main"
 
 	width: Style.window_width
 	height: Style.window_height
@@ -52,20 +53,21 @@ Item {
 	
 	Menu {
 		id: menu
+		objectName: "menu"
 		x: main.menuOnRight ? main.game_width : 0
 		y: main.menuOnRight ? 0 : main.game_height
 		width: main.menuOnRight ? main.width - main.game_width : main.width
 		height: main.menuOnRight ? main.height : main.height - main.game_height
 	}
 
-	signal ready()
 
 	Component.onCompleted: {
+		console.log("qml: ready")
 		board.playCol.connect(Controller.playCol)
 		menu.exit.connect(Controller.exit)
 		menu.new_game.connect(Controller.new_game)
 
-		main.ready()
-	//	Controller.begin()
+//		main.ready()
+		Controller.begin()
 	}
 }

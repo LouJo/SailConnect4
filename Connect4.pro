@@ -1,4 +1,4 @@
-QT += qml quick
+QT += qml quick gui
 TARGET = Connect4
 
 CONFIG += c++11 debug
