@@ -4,10 +4,15 @@
 #include <QQuickView>
 #include <QGuiApplication>
 #include <QQuickItem>
+#include <QString>
 
 #include "../include/UIInterface.h"
 
-class UI : public UIInterface {
+class UI : public QObject, public UIInterface {
+	Q_OBJECT
+	public slots:
+	void SlotReady();
+
 	private:
 	QGuiApplication *app;
 	QQuickView *view;
@@ -15,6 +20,7 @@ class UI : public UIInterface {
 
 	public:
 	UI(int argc, char *argv[]);
+	~UI() {}
 
 	void Launch();
 	void EnablePlay(bool en);

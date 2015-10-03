@@ -12,15 +12,15 @@ UI::UI(int argc, char* argv[])
 	view->setResizeMode(view->SizeRootObjectToView);
 
 	main = game = NULL;
+	main = view->rootObject();
+//	game = main->findChild<QObject*>("game");
 }
 
 void UI::Launch()
 {
+	connect(main, SIGNAL(ready()), this, SLOT(SlotReady()));
 	view->show();
 	app->exec();
-
-	main = view->rootObject();
-	game = main->findChild<QObject*>("game");
 }
 
 void UI::EnablePlay(bool en)
@@ -44,11 +44,16 @@ void UI::Exit()
 {
 }
 
+void UI::SlotReady()
+{
+	qDebug() << "ready ";
+}
+
 int main(int argc, char *argv[])
 {
 	UI *ui = new UI(argc, argv);
 	ui->Launch();
 
-	ui->EnablePlay(true);
+	//ui->EnablePlay(true);
 	return 0;
 }

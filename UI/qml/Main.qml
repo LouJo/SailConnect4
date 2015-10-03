@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import QtQuick.Window 2.0
 
 import "Controller.js" as Controller
 
@@ -59,11 +58,14 @@ Item {
 		height: main.menuOnRight ? main.height : main.height - main.game_height
 	}
 
+	signal ready()
+
 	Component.onCompleted: {
 		board.playCol.connect(Controller.playCol)
 		menu.exit.connect(Controller.exit)
 		menu.new_game.connect(Controller.new_game)
 
+		main.ready()
 	//	Controller.begin()
 	}
 }
