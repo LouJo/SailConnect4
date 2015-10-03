@@ -1,0 +1,1 @@
+function isQmlScene() { return false; }

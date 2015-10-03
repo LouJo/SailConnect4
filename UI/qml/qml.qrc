@@ -15,6 +15,6 @@
 <file>menu/ButtonGeneric.qml</file>
 <file>menu/ButtonMenu.qml</file>
 <file>menu/Menu.qml</file>
-<file>Controller.js</file>
+<file alias="Controller.js">noController.js</file>
 </qresource>
 </RCC>

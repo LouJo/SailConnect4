@@ -1,6 +1,13 @@
 /*
  * Controller for Main
+ * used only with qmlscene for prototyping
+ *
  */
+
+function isQmlScene()
+{
+	return true;
+}
 
 function changePlayer()
 {

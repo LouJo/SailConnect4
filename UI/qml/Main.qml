@@ -63,12 +63,13 @@ Item {
 
 	Component.onCompleted: {
 		console.log("qml: ready")
-		/*
-		board.playCol.connect(Controller.playCol)
-		menu.exit.connect(Controller.exit)
-		menu.new_game.connect(Controller.new_game)
 
-//		main.ready()
-Controller.begin()*/
+		if (Controller.isQmlScene()) {
+			board.playCol.connect(Controller.playCol)
+			menu.exit.connect(Controller.exit)
+			menu.new_game.connect(Controller.new_game)
+
+			Controller.begin()
+		}
 	}
 }
