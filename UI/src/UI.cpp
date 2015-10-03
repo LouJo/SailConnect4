@@ -5,6 +5,8 @@
 
 #include "UI.h"
 
+ControllerNull ControllerInterface::controllerNull;
+
 UI::UI(int &argc, char* argv[])
 {
 	app = new QGuiApplication(argc, argv);
@@ -55,8 +57,16 @@ bool UI::PlayAtIndex(int player, int idx)
 	return ret.toBool();
 }
 
-void UI::SetConfig(const ControllerInterface::Config &config)
+void UI::ConfigSet(const ControllerInterface::Config &conf)
 {
+	config->setProperty("player1_name", conf.player[0].name.c_str());
+	config->setProperty("player2_name", conf.player[1].name.c_str());
+	config->setProperty("player1_force", conf.player[0].force);
+	config->setProperty("player2_force", conf.player[1].force);
+	config->setProperty("player1_type", conf.player[0].type);
+	config->setProperty("player2_type", conf.player[1].type);
+	config->setProperty("rows", conf.rows);
+	config->setProperty("columns", conf.columns);
 }
 
 void UI::SetScore(int player, int score)
@@ -85,11 +95,24 @@ void UI::Loop()
 void UI::SlotConfigChanged()
 {
 	qDebug() << "ui: config changed";
+	ControllerInterface::Config conf;
+
+	conf.player[0].name = config->property("player1_name").toString().toStdString().c_str();
+	conf.player[1].name = config->property("player2_name").toString().toStdString().c_str();
+	conf.player[0].force = config->property("player1_force").toInt();
+	conf.player[1].force = config->property("player2_force").toInt();
+	conf.player[0].type = (ControllerInterface::PlayerType_t) config->property("player1_type").toInt();
+	conf.player[1].type = (ControllerInterface::PlayerType_t) config->property("player2_type").toInt();
+
+	controller->ConfigChange(conf);
 }
 
 void UI::SlotNewGame()
 {
 	qDebug() << "ui: new game";
+	controller->NewGame();
+
+	// TODO
 	EnablePlay(false);
 	ResetBoard();
 	ChangePlayer(2);
@@ -99,18 +122,22 @@ void UI::SlotNewGame()
 
 void UI::SlotPlayCol(QVariant qcol)
 {
-	qDebug() << "ui: play col " << qcol;
+	const int col = qcol.toInt();
+	qDebug() << "ui: play col " << col;
+	controller->PlayAtCol(col);
 }
 
 void UI::SlotResetScore()
 {
 	qDebug() << "ui: reset scores";
+	controller->ResetScores();
 }
 
 void UI::SlotExit()
 {
 	qDebug() << "ui: exit from UI";
-	Exit();
+	controller->ExitGame();
+	Exit(); // TODO
 }
 
 //

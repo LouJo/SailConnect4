@@ -26,12 +26,12 @@ class UI : public QObject, public UIInterface {
 	~UI() {}
 
 	void ChangePlayer(int player);
+	void ConfigSet(const ControllerInterface::Config &config);
 	void Exit();
 	void EnablePlay(bool en);
 	void Launch();
 	void Loop();
 	bool PlayAtIndex(int player, int idx);
 	void ResetBoard();
-	void SetConfig(const ControllerInterface::Config &config);
 	void SetScore(int player, int score);
 };
