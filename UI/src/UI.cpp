@@ -7,7 +7,6 @@
 
 UI::UI(int &argc, char* argv[])
 {
-	qDebug() << argc;
 	app = new QGuiApplication(argc, argv);
 	view = new QQuickView();
 	view->setResizeMode(view->SizeRootObjectToView);
@@ -17,8 +16,8 @@ UI::UI(int &argc, char* argv[])
 	main = view->rootObject();
 	game = main->findChild<QObject*>("game");
 	menu = main->findChild<QObject*>("menu");
-
-	qDebug() << "Qt: init UI done";
+	config = main->findChild<QObject*>("config");
+	board = game->findChild<QObject*>("board");
 }
 
 void UI::Launch()
@@ -36,12 +35,21 @@ void UI::ChangePlayer(int player)
 	game->setProperty("player", QVariant(player));
 }
 
-void UI::PlayAtIndex(int player, int idx)
+bool UI::PlayAtIndex(int player, int idx)
 {
+	QVariant ret;
+	QVariant qplayer = player;
+	QVariant qindex = idx;
+
+	QMetaObject::invokeMethod(board, "play", Q_RETURN_ARG(QVariant, ret), Q_ARG(QVariant, qindex), Q_ARG(QVariant, player));
+
+	return ret.toBool();
 }
 
 void UI::SetScore(int player, int score)
 {
+	if (player == 1) config->setProperty("player1_points", score);
+	else config->setProperty("player2_points", score);
 }
 
 void UI::Exit()

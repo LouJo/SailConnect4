@@ -15,7 +15,7 @@ class UI : public QObject, public UIInterface {
 	private:
 	QGuiApplication *app;
 	QQuickView *view;
-	QObject *game, *main, *menu;
+	QObject *game, *main, *menu, *config, *board;
 
 	public:
 	UI(int &argc, char *argv[]);
@@ -24,7 +24,7 @@ class UI : public QObject, public UIInterface {
 	void Launch();
 	void EnablePlay(bool en);
 	void ChangePlayer(int player);
-	void PlayAtIndex(int player, int idx);
+	bool PlayAtIndex(int player, int idx);
 	void SetScore(int player, int score);
 	void Exit();
 	void Loop();

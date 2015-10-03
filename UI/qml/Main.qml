@@ -14,6 +14,8 @@ Item {
 	width: Style.window_width
 	height: Style.window_height
 
+	property var config: Config
+
 	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
 	property int board_height: board_width * Config.rows / Config.columns
 	property int info_height: board_height / (1 - Style.infos_height) * Style.infos_height
@@ -37,6 +39,7 @@ Item {
 
 		Board {
 			id: board
+			objectName: "board"
 			width: main.board_width
 			height: main.board_height
 			canPlay: game.canPlay
