@@ -5,12 +5,13 @@
 
 #include "UI.h"
 
-UI::UI(int argc, char* argv[])
+UI::UI(int &argc, char* argv[])
 {
+	qDebug() << argc;
 	app = new QGuiApplication(argc, argv);
-	engine = new QQmlApplicationEngine();
-	view = new QQuickView(QUrl("qrc:///Main.qml"));
+	view = new QQuickView();
 	view->setResizeMode(view->SizeRootObjectToView);
+	view->setSource(QUrl("qrc:///Main.qml"));
 
 	qDebug() << "Qt: init UI";
 	main = view->rootObject();

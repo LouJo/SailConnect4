@@ -4,7 +4,6 @@
 #include <QQuickView>
 #include <QGuiApplication>
 #include <QQuickItem>
-#include <QString>
 
 #include "../include/UIInterface.h"
 
@@ -16,11 +15,10 @@ class UI : public QObject, public UIInterface {
 	private:
 	QGuiApplication *app;
 	QQuickView *view;
-	QQmlApplicationEngine *engine;
 	QObject *game, *main, *menu;
 
 	public:
-	UI(int argc, char *argv[]);
+	UI(int &argc, char *argv[]);
 	~UI() {}
 
 	void Launch();
