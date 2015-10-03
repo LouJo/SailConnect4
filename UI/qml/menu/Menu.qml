@@ -14,14 +14,16 @@ Rectangle {
 
 	color: Style.color_menu_bg
 
-	signal new_game()
+	signal configChanged()
+	signal newGame()
+	signal resetScores()
 	signal exit()
 
 	ButtonMenu {
 		property int idx: 0
 		property string buttonText: "New game"
 
-		onActivated: new_game()
+		onActivated: newGame()
 	}
 
 	ButtonMenu {
@@ -31,6 +33,8 @@ Rectangle {
 		onActivated: {
 			var conf = Qt.createComponent("../config/Configure.qml")
 			var win = conf.createObject(menu)
+			win.configChanged.connect(menu.configChanged)
+			win.resetScores.connect(menu.resetScores)
 			win.show()
 		}
 	}

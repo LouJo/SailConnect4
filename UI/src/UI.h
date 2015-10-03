@@ -10,7 +10,11 @@
 class UI : public QObject, public UIInterface {
 	Q_OBJECT
 	public slots:
-	void SlotReady();
+	void SlotConfigChanged();
+	void SlotNewGame();
+	void SlotPlayCol(QVariant qcol);
+	void SlotResetScore();
+	void SlotExit();
 
 	private:
 	QGuiApplication *app;
@@ -26,6 +30,7 @@ class UI : public QObject, public UIInterface {
 	void ChangePlayer(int player);
 	bool PlayAtIndex(int player, int idx);
 	void SetScore(int player, int score);
+	void ResetBoard();
 	void Exit();
 	void Loop();
 };

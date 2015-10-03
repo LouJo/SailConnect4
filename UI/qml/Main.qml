@@ -37,6 +37,8 @@ Item {
 		property bool canPlay: false
 		property int player: 1
 
+		signal playCol(var col);
+
 		Board {
 			id: board
 			objectName: "board"
@@ -63,16 +65,16 @@ Item {
 		height: main.menuOnRight ? main.height : main.height - main.game_height
 	}
 
-
 	Component.onCompleted: {
 		console.log("qml: ready")
 
 		if (Controller.isQmlScene()) {
-			board.playCol.connect(Controller.playCol)
+			game.playCol.connect(Controller.playCol)
 			menu.exit.connect(Controller.exit)
 			menu.new_game.connect(Controller.new_game)
 
 			Controller.begin()
 		}
+		board.playCol.connect(game.playCol)
 	}
 }

@@ -12,13 +12,22 @@ UI::UI(int &argc, char* argv[])
 	view->setResizeMode(view->SizeRootObjectToView);
 	view->setSource(QUrl("qrc:///Main.qml"));
 
-	qDebug() << "Qt: init UI";
+	qDebug() << "ui: init UI";
 	main = view->rootObject();
 	game = main->findChild<QObject*>("game");
 	menu = main->findChild<QObject*>("menu");
-	config = main->findChild<QObject*>("config");
 	board = game->findChild<QObject*>("board");
+
+	config = qvariant_cast<QObject*> (main->property("config"));
+
+	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
+	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
+	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
+	QObject::connect(menu, SIGNAL(configChanged()), this, SLOT(SlotConfigChanged()));
+	QObject::connect(game, SIGNAL(playCol(QVariant)), this, SLOT(SlotPlayCol(QVariant)));
 }
+
+/* Methods callable by game controller */
 
 void UI::Launch()
 {
@@ -52,6 +61,11 @@ void UI::SetScore(int player, int score)
 	else config->setProperty("player2_points", score);
 }
 
+void UI::ResetBoard()
+{
+	QMetaObject::invokeMethod(board, "reset");
+}
+
 void UI::Exit()
 {
 	app->quit();
@@ -62,10 +76,40 @@ void UI::Loop()
 	app->exec();
 }
 
-void UI::SlotReady()
+/* signals receptors from qml */
+
+void UI::SlotConfigChanged()
 {
-	qDebug() << "qt: ready ";
+	qDebug() << "ui: config changed";
 }
+
+void UI::SlotNewGame()
+{
+	qDebug() << "ui: new game";
+	EnablePlay(false);
+	ResetBoard();
+	ChangePlayer(2);
+	SetScore(1,10);
+	EnablePlay(true);
+}
+
+void UI::SlotPlayCol(QVariant qcol)
+{
+	qDebug() << "ui: play col " << qcol;
+}
+
+void UI::SlotResetScore()
+{
+	qDebug() << "ui: reset scores";
+}
+
+void UI::SlotExit()
+{
+	qDebug() << "ui: exit from UI";
+	Exit();
+}
+
+//
 
 int main(int argc, char *argv[])
 {
@@ -74,5 +118,5 @@ int main(int argc, char *argv[])
 	ui->EnablePlay(true);
 	ui->Loop();
 
-	qDebug() << "qt: quit";
+	qDebug() << "ui: quit";
 }

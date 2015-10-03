@@ -12,6 +12,9 @@ ApplicationWindow {
 	minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
 	minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
 
+	signal configChanged()
+	signal resetScores()
+
 	ColumnLayout {
 		id: mainLayout
 		anchors.fill: parent
@@ -53,6 +56,7 @@ ApplicationWindow {
 			onClicked: {
 				Config.player1_points = 0
 				Config.player2_points = 0
+				resetScores()
 			}
 		}
 
@@ -62,6 +66,7 @@ ApplicationWindow {
 			onClicked: {
 				p1.submitAll()
 				p2.submitAll()
+				configChanged()
 				close()
 			}
 		}
