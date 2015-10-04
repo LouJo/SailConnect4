@@ -37,7 +37,7 @@ Item {
 		property bool canPlay: false
 		property int player: 1
 
-		signal playCol(var col);
+		signal playCol(variant col);
 
 		Board {
 			id: board
@@ -71,7 +71,7 @@ Item {
 		if (Controller.isQmlScene()) {
 			game.playCol.connect(Controller.playCol)
 			menu.exit.connect(Controller.exit)
-			menu.new_game.connect(Controller.new_game)
+			menu.newGame.connect(Controller.new_game)
 
 			Controller.begin()
 		}

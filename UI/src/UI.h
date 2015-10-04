@@ -9,10 +9,10 @@
 
 class UI : public QObject, public UIInterface {
 	Q_OBJECT
-	public slots:
+	private slots:
 	void SlotConfigChanged();
 	void SlotNewGame();
-	void SlotPlayCol(QVariant qcol);
+	void SlotPlayCol(const QVariant &qcol);
 	void SlotResetScore();
 	void SlotExit();
 

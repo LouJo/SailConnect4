@@ -26,7 +26,7 @@ UI::UI(int &argc, char* argv[])
 	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
 	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
 	QObject::connect(menu, SIGNAL(configChanged()), this, SLOT(SlotConfigChanged()));
-	QObject::connect(game, SIGNAL(playCol(QVariant)), this, SLOT(SlotPlayCol(QVariant)));
+	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
 }
 
 /* Methods callable by game controller */
@@ -120,7 +120,7 @@ void UI::SlotNewGame()
 	EnablePlay(true);
 }
 
-void UI::SlotPlayCol(QVariant qcol)
+void UI::SlotPlayCol(const QVariant &qcol)
 {
 	const int col = qcol.toInt();
 	qDebug() << "ui: play col " << col;
