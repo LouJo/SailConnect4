@@ -52,7 +52,7 @@ bool UI::PlayAtIndex(int player, int idx)
 	QVariant qplayer = player + 1;
 	QVariant qindex = idx;
 
-	QMetaObject::invokeMethod(board, "play", Q_RETURN_ARG(QVariant, ret), Q_ARG(QVariant, qindex), Q_ARG(QVariant, player));
+	QMetaObject::invokeMethod(board, "play", Q_RETURN_ARG(QVariant, ret), Q_ARG(QVariant, qindex), Q_ARG(QVariant, qplayer));
 
 	return ret.toBool();
 }
@@ -67,6 +67,7 @@ void UI::ConfigSet(const ControllerInterface::Config &conf)
 	config->setProperty("player2_type", conf.player[1].type);
 	config->setProperty("rows", conf.rows);
 	config->setProperty("columns", conf.columns);
+	config->setProperty("align", conf.align);
 }
 
 void UI::SetScore(int player, int score)
@@ -103,6 +104,10 @@ void UI::SlotConfigChanged()
 	conf.player[1].force = config->property("player2_force").toInt();
 	conf.player[0].type = (ControllerInterface::PlayerType_t) config->property("player1_type").toInt();
 	conf.player[1].type = (ControllerInterface::PlayerType_t) config->property("player2_type").toInt();
+
+	conf.rows = config->property("rows").toInt();
+	conf.columns = config->property("columns").toInt();
+	conf.align = config->property("align").toInt();
 
 	controller->ConfigChange(conf);
 }

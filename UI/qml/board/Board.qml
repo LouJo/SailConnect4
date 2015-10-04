@@ -120,7 +120,7 @@ Rectangle {
 					bounce = true
 					played = true
 					timeAnimation = 0
-					console.log("played: " + index)
+					console.log("player " + player + " played: " + index)
 
 					return true
 				}

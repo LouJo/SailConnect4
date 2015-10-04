@@ -41,7 +41,9 @@ GroupBox {
 		}
 		Slider {
 			id: sliderForce
-			stepSize: 0.25
+			stepSize: 1
+			minimumValue: 0
+			maximumValue: 4
 			tickmarksEnabled: true
 			width: parent.width * 0.9
 			enabled: ia.checked

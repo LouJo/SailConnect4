@@ -22,7 +22,7 @@ class ControllerInterface {
 
 	struct Config {
 		ConfigPlayer player[2];
-		int rows, columns;
+		int rows, columns, align;
 	};
 
 	virtual void Start() = 0;
