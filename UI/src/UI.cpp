@@ -22,6 +22,7 @@ UI::UI(int &argc, char* argv[])
 
 	config = qvariant_cast<QObject*> (main->property("config"));
 
+	QObject::connect(view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(SlotExit()));
 	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
 	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
 	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));

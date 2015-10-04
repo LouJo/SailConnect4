@@ -123,6 +123,8 @@ void Controller::Win(int player)
 	SaveScore();
 }
 
+/* Load and save functions */
+
 bool Controller::LoadConfig()
 {
 	if (configFilePath == "") return false;
