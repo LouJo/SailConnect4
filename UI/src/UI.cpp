@@ -43,13 +43,13 @@ void UI::EnablePlay(bool en)
 
 void UI::ChangePlayer(int player)
 {
-	game->setProperty("player", QVariant(player));
+	game->setProperty("player", QVariant(player + 1));
 }
 
 bool UI::PlayAtIndex(int player, int idx)
 {
 	QVariant ret;
-	QVariant qplayer = player;
+	QVariant qplayer = player + 1;
 	QVariant qindex = idx;
 
 	QMetaObject::invokeMethod(board, "play", Q_RETURN_ARG(QVariant, ret), Q_ARG(QVariant, qindex), Q_ARG(QVariant, player));
@@ -71,7 +71,7 @@ void UI::ConfigSet(const ControllerInterface::Config &conf)
 
 void UI::SetScore(int player, int score)
 {
-	if (player == 1) config->setProperty("player1_points", score);
+	if (player == 0) config->setProperty("player1_points", score);
 	else config->setProperty("player2_points", score);
 }
 
@@ -111,13 +111,6 @@ void UI::SlotNewGame()
 {
 	qDebug() << "ui: new game";
 	controller->NewGame();
-
-	// TODO
-	EnablePlay(false);
-	ResetBoard();
-	ChangePlayer(2);
-	SetScore(1,10);
-	EnablePlay(true);
 }
 
 void UI::SlotPlayCol(const QVariant &qcol)
@@ -137,17 +130,6 @@ void UI::SlotExit()
 {
 	qDebug() << "ui: exit from UI";
 	controller->ExitGame();
-	Exit(); // TODO
 }
 
 //
-
-int main(int argc, char *argv[])
-{
-	UI *ui = new UI(argc, argv);
-	ui->Launch();
-	ui->EnablePlay(true);
-	ui->Loop();
-
-	qDebug() << "ui: quit";
-}

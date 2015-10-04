@@ -5,6 +5,8 @@
 
 #include "../../Controller/include/ControllerInterface.h"
 
+// player is [0,1]
+
 class UIInterface {
 	protected:
 	ControllerInterface *controller;

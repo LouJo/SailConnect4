@@ -25,12 +25,14 @@ class ControllerInterface {
 		int rows, columns;
 	};
 
+	virtual void Start() = 0;
+
 	// methods for UI calls
 
 	virtual void ConfigChange(const Config &config) = 0;
 	virtual void ExitGame() = 0;
 	virtual void NewGame() = 0;
-	virtual void PlayAtCol(int col) = 0;
+	virtual bool PlayAtCol(int col) = 0;
 	virtual void ResetScores() = 0;
 
 	// null controller
@@ -46,7 +48,8 @@ class ControllerNull : public ControllerInterface {
 	virtual void ConfigChange(const Config &config) {}
 	virtual void ExitGame() {}
 	virtual void NewGame() {}
-	virtual void PlayAtCol(int col) {}
+	virtual bool PlayAtCol(int col) {}
 	virtual void ResetScores() {}
+	virtual void Start() {}
 };
 #endif
