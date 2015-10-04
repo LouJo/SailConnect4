@@ -14,6 +14,7 @@ using namespace std;
 
 string Controller::configFileName = "C4config.dat";
 string Controller::scoreFileName = "C4score.dat";
+string Controller::gameFileName = "C4game.dat";
 
 ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman },
@@ -26,14 +27,16 @@ Controller::Controller(UIInterface *ui)
 	this->ui = ui;
 	score[0] = score[1] = 0;
 	player = 0;
+	ended = false;
 
 	QString qDataDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 	qDebug() << "ctrl: standart config path: " << qDataDir;
-	if (qDataDir == "") { configFilePath = scoreFilePath = ""; }
+	if (qDataDir == "") { configFilePath = scoreFilePath = gameFilePath = ""; }
 	else {
 		string path = qDataDir.toStdString();
 		configFilePath = path + "/" + configFileName;
 		scoreFilePath = path + "/" + scoreFileName;
+		gameFilePath = path + "/" + gameFileName;
 	}
 	if (!LoadConfig()) config = defaultConfig;
 	LoadScore();
@@ -43,6 +46,7 @@ void Controller::Start()
 {
 	ui->SetController(this);
 	ui->Launch();
+	LoadGame();
 	ui->EnablePlay(true);
 }
 
@@ -54,13 +58,16 @@ void Controller::ConfigChange(const Config &config)
 
 void Controller::ExitGame()
 {
+	SaveGame();
 	ui->Exit();
 }
 
 void Controller::NewGame()
 {
 	Win(1); // TODO
+	played.clear();
 	player = 0;
+	ended = false;
 	ui->EnablePlay(false);
 	ui->ResetBoard();
 	ui->ChangePlayer(player);
@@ -75,7 +82,7 @@ bool Controller::PlayAtCol(int col)
 
 	while (y >= 0) {
 		if (ui->PlayAtIndex(player, col + y * config.columns)) {
-			NextPlayer();
+			PlayAtIndex(col + y * config.columns);
 			ui->EnablePlay(true);
 			return true;
 		}
@@ -101,8 +108,16 @@ void Controller::NextPlayer()
 	ui->ChangePlayer(player);
 }
 
+void Controller::PlayAtIndex(int index)
+{
+//	ui->PlayAtIndex(player, index); TODO
+	played.push_back(index);
+	NextPlayer();
+}
+
 void Controller::Win(int player)
 {
+	ended = true;
 	score[player]++;
 	ui->SetScore(player, score[player]);
 	SaveScore();
@@ -185,6 +200,46 @@ bool Controller::SaveScore()
 	qDebug() << "ctrl: save scores";
 
 	for (int i = 0; i < 2; i++) f << score[i] << endl;
+	f.close();
+	return true;
+}
+
+bool Controller::LoadGame()
+{
+	if (gameFilePath == "") return false;
+	ifstream f(gameFilePath, ios::in);
+	if (!f.is_open()) return false;
+
+	int nb, index;
+	f >> nb;
+	if (!nb) return false;
+
+	qDebug() << "ctrl: load game, " << nb << " plays";
+
+	while (nb--) {
+		f >> index;
+		ui->PlayAtIndex(player, index); // TODO
+		PlayAtIndex(index);
+	}
+
+	f.close();
+	return true;
+}
+
+bool Controller::SaveGame()
+{
+	if (gameFilePath == "") return false;
+	ofstream f(gameFilePath, ios::out);
+	if (!f.is_open()) return false;
+
+	// don't save finished game
+	if (ended) played.clear();
+
+	qDebug() << "ctrl: save game";
+
+	f << played.size() << endl;
+	for (auto idx : played) f << idx << endl;
+
 	f.close();
 	return true;
 }
