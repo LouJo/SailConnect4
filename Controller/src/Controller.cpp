@@ -36,14 +36,14 @@ Controller::Controller(UIInterface *ui)
 		scoreFilePath = path + "/" + scoreFileName;
 	}
 	if (!LoadConfig()) config = defaultConfig;
+	LoadScore();
 }
 
 void Controller::Start()
 {
 	ui->SetController(this);
-	ui->ConfigSet(config);
-	ui->EnablePlay(true);
 	ui->Launch();
+	ui->EnablePlay(true);
 }
 
 void Controller::ConfigChange(const Config &config)
@@ -90,6 +90,7 @@ void Controller::ResetScores()
 	score[0] = score[1] = 0;
 	ui->SetScore(0,0);
 	ui->SetScore(1,0);
+	SaveScore();
 }
 
 // private
@@ -104,6 +105,7 @@ void Controller::Win(int player)
 {
 	score[player]++;
 	ui->SetScore(player, score[player]);
+	SaveScore();
 }
 
 bool Controller::LoadConfig()
@@ -129,6 +131,8 @@ bool Controller::LoadConfig()
 	}
 	f.close();
 
+	ui->ConfigSet(config);
+
 	return true;
 }
 
@@ -151,6 +155,36 @@ bool Controller::SaveConfig()
 		f << p->type << endl;
 	}
 
+	f.close();
+	return true;
+}
+
+bool Controller::LoadScore()
+{
+	if (scoreFilePath == "") return false;
+	ifstream f(scoreFilePath, ios::in);
+	if (!f.is_open()) return false;
+
+	qDebug() << "ctrl: load scores";
+
+	for (int i = 0; i < 2; i++) {
+		f >> score[i];
+		ui->SetScore(i, score[i]);
+	}
+
+	f.close();
+	return true;
+}
+
+bool Controller::SaveScore()
+{
+	if (scoreFilePath == "") return false;
+	ofstream f(scoreFilePath, ios::out);
+	if (!f.is_open()) return false;
+
+	qDebug() << "ctrl: save scores";
+
+	for (int i = 0; i < 2; i++) f << score[i] << endl;
 	f.close();
 	return true;
 }
