@@ -17,7 +17,7 @@ class GameInterface {
 	virtual int IAPlay() = 0;
 	// return true if ended, and set winner var
 	virtual bool IsEnded(int &winner, std::vector<int> &aligned) = 0;
-	// play col if possible
+	// play col if possible, and set index var
 	virtual bool PlayAtCol(int col, int &index) = 0;
 	// play at index if possible
 	virtual bool PlayAtIndex(int index) = 0;
