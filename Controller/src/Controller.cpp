@@ -9,6 +9,7 @@
 #include <QStandardPaths>
 
 #include "Controller.h"
+#include "../../Game/include/GameInterface.h"
 
 using namespace std;
 

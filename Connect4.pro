@@ -13,5 +13,6 @@ RESOURCES += UI/qml/qml.qrc
 HEADERS += \
 	UI/include/UIInterface.h \
 	UI/src/UI.h \
-	Controller/include/ControllerInterface.h
-	Controller/src/Controller.h
+	Controller/include/ControllerInterface.h \
+	Controller/src/Controller.h \
+	Game/include/GameInterface.h
