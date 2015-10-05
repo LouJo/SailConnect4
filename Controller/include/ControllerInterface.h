@@ -45,10 +45,10 @@ class ControllerInterface {
 class ControllerNull : public ControllerInterface {
 	public:
 
-	virtual void ConfigChange(const Config &config) {}
+	virtual void ConfigChange(const Config &config __attribute__((unused))) {}
 	virtual void ExitGame() {}
 	virtual void NewGame() {}
-	virtual bool PlayAtCol(int col) {}
+	virtual bool PlayAtCol(int col __attribute__((unused))) { return false; }
 	virtual void ResetScores() {}
 	virtual void Start() {}
 };
