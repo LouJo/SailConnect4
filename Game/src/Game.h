@@ -4,12 +4,31 @@
 /* Game implementation headers */
 
 #include <stdint.h>
-#include <array>
+#include <vector>
 
 #include "../include/GameInterface.h"
 
 class Game : public GameInterface {
 	private:
+
+	/* object to describe a board, given cols, rows and aligned
+	 * once constructed, does not change.
+	 */
+
+	class BoardDescription {
+		public:
+		int columns, rows, aligned;
+		int nbCase, nbAlignement, nbCaseAlignement;
+		std::vector<int> *alignementFromCase;
+
+		BoardDescription(int rows, int columns, int aligned);
+
+		// return the case id for alignement algntIndex, case number i
+		inline int CaseFromAlignement(int algtIndex, int i);
+
+		private:
+		int *tabCaseFromAlignement;
+	};
 
 	class Case {
 		public:
@@ -18,8 +37,7 @@ class Game : public GameInterface {
 		Case() : index(0), played(0) {}
 	};
 
-	int rows, columns, aligned, force, player, nbCase;
-	Case *board;
+	BoardDescription *boardDesc;
 
 	public:
 	Game(int rows, int columns, int aligned);
