@@ -17,6 +17,9 @@
 
 using namespace std;
 
+
+/* Game state */
+
 Game::BoardDescription::BoardDescription(int rows, int columns, int aligned)
 {
 	this->rows = rows;
@@ -95,9 +98,20 @@ Game::BoardDescription::~BoardDescription()
 
 int Game::BoardDescription::CaseFromAlignement(int algtIndex, int i)
 {
-	assert(i >= 0 && i < nbCaseAlignement);
-	return tabCaseFromAlignement[algtIndex * aligned + i];
+	assert(algtIndex >= 0 && algtIndex < nbAlignement);
+	const int p = algtIndex * aligned + i;
+	assert(p >= 0 && p < nbCaseAlignement);
+	return tabCaseFromAlignement[p];
 }
+
+int* Game::BoardDescription::CaseArrayFromAlignement(int algtIndex)
+{
+	assert(algtIndex >= 0 && algtIndex < nbAlignement);
+	return tabCaseFromAlignement + algtIndex;
+}
+
+
+/* Player state */
 
 Game::PlayerState::PlayerState(BoardDescription *desc)
 {
@@ -130,9 +144,52 @@ void Game::PlayerState::PlayAlignement(int algnt)
 
 	nbAlignementDone[*a]--;
 	(*a)++;
-	nbAlignementDone[*a]++;
+	if (nbAlignementDone[*a]++ == boardDesc->aligned) alignementCompleted = algnt;
 }
 
 void Game::PlayerState::LooseAlignement(int algnt)
 {
+	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
+	int *a = alignementState + algnt;
+	nbAlignementDone[*a]--;
+	*a = -1; // disable alignement with -1
+}
+
+int Game::PlayerState::NbAlignementDone(int nbDone)
+{
+	assert(nbDone >= 0 && nbDone <= boardDesc->aligned);
+	return nbAlignementDone[nbDone];
+}
+
+int Game::PlayerState::AlignementState(int algnt)
+{
+	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
+	return alignementState[algnt];
+}
+
+bool Game::PlayerState::HasWon()
+{
+	// won if at least one alignement completed
+	return NbAlignementDone(boardDesc->aligned);
+}
+
+int* Game::PlayerState::CaseArrayAligned()
+{
+	return boardDesc->CaseArrayFromAlignement(alignementCompleted);
+}
+
+
+/* Game state */
+
+Game::GameState::GameState(BoardDescription *desc)
+{
+	boardDesc = desc;
+	playerState = new PlayerState*[boardDesc->nbPlayer];
+	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i] = new PlayerState(boardDesc);
+}
+
+Game::GameState::~GameState()
+{
+	for (int i = 0; i < boardDesc->nbPlayer; i++) delete playerState[i];
+	delete[] playerState;
 }

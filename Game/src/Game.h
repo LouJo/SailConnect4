@@ -27,6 +27,8 @@ class Game : public GameInterface {
 
 		// return the case id for alignement algntIndex, case number i
 		inline int CaseFromAlignement(int algtIndex, int i);
+		// return the adress of cases array for one alignement
+		inline int* CaseArrayFromAlignement(int algtIndex);
 
 		private:
 		int *tabCaseFromAlignement;
@@ -34,26 +36,35 @@ class Game : public GameInterface {
 
 	class PlayerState {
 		public:
-		// -1 if align is not possible, nb of cases done if possible
-		int *alignementState;
-		// number of align done 0, 1, 2, 3, 4
-		int *nbAlignementDone;
-
 		PlayerState(BoardDescription*);
 		~PlayerState();
 		void Reset();
 		void PlayAlignement(int algnt);
 		void LooseAlignement(int algnt);
+		// status read
+		inline int NbAlignementDone(int nbDone);
+		inline int AlignementState(int algnt);
+		bool HasWon();
+		int* CaseArrayAligned();
 
 		private:
 		BoardDescription *boardDesc;
+		// -1 if align is not possible, nb of cases done if possible
+		int *alignementState;
+		// number of align done 0, 1, 2, 3, 4
+		int *nbAlignementDone;
+		//
+		int alignementCompleted;
 	};
 
-	class Case {
+	class GameState {
 		public:
-		uint16_t index;
-		uint8_t played;
-		Case() : index(0), played(0) {}
+		GameState(BoardDescription*);
+		~GameState();
+
+		private:
+		PlayerState **playerState;
+		BoardDescription *boardDesc;
 	};
 
 	BoardDescription *boardDesc;
