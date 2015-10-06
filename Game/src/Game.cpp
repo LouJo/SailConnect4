@@ -133,6 +133,8 @@ void Game::PlayerState::Reset()
 	fill(nbAlignementDone + 1, nbAlignementDone + boardDesc->aligned, 0);
 }
 
+// play in alignement
+
 void Game::PlayerState::PlayAlignement(int algnt)
 {
 	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
@@ -154,6 +156,32 @@ void Game::PlayerState::LooseAlignement(int algnt)
 	nbAlignementDone[*a]--;
 	*a = -1; // disable alignement with -1
 }
+
+// Revert play
+
+void Game::PlayerState::RevertPlayAlignement(int algnt)
+{
+	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
+
+	int *a = alignementState + algnt;
+
+	assert(*a > 0 && *a <= boardDesc->aligned);
+	assert(nbAlignementDone[*a] > 0);
+
+	nbAlignementDone[*a]--;
+	(*a)--;
+	nbAlignementDone[*a]++;
+}
+
+void Game::PlayerState::RevertLooseAlignement(int algnt, int previousNb)
+{
+	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
+	int *a = alignementState + algnt;
+	*a = previousNb;
+	nbAlignementDone[*a]++;
+}
+
+// get alignement status
 
 int Game::PlayerState::NbAlignementDone(int nbDone)
 {

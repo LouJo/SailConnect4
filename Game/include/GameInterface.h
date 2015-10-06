@@ -5,8 +5,6 @@
  *
 */
 
-#include <vector>
-
 class GameInterface {
 	public:
 	// set rows, columns and aligned on construction
@@ -16,7 +14,7 @@ class GameInterface {
 	// return index played by IA for current player
 	virtual int IAPlay() = 0;
 	// return true if ended, and set winner var
-	virtual bool IsEnded(int &winner, std::vector<int> &aligned) = 0;
+	virtual bool IsEnded(int &winner, int *caseAligned) = 0;
 	// play col if possible, and set index var
 	virtual bool PlayAtCol(int col, int &index) = 0;
 	// play at index if possible

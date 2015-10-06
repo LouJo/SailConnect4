@@ -39,8 +39,12 @@ class Game : public GameInterface {
 		PlayerState(BoardDescription*);
 		~PlayerState();
 		void Reset();
+		// play in an alignement
 		void PlayAlignement(int algnt);
 		void LooseAlignement(int algnt);
+		// revert play in alignement
+		void RevertPlayAlignement(int algnt);
+		void RevertLooseAlignement(int algnt, int previousNb);
 		// status read
 		inline int NbAlignementDone(int nbDone);
 		inline int AlignementState(int algnt);
@@ -76,7 +80,7 @@ class Game : public GameInterface {
 	// API funcs
 	void NewGame();
 	int IAPlay();
-	bool IsEnded(int &winner, std::vector<int> &aligned);
+	bool IsEnded(int &winner, int *caseAligned);
 	bool PlayAtCol(int col, int &index);
 	void SetIAForce(int force);
 	void SetPlayer(int player);
