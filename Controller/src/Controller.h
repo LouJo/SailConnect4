@@ -16,7 +16,7 @@ class Controller : public ControllerInterface {
 	static Config defaultConfig;
 
 	UIInterface *ui;
-	int player;
+	int player, firstPlayer;
 	int score[2];
 	bool ended;
 	Config config;

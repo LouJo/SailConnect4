@@ -27,7 +27,7 @@ Controller::Controller(UIInterface *ui)
 {
 	this->ui = ui;
 	score[0] = score[1] = 0;
-	player = 0;
+	player = firstPlayer = 0;
 	ended = false;
 
 	QString qDataDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
@@ -66,8 +66,10 @@ void Controller::ExitGame()
 void Controller::NewGame()
 {
 	Win(1); // TODO
+	// change first player
 	played.clear();
-	player = 0;
+	firstPlayer = 1 - firstPlayer;
+	player = firstPlayer;
 	ended = false;
 	ui->EnablePlay(false);
 	ui->ResetBoard();
@@ -214,6 +216,10 @@ bool Controller::LoadGame()
 	if (!f.is_open()) return false;
 
 	int nb, index;
+	f >> firstPlayer;
+	if (firstPlayer < 0 || firstPlayer > 1) firstPlayer = 0;
+	player = firstPlayer;
+
 	f >> nb;
 	if (!nb) return false;
 
@@ -239,6 +245,7 @@ bool Controller::SaveGame()
 	if (ended) played.clear();
 
 	qDebug() << "ctrl: save game";
+	f << firstPlayer << endl;
 
 	f << played.size() << endl;
 	for (auto idx : played) f << idx << endl;
