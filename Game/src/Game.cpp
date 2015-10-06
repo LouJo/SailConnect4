@@ -149,12 +149,14 @@ void Game::PlayerState::PlayAlignement(int algnt)
 	if (nbAlignementDone[*a]++ == boardDesc->aligned) alignementCompleted = algnt;
 }
 
-void Game::PlayerState::LooseAlignement(int algnt)
+bool Game::PlayerState::LooseAlignement(int algnt)
 {
 	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
 	int *a = alignementState + algnt;
+	if (*a == -1) return false;
 	nbAlignementDone[*a]--;
 	*a = -1; // disable alignement with -1
+	return true;
 }
 
 // Revert play
@@ -212,6 +214,7 @@ int* Game::PlayerState::CaseArrayAligned()
 Game::GameState::GameState(BoardDescription *desc)
 {
 	boardDesc = desc;
+	board = new int8_t[boardDesc->nbCase];
 	playerState = new PlayerState*[boardDesc->nbPlayer];
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i] = new PlayerState(boardDesc);
 }
@@ -220,4 +223,110 @@ Game::GameState::~GameState()
 {
 	for (int i = 0; i < boardDesc->nbPlayer; i++) delete playerState[i];
 	delete[] playerState;
+	delete[] board;
+}
+
+void Game::GameState::Reset()
+{
+	fill(board, board + boardDesc->nbCase, -1);
+	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i]->Reset();
+}
+
+bool Game::GameState::PlayAtIndex(int idx, int player)
+{
+	assert(idx >= 0 && idx < boardDesc->nbCase);
+	assert(player >= 0 && player < boardDesc->nbPlayer);
+
+	if (board[idx] != -1) return false;
+
+	PlayerState *stateMe = playerState[player];
+	PlayerState *stateOther = playerState[1-player];
+
+	for (int &algt : *boardDesc->alignementFromCase) {
+		stateMe->PlayAlignement(algt);	
+		stateOther->LooseAlignement(algt);
+	}
+	board[idx] = player;
+	return true;
+}
+
+bool Game::GameState::PlayPossibleAtIndex(int idx)
+{
+	assert(idx >= 0 && idx < boardDesc->nbCase);
+	return board[idx] == -1;
+}
+
+bool Game::GameState::IsEnded(int &winner, int* &caseAligned)
+{
+	for (int i = 0; i < boardDesc->nbPlayer; i++)
+	if (playerState[i]->HasWon()) {
+		winner = i;
+		caseAligned = playerState[i]->CaseArrayAligned();
+		return true;
+	}
+	return false;
+}
+
+
+/* main game class with public api */
+
+Game::Game(int rows, int columns, int aligned)
+{
+	boardDesc = new BoardDescription(rows, columns, aligned);
+	gameState = new GameState(boardDesc);
+}
+
+Game::~Game()
+{
+	delete gameState;
+	delete boardDesc;
+}
+
+void Game::NewGame()
+{
+	gameState->Reset();
+}
+
+int Game::IAPlay()
+{
+	return 0;
+}
+
+bool Game::IsEnded(int &winner, int* &caseAligned)
+{
+	return gameState->IsEnded(winner, caseAligned);
+}
+
+bool Game::PlayAtIndex(int index)
+{
+	if (gameState->PlayAtIndex(index, currentPlayer)) {
+		currentPlayer = 1 - currentPlayer;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Game::PlayPossibleAtCol(int col, int &index)
+{
+	// find the lowest fee case in col
+	int y = boardDesc->rows - 1;
+
+	while (y >= 0) {
+		index = y * boardDesc->columns + col;
+		if (gameState->PlayPossibleAtIndex(index)) return true;
+		y--;
+	}
+
+	return false;
+}
+
+void Game::SetIAForce(int force)
+{
+}
+
+void Game::SetPlayer(int player)
+{
+	currentPlayer = player;
 }

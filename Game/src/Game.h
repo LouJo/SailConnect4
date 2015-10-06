@@ -41,7 +41,7 @@ class Game : public GameInterface {
 		void Reset();
 		// play in an alignement
 		void PlayAlignement(int algnt);
-		void LooseAlignement(int algnt);
+		bool LooseAlignement(int algnt);
 		// revert play in alignement
 		void RevertPlayAlignement(int algnt);
 		void RevertLooseAlignement(int algnt, int previousNb);
@@ -65,13 +65,21 @@ class Game : public GameInterface {
 		public:
 		GameState(BoardDescription*);
 		~GameState();
+		void Reset();
+
+		bool PlayAtIndex(int idx, int player);
+		bool PlayPossibleAtIndex(int idx);
+		bool IsEnded(int &winner, int* &caseAligned);
 
 		private:
+		int8_t *board;
 		PlayerState **playerState;
 		BoardDescription *boardDesc;
 	};
 
 	BoardDescription *boardDesc;
+	GameState *gameState;
+	int currentPlayer;
 
 	public:
 	Game(int rows, int columns, int aligned);
@@ -80,7 +88,8 @@ class Game : public GameInterface {
 	// API funcs
 	void NewGame();
 	int IAPlay();
-	bool IsEnded(int &winner, int *caseAligned);
+	bool IsEnded(int &winner, int* &caseAligned);
+	bool PlayAtIndex(int index);
 	bool PlayPossibleAtCol(int col, int &index);
 	void SetIAForce(int force);
 	void SetPlayer(int player);
