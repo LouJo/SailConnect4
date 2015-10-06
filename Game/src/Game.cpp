@@ -268,11 +268,14 @@ bool Game::GameState::IsEnded(int &winner, int* &caseAligned)
 }
 
 
-/* main game class with public api */
+/* main game class with public api
+ * wait ConfigSet to construct objects
+*/
 
-Game::Game(int rows, int columns, int aligned)
+Game::Game()
 {
-	boardDesc = new BoardDescription(rows, columns, aligned);
+	// minimal before receiving config
+	boardDesc = new BoardDescription(0,0,1);
 	gameState = new GameState(boardDesc);
 }
 
@@ -280,6 +283,15 @@ Game::~Game()
 {
 	delete gameState;
 	delete boardDesc;
+}
+
+void Game::ConfigSet(const ControllerInterface::Config &config)
+{
+	delete gameState;
+	delete boardDesc;
+
+	boardDesc = new BoardDescription(config.rows, config.columns, config.align);
+	gameState = new GameState(boardDesc);
 }
 
 void Game::NewGame()

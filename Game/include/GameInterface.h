@@ -5,10 +5,14 @@
  *
 */
 
+#include "../../Controller/include/ControllerInterface.h"
+
 class GameInterface {
 	public:
 	// set rows, columns and aligned on construction
 
+	// set config (needed)
+	virtual void ConfigSet(const ControllerInterface::Config &config) = 0;
 	// reset game
 	virtual void NewGame() = 0;
 	// return index played by IA for current player

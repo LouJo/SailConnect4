@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../../UI/include/UIInterface.h"
+#include "../../Game/include/GameInterface.h"
 
 class Controller : public ControllerInterface {
 	private:
@@ -16,6 +17,8 @@ class Controller : public ControllerInterface {
 	static Config defaultConfig;
 
 	UIInterface *ui;
+	GameInterface *game;
+
 	int player, firstPlayer;
 	int score[2];
 	bool ended;
@@ -36,7 +39,7 @@ class Controller : public ControllerInterface {
 	bool SaveGame();
 
 	public:
-	Controller(UIInterface *ui);
+	Controller(UIInterface *ui, GameInterface *game);
 
 	void Start();
 

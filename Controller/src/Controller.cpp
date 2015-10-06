@@ -23,9 +23,11 @@ ControllerInterface::Config Controller::defaultConfig = {
 	6, 7, 4
 };
 
-Controller::Controller(UIInterface *ui)
+Controller::Controller(UIInterface *ui, GameInterface *game)
 {
 	this->ui = ui;
+	this->game = game;
+
 	score[0] = score[1] = 0;
 	player = firstPlayer = 0;
 	ended = false;
@@ -40,6 +42,8 @@ Controller::Controller(UIInterface *ui)
 		gameFilePath = path + "/" + gameFileName;
 	}
 	if (!LoadConfig()) config = defaultConfig;
+	ui->ConfigSet(config);
+	game->ConfigSet(config);
 	LoadScore();
 }
 
@@ -164,8 +168,6 @@ bool Controller::LoadConfig()
 		p->type = (PlayerType_t) type;
 	}
 	f.close();
-
-	ui->ConfigSet(config);
 
 	return true;
 }

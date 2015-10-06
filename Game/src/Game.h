@@ -82,11 +82,12 @@ class Game : public GameInterface {
 	int currentPlayer;
 
 	public:
-	Game(int rows, int columns, int aligned);
+	Game();
 	~Game();
 
 	// API funcs
 	void NewGame();
+	void ConfigSet(const ControllerInterface::Config &config);
 	int IAPlay();
 	bool IsEnded(int &winner, int* &caseAligned);
 	bool PlayAtIndex(int index);
