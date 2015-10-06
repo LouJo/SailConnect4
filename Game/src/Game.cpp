@@ -20,20 +20,20 @@ using namespace std;
 
 /* Game state */
 
-Game::BoardDescription::BoardDescription(int rows, int columns, int aligned)
+Game::BoardDescription::BoardDescription(int rows, int columns, int align)
 {
 	this->rows = rows;
 	this->columns = columns;
-	this->aligned = aligned;
+	this->align = align;
 
 	nbCase = rows * columns;
 
-	int c = max(0, columns - aligned + 1);
-	int r = max(0, rows - aligned + 1);
+	int c = max(0, columns - align + 1);
+	int r = max(0, rows - align + 1);
 
 	nbAlignement = c * rows + r * columns + c * r * 2;
 
-	nbCaseAlignement = nbAlignement * aligned;
+	nbCaseAlignement = nbAlignement * align;
 
 	cerr << "game: nbAlignement = " << nbAlignement << endl;
 
@@ -50,7 +50,7 @@ Game::BoardDescription::BoardDescription(int rows, int columns, int aligned)
 			caseIndex = x + y * columns;
 			// horizontal
 			if (x < c) {
-				for (i = 0; i < aligned; i++) {
+				for (i = 0; i < align; i++) {
 					idx = caseIndex + i;
 					tabCaseFromAlignement[nCaseAlignement++] = idx;
 					alignementFromCase[idx].push_back(nAlignement);
@@ -59,7 +59,7 @@ Game::BoardDescription::BoardDescription(int rows, int columns, int aligned)
 			}
 			// vertical
 			if (y < r) {
-				for (i = 0; i < aligned; i++) {
+				for (i = 0; i < align; i++) {
 					idx = caseIndex + i * columns;
 					tabCaseFromAlignement[nCaseAlignement++] = idx;
 					alignementFromCase[idx].push_back(nAlignement);
@@ -68,7 +68,7 @@ Game::BoardDescription::BoardDescription(int rows, int columns, int aligned)
 			}
 			// diag down right
 			if (x < c && y < r) {
-				for (i = 0; i < aligned; i++) {
+				for (i = 0; i < align; i++) {
 					idx = caseIndex + i * (columns + 1);
 					tabCaseFromAlignement[nCaseAlignement++] = idx;
 					alignementFromCase[idx].push_back(nAlignement);
@@ -76,8 +76,8 @@ Game::BoardDescription::BoardDescription(int rows, int columns, int aligned)
 				nAlignement++;
 			}
 			// diag down left
-			if (x >= aligned - 1 && y < r) {
-				for (i = 0; i < aligned; i++) {
+			if (x >= align - 1 && y < r) {
+				for (i = 0; i < align; i++) {
 					idx = caseIndex + i * (columns - 1);
 					tabCaseFromAlignement[nCaseAlignement++] = idx;
 					alignementFromCase[idx].push_back(nAlignement);
@@ -99,7 +99,7 @@ Game::BoardDescription::~BoardDescription()
 int Game::BoardDescription::CaseFromAlignement(int algtIndex, int i)
 {
 	assert(algtIndex >= 0 && algtIndex < nbAlignement);
-	const int p = algtIndex * aligned + i;
+	const int p = algtIndex * align + i;
 	assert(p >= 0 && p < nbCaseAlignement);
 	return tabCaseFromAlignement[p];
 }
@@ -117,7 +117,8 @@ Game::PlayerState::PlayerState(BoardDescription *desc)
 {
 	this->boardDesc = desc;
 	alignementState = new int[boardDesc->nbAlignement];
-	nbAlignementDone = new int[boardDesc->aligned + 1];
+	nbAlignementDone = new int[boardDesc->align + 1];
+	Reset();
 }
 
 Game::PlayerState::~PlayerState()
@@ -130,7 +131,7 @@ void Game::PlayerState::Reset()
 {
 	fill(alignementState, alignementState + boardDesc->nbAlignement, 0);
 	nbAlignementDone[0] = boardDesc->nbAlignement;
-	fill(nbAlignementDone + 1, nbAlignementDone + boardDesc->aligned, 0);
+	fill(nbAlignementDone + 1, nbAlignementDone + boardDesc->align + 1, 0);
 }
 
 // play in alignement
@@ -140,13 +141,14 @@ void Game::PlayerState::PlayAlignement(int algnt)
 	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
 
 	int *a = alignementState + algnt;
+	if (*a == -1) return;
 
-	assert(*a >= 0 && *a < boardDesc->aligned);
+	assert(*a >= 0 && *a < boardDesc->align);
 	assert(nbAlignementDone[*a] > 0);
 
 	nbAlignementDone[*a]--;
 	(*a)++;
-	if (nbAlignementDone[*a]++ == boardDesc->aligned) alignementCompleted = algnt;
+	if (nbAlignementDone[*a]++ == boardDesc->align) alignementCompleted = algnt;
 }
 
 bool Game::PlayerState::LooseAlignement(int algnt)
@@ -167,7 +169,7 @@ void Game::PlayerState::RevertPlayAlignement(int algnt)
 
 	int *a = alignementState + algnt;
 
-	assert(*a > 0 && *a <= boardDesc->aligned);
+	assert(*a > 0 && *a <= boardDesc->align);
 	assert(nbAlignementDone[*a] > 0);
 
 	nbAlignementDone[*a]--;
@@ -187,7 +189,7 @@ void Game::PlayerState::RevertLooseAlignement(int algnt, int previousNb)
 
 int Game::PlayerState::NbAlignementDone(int nbDone)
 {
-	assert(nbDone >= 0 && nbDone <= boardDesc->aligned);
+	assert(nbDone >= 0 && nbDone <= boardDesc->align);
 	return nbAlignementDone[nbDone];
 }
 
@@ -200,7 +202,7 @@ int Game::PlayerState::AlignementState(int algnt)
 bool Game::PlayerState::HasWon()
 {
 	// won if at least one alignement completed
-	return NbAlignementDone(boardDesc->aligned);
+	return NbAlignementDone(boardDesc->align);
 }
 
 int* Game::PlayerState::CaseArrayAligned()
@@ -217,6 +219,8 @@ Game::GameState::GameState(BoardDescription *desc)
 	board = new int8_t[boardDesc->nbCase];
 	playerState = new PlayerState*[boardDesc->nbPlayer];
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i] = new PlayerState(boardDesc);
+
+	Reset();
 }
 
 Game::GameState::~GameState()
@@ -242,7 +246,7 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 	PlayerState *stateMe = playerState[player];
 	PlayerState *stateOther = playerState[1-player];
 
-	for (int &algt : *boardDesc->alignementFromCase) {
+	for (int &algt : boardDesc->alignementFromCase[idx]) {
 		stateMe->PlayAlignement(algt);	
 		stateOther->LooseAlignement(algt);
 	}
@@ -278,6 +282,15 @@ Game::Game()
 	boardDesc = new BoardDescription(0,0,1);
 	gameState = new GameState(boardDesc);
 	nbPlayed = 0;
+}
+
+Game::Game(int rows, int columns, int align)
+{
+	// minimal before receiving config
+	boardDesc = new BoardDescription(rows, columns, align);
+	gameState = new GameState(boardDesc);
+	nbPlayed = 0;
+	iaForce = defaultIAForce;
 }
 
 Game::~Game()
@@ -344,6 +357,7 @@ bool Game::PlayPossibleAtCol(int col, int &index)
 
 void Game::SetIAForce(int force)
 {
+	iaForce = force;
 }
 
 void Game::SetPlayer(int player)

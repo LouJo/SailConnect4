@@ -44,6 +44,7 @@ Controller::Controller(UIInterface *ui, GameInterface *game)
 	if (!LoadConfig()) config = defaultConfig;
 	ui->ConfigSet(config);
 	game->ConfigSet(config);
+	game->SetPlayer(player);
 	LoadScore();
 }
 
@@ -69,12 +70,15 @@ void Controller::ExitGame()
 
 void Controller::NewGame()
 {
-	Win(1); // TODO
 	// change first player
 	played.clear();
 	firstPlayer = 1 - firstPlayer;
 	player = firstPlayer;
 	ended = false;
+
+	game->NewGame();
+	game->SetPlayer(player);
+
 	ui->EnablePlay(false);
 	ui->ResetBoard();
 	ui->ChangePlayer(player);
@@ -88,9 +92,9 @@ bool Controller::PlayAtCol(int col)
 	int idx;
 	ui->EnablePlay(false);
 
-	if (PlayPossibleAtCol(col, idx)) {
+	if (game->PlayPossibleAtCol(col, idx)) {
 		PlayAtIndex(idx);
-		ui->EnablePlay(true);
+		if (!ended) ui->EnablePlay(true);
 		return true;
 	}
 	else {
@@ -112,14 +116,25 @@ void Controller::ResetScores()
 void Controller::NextPlayer()
 {
 	player = 1 - player;
+	// game does it by itself
 	ui->ChangePlayer(player);
 }
 
 void Controller::PlayAtIndex(int index)
 {
+	int winner, *caseAligned;
+
 	ui->PlayAtIndex(player, index);
+	game->PlayAtIndex(index);
 	played.push_back(index);
-	NextPlayer();
+
+	if (game->IsEnded(winner, caseAligned)) {
+		if (winner != -1) Win(winner);
+		else ended = true;
+	}
+	else {
+		NextPlayer();
+	}
 }
 
 bool Controller::PlayPossibleAtCol(int col, int &idx)
@@ -235,6 +250,7 @@ bool Controller::LoadGame()
 	f >> firstPlayer;
 	if (firstPlayer < 0 || firstPlayer > 1) firstPlayer = 0;
 	player = firstPlayer;
+	game->SetPlayer(player);
 
 	f >> nb;
 	if (!nb) return false;

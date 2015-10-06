@@ -11,18 +11,18 @@
 class Game : public GameInterface {
 	private:
 
-	/* object to describe a board, given cols, rows and aligned
+	/* object to describe a board, given cols, rows and align
 	 * once constructed, does not change.
 	 */
 
 	class BoardDescription {
 		public:
 		static const int nbPlayer = 2;
-		int columns, rows, aligned;
+		int columns, rows, align;
 		int nbCase, nbAlignement, nbCaseAlignement;
 		std::vector<int> *alignementFromCase;
 
-		BoardDescription(int rows, int columns, int aligned);
+		BoardDescription(int rows, int columns, int align);
 		~BoardDescription();
 
 		// return the case id for alignement algntIndex, case number i
@@ -77,12 +77,15 @@ class Game : public GameInterface {
 		BoardDescription *boardDesc;
 	};
 
+	static const int defaultIAForce = 2;
+
 	BoardDescription *boardDesc;
 	GameState *gameState;
-	int currentPlayer, nbPlayed;
+	int currentPlayer, nbPlayed, iaForce;
 
 	public:
 	Game();
+	Game(int rows, int columns, int align);
 	~Game();
 
 	// API funcs
