@@ -26,7 +26,7 @@ class Controller : public ControllerInterface {
 	std::string configFilePath, scoreFilePath, gameFilePath;
 	std::vector<int> played;
 
-	void Win(int player);
+	void Win(int player, int *aligned);
 	void NextPlayer();
 	void PlayAtIndex(int index);
 	bool PlayPossibleAtCol(int col, int &idx);

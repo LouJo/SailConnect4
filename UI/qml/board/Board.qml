@@ -16,6 +16,7 @@ Rectangle {
 	property double cellBorderWidth: cellLength / 40
 	property double ballLength: cellLength - cellMargin * 2
 	property double ballInterior: ballLength - cellBorderWidth * 2
+	property double ballRadius: ballInterior / 2
 
 	property bool canPlay: false
 
@@ -36,6 +37,7 @@ Rectangle {
 		anchors.fill: parent
 
 		Repeater {
+			id: grid_repeater
 			model: board.nbCells
 
 			// Holes in the grid, don't covers balls border
@@ -143,6 +145,37 @@ Rectangle {
 		}
 	}
 
+	// line to show aligned balls
+
+	Rectangle {
+		id: lineAligned;
+
+		property var item1: lineAligned; //grid_repeater.itemAt(idx1)
+		property var item2: lineAligned; // grid_repeater.itemAt(idx2)
+		property color colorLine
+
+		LocalLine {
+			x1: parent.item1.x + board.ballRadius
+			y1: parent.item1.y + board.ballRadius
+			x2: parent.item2.x + board.ballRadius
+			y2: parent.item2.y + board.ballRadius
+			lineWidth: Style.lineAlignedWidth
+			color: parent.colorLine
+		}
+
+		visible: false
+
+		function show(i1, i2) {
+			item1 = grid_repeater.itemAt(i1)
+			item2 = grid_repeater.itemAt(i2)
+			colorLine: balls_repeater.itemAt(i1).color
+			visible = true
+		}
+		function hide() {
+			visible = false
+		}
+	}
+
 	OpacityMask {
 		anchors.fill: parent
 		source: balls
@@ -163,4 +196,6 @@ Rectangle {
 
 	function reset() { balls.reset() }
 	function play(idx, player) { return balls.play(idx, player); }
+	function alignedShow(i1, i2) { lineAligned.show(i1, i2); }
+	function alignedHide() { lineAligned.hide(); }
 }

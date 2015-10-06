@@ -24,6 +24,9 @@ class UIInterface {
 	virtual void ResetBoard() = 0;
 	virtual void SetScore(int player, int score) = 0;
 
+	virtual void ShowAligned(int* aligned) = 0;
+	virtual void HideAligned() = 0;
+
 	void SetController(ControllerInterface *controller) { this->controller = controller; }
 };
 

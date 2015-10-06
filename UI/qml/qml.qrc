@@ -11,6 +11,7 @@
 <file>board/Infos.qml</file>
 <file>board/Board.qml</file>
 <file>board/Case.qml</file>
+<file>board/LocalLine.qml</file>
 <file>menu/qmldir</file>
 <file>menu/ButtonGeneric.qml</file>
 <file>menu/ButtonMenu.qml</file>

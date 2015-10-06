@@ -44,4 +44,6 @@ QtObject {
 	property int button_border_width: 1
 
 	property int button_reset_interval: 200
+
+	property double lineAlignedWidth: 2
 }

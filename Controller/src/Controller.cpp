@@ -80,6 +80,7 @@ void Controller::NewGame()
 	game->SetPlayer(player);
 
 	ui->EnablePlay(false);
+	ui->HideAligned();
 	ui->ResetBoard();
 	ui->ChangePlayer(player);
 	ui->EnablePlay(true);
@@ -129,7 +130,7 @@ void Controller::PlayAtIndex(int index)
 	played.push_back(index);
 
 	if (game->IsEnded(winner, caseAligned)) {
-		if (winner != -1) Win(winner);
+		if (winner != -1) Win(winner, caseAligned);
 		else ended = true;
 	}
 	else {
@@ -151,11 +152,14 @@ bool Controller::PlayPossibleAtCol(int col, int &idx)
 	return false;
 }
 
-void Controller::Win(int player)
+void Controller::Win(int player, int *aligned)
 {
+	qDebug() << "ctrl: player " << player << " win";
+	qDebug() << "ctrl: aligned " << *aligned << " - " << *(aligned + config.align - 1);
 	ended = true;
 	score[player]++;
 	ui->SetScore(player, score[player]);
+	ui->ShowAligned(aligned);
 	SaveScore();
 }
 

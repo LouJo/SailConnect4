@@ -92,6 +92,19 @@ void UI::Loop()
 	app->exec();
 }
 
+void UI::ShowAligned(int* aligned)
+{
+	QVariant ret;
+	QVariant i1 = *aligned;
+	QVariant i2 = *(aligned + config->property("align").toInt() - 1);
+	QMetaObject::invokeMethod(board, "alignedShow", Q_ARG(QVariant, i1), Q_ARG(QVariant, i2));
+}
+
+void UI::HideAligned()
+{
+	QMetaObject::invokeMethod(board, "alignedHide");
+}
+
 /* signals receptors from qml */
 
 void UI::SlotConfigChanged()

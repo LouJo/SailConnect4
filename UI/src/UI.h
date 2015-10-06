@@ -34,4 +34,7 @@ class UI : public QObject, public UIInterface {
 	bool PlayAtIndex(int player, int idx);
 	void ResetBoard();
 	void SetScore(int player, int score);
+
+	void ShowAligned(int* aligned);
+	void HideAligned();
 };
