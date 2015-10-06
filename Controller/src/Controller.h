@@ -26,6 +26,7 @@ class Controller : public ControllerInterface {
 	void Win(int player);
 	void NextPlayer();
 	void PlayAtIndex(int index);
+	bool PlayPossibleAtCol(int col, int &idx);
 
 	bool LoadConfig();
 	bool SaveConfig();

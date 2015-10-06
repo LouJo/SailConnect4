@@ -80,19 +80,19 @@ void Controller::NewGame()
 bool Controller::PlayAtCol(int col)
 {
 	if (col >= config.columns) return false;
-	ui->EnablePlay(false);
-	int y = config.rows - 1;
 
-	while (y >= 0) {
-		if (ui->PlayAtIndex(player, col + y * config.columns)) {
-			PlayAtIndex(col + y * config.columns);
-			ui->EnablePlay(true);
-			return true;
-		}
-		y--;
+	int idx;
+	ui->EnablePlay(false);
+
+	if (PlayPossibleAtCol(col, idx)) {
+		PlayAtIndex(idx);
+		ui->EnablePlay(true);
+		return true;
 	}
-	ui->EnablePlay(true);
-	return false;
+	else {
+		ui->EnablePlay(true);
+		return true;
+	}
 }
 
 void Controller::ResetScores()
@@ -113,9 +113,23 @@ void Controller::NextPlayer()
 
 void Controller::PlayAtIndex(int index)
 {
-//	ui->PlayAtIndex(player, index); TODO
+	ui->PlayAtIndex(player, index);
 	played.push_back(index);
 	NextPlayer();
+}
+
+bool Controller::PlayPossibleAtCol(int col, int &idx)
+{
+	// local version of game rule. Should be asked to game.
+
+	int y = config.rows - 1;
+
+	while (y >= 0) {
+		idx = col + y * config.columns;
+		if (played.end() == find(played.begin(), played.end(), idx)) return true;
+		y--;
+	}
+	return false;
 }
 
 void Controller::Win(int player)
@@ -227,7 +241,6 @@ bool Controller::LoadGame()
 
 	while (nb--) {
 		f >> index;
-		ui->PlayAtIndex(player, index); // TODO
 		PlayAtIndex(index);
 	}
 

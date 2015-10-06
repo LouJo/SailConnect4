@@ -81,7 +81,7 @@ class Game : public GameInterface {
 	void NewGame();
 	int IAPlay();
 	bool IsEnded(int &winner, int *caseAligned);
-	bool PlayAtCol(int col, int &index);
+	bool PlayPossibleAtCol(int col, int &index);
 	void SetIAForce(int force);
 	void SetPlayer(int player);
 };
