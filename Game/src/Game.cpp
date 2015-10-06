@@ -277,6 +277,7 @@ Game::Game()
 	// minimal before receiving config
 	boardDesc = new BoardDescription(0,0,1);
 	gameState = new GameState(boardDesc);
+	nbPlayed = 0;
 }
 
 Game::~Game()
@@ -297,6 +298,7 @@ void Game::ConfigSet(const ControllerInterface::Config &config)
 void Game::NewGame()
 {
 	gameState->Reset();
+	nbPlayed = 0;
 }
 
 int Game::IAPlay()
@@ -306,6 +308,11 @@ int Game::IAPlay()
 
 bool Game::IsEnded(int &winner, int* &caseAligned)
 {
+	if (nbPlayed == boardDesc->nbCase) {
+		// no winner
+		winner = -1;
+		return true;
+	}
 	return gameState->IsEnded(winner, caseAligned);
 }
 
@@ -313,6 +320,7 @@ bool Game::PlayAtIndex(int index)
 {
 	if (gameState->PlayAtIndex(index, currentPlayer)) {
 		currentPlayer = 1 - currentPlayer;
+		nbPlayed++;
 		return true;
 	}
 	else {

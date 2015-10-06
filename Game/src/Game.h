@@ -79,7 +79,7 @@ class Game : public GameInterface {
 
 	BoardDescription *boardDesc;
 	GameState *gameState;
-	int currentPlayer;
+	int currentPlayer, nbPlayed;
 
 	public:
 	Game();
