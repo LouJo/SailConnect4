@@ -17,17 +17,36 @@ class Game : public GameInterface {
 
 	class BoardDescription {
 		public:
+		static const int nbPlayer = 2;
 		int columns, rows, aligned;
 		int nbCase, nbAlignement, nbCaseAlignement;
 		std::vector<int> *alignementFromCase;
 
 		BoardDescription(int rows, int columns, int aligned);
+		~BoardDescription();
 
 		// return the case id for alignement algntIndex, case number i
 		inline int CaseFromAlignement(int algtIndex, int i);
 
 		private:
 		int *tabCaseFromAlignement;
+	};
+
+	class PlayerState {
+		public:
+		// -1 if align is not possible, nb of cases done if possible
+		int *alignementState;
+		// number of align done 0, 1, 2, 3, 4
+		int *nbAlignementDone;
+
+		PlayerState(BoardDescription*);
+		~PlayerState();
+		void Reset();
+		void PlayAlignement(int algnt);
+		void LooseAlignement(int algnt);
+
+		private:
+		BoardDescription *boardDesc;
 	};
 
 	class Case {
