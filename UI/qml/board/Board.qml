@@ -100,6 +100,7 @@ Rectangle {
 				property int timeAnimationDefault: Style.timeAnimationRow * (row + 1)
 				property int timeAnimation: timeAnimationDefault
 				property bool bounce: true
+				property bool placed: y == posY
 
 				y: played ? posY : -board.ballLength
 
@@ -152,7 +153,11 @@ Rectangle {
 
 		property var item1: lineAligned; //grid_repeater.itemAt(idx1)
 		property var item2: lineAligned; // grid_repeater.itemAt(idx2)
-		property color colorLine
+		property var ball1
+		property var ball2
+
+		property color colorLine: ball1.color
+		property bool showed: false
 
 		LocalLine {
 			x1: parent.item1.x + board.ballRadius
@@ -163,16 +168,18 @@ Rectangle {
 			color: parent.colorLine
 		}
 
-		visible: false
+		visible: showed && ball1.placed && ball2.placed
 
 		function show(i1, i2) {
 			item1 = grid_repeater.itemAt(i1)
 			item2 = grid_repeater.itemAt(i2)
-			colorLine: balls_repeater.itemAt(i1).color
-			visible = true
+			colorLine = balls_repeater.itemAt(i1).color
+			// console.log("qml: line color = " + colorLine)
+			console.log("qml: item1 " + item1.placed + " item2 " + item2.placed)
+			showed = true
 		}
 		function hide() {
-			visible = false
+			showed = false
 		}
 	}
 

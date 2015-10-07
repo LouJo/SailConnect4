@@ -107,7 +107,7 @@ int Game::BoardDescription::CaseFromAlignement(int algtIndex, int i)
 int* Game::BoardDescription::CaseArrayFromAlignement(int algtIndex)
 {
 	assert(algtIndex >= 0 && algtIndex < nbAlignement);
-	return tabCaseFromAlignement + algtIndex;
+	return tabCaseFromAlignement + algtIndex * align;
 }
 
 
@@ -148,7 +148,11 @@ void Game::PlayerState::PlayAlignement(int algnt)
 
 	nbAlignementDone[*a]--;
 	(*a)++;
-	if (nbAlignementDone[*a]++ == boardDesc->align) alignementCompleted = algnt;
+	nbAlignementDone[*a]++;
+   if (*a == boardDesc->align) {
+		cerr << "game: completed algt " << algnt << endl;
+		alignementCompleted = algnt;
+	}
 }
 
 bool Game::PlayerState::LooseAlignement(int algnt)

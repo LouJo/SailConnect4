@@ -155,7 +155,8 @@ bool Controller::PlayPossibleAtCol(int col, int &idx)
 void Controller::Win(int player, int *aligned)
 {
 	qDebug() << "ctrl: player " << player << " win";
-	qDebug() << "ctrl: aligned " << *aligned << " - " << *(aligned + config.align - 1);
+	//qDebug() << "ctrl: aligned " << *aligned << " - " << *(aligned + config.align - 1);
+
 	ended = true;
 	score[player]++;
 	ui->SetScore(player, score[player]);
