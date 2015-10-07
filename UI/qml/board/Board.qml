@@ -151,19 +151,19 @@ Rectangle {
 	Rectangle {
 		id: lineAligned;
 
-		property var item1: lineAligned; //grid_repeater.itemAt(idx1)
-		property var item2: lineAligned; // grid_repeater.itemAt(idx2)
+		property var item1
+		property var item2
 		property var ball1
 		property var ball2
 
-		property color colorLine: ball1.color
+		property color colorLine: ball1 ? ball1.color : "white"
 		property bool showed: false
 
 		LocalLine {
-			x1: parent.item1.x + board.ballRadius
-			y1: parent.item1.y + board.ballRadius
-			x2: parent.item2.x + board.ballRadius
-			y2: parent.item2.y + board.ballRadius
+			x1: parent.item1 ? parent.item1.x + board.ballRadius : 0
+			y1: parent.item1 ? parent.item1.y + board.ballRadius : 0
+			x2: parent.item2 ? parent.item2.x + board.ballRadius : 0
+			y2: parent.item2 ? parent.item2.y + board.ballRadius : 0
 			lineWidth: Style.lineAlignedWidth
 			color: parent.colorLine
 		}
@@ -173,9 +173,10 @@ Rectangle {
 		function show(i1, i2) {
 			item1 = grid_repeater.itemAt(i1)
 			item2 = grid_repeater.itemAt(i2)
-			colorLine = balls_repeater.itemAt(i1).color
-			// console.log("qml: line color = " + colorLine)
-			console.log("qml: item1 " + item1.placed + " item2 " + item2.placed)
+			ball1 = balls_repeater.itemAt(i1)
+			ball2 = balls_repeater.itemAt(i2)
+
+			colorLine = ball1.color
 			showed = true
 		}
 		function hide() {
