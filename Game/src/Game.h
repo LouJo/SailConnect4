@@ -41,7 +41,7 @@ class Game : public GameInterface {
 		void Reset();
 		// play in an alignement
 		void PlayAlignement(int algnt);
-		bool LooseAlignement(int algnt);
+		bool LooseAlignement(int algnt, int &previousNb);
 		// revert play in alignement
 		void RevertPlayAlignement(int algnt);
 		void RevertLooseAlignement(int algnt, int previousNb);
@@ -61,6 +61,17 @@ class Game : public GameInterface {
 		int alignementCompleted;
 	};
 
+	struct GameDiff {
+		struct PlayAlignt_t { int player, algnt; };
+		struct LooseAlignt_t { int player, algnt, previousNb; };
+
+		std::vector<PlayAlignt_t> aligntPlayed;
+		std::vector<LooseAlignt_t> aligntLoosed;
+		int casePlayed;
+
+		void Clear();
+	};
+
 	class GameState {
 		public:
 		GameState(BoardDescription*);
@@ -70,11 +81,15 @@ class Game : public GameInterface {
 		bool PlayAtIndex(int idx, int player);
 		bool PlayPossibleAtIndex(int idx);
 		bool IsEnded(int &winner, int* &caseAligned);
+		bool Back();
 
 		private:
 		int8_t *board;
 		PlayerState **playerState;
 		BoardDescription *boardDesc;
+		std::vector<GameDiff> gameDiff;
+
+		void ApplyDiff(const GameDiff &diff);
 	};
 
 	static const int defaultIAForce = 2;

@@ -155,11 +155,13 @@ void Game::PlayerState::PlayAlignement(int algnt)
 	}
 }
 
-bool Game::PlayerState::LooseAlignement(int algnt)
+bool Game::PlayerState::LooseAlignement(int algnt, int &previousNb)
 {
 	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
 	int *a = alignementState + algnt;
 	if (*a == -1) return false;
+
+	previousNb = *a;
 	nbAlignementDone[*a]--;
 	*a = -1; // disable alignement with -1
 	return true;
@@ -214,6 +216,14 @@ int* Game::PlayerState::CaseArrayAligned()
 	return boardDesc->CaseArrayFromAlignement(alignementCompleted);
 }
 
+/* Game diff */
+
+void Game::GameDiff::Clear()
+{
+	aligntPlayed.clear();
+	aligntLoosed.clear();
+	casePlayed = -1;
+}
 
 /* Game state */
 
@@ -238,6 +248,7 @@ void Game::GameState::Reset()
 {
 	fill(board, board + boardDesc->nbCase, -1);
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i]->Reset();
+	gameDiff.clear();
 }
 
 bool Game::GameState::PlayAtIndex(int idx, int player)
@@ -245,16 +256,28 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 	assert(idx >= 0 && idx < boardDesc->nbCase);
 	assert(player >= 0 && player < boardDesc->nbPlayer);
 
+	GameDiff diff;
+
 	if (board[idx] != -1) return false;
 
+	int otherPlayer = 1 - player;
+	int previousNb;
+
 	PlayerState *stateMe = playerState[player];
-	PlayerState *stateOther = playerState[1-player];
+	PlayerState *stateOther = playerState[otherPlayer];
 
 	for (int &algt : boardDesc->alignementFromCase[idx]) {
 		stateMe->PlayAlignement(algt);	
-		stateOther->LooseAlignement(algt);
+		diff.aligntPlayed.push_back({ player, algt });
+
+		if (stateOther->LooseAlignement(algt, previousNb)) {
+			diff.aligntLoosed.push_back({ player, algt, previousNb });
+		}
 	}
 	board[idx] = player;
+	diff.casePlayed = idx;
+
+	gameDiff.push_back(diff);
 	return true;
 }
 
@@ -275,6 +298,21 @@ bool Game::GameState::IsEnded(int &winner, int* &caseAligned)
 	return false;
 }
 
+bool Game::GameState::Back()
+{
+	if (gameDiff.size() == 0) return false;
+	GameDiff diff = gameDiff.back();
+	ApplyDiff(diff);
+	gameDiff.pop_back();
+	return true;
+}
+
+void Game::GameState::ApplyDiff(const GameDiff &diff)
+{
+	board[diff.casePlayed] = -1;
+	for (auto &loosed : diff.aligntLoosed) playerState[loosed.player]->RevertLooseAlignement(loosed.algnt, loosed.previousNb);
+	for (auto &played : diff.aligntPlayed) playerState[played.player]->RevertPlayAlignement(played.algnt);
+}
 
 /* main game class with public api
  * wait ConfigSet to construct objects
