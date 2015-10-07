@@ -11,6 +11,18 @@
 class Game : public GameInterface {
 	private:
 
+	// score factors
+	enum {
+		SCORE_RANDOM,
+		SCORE_ALIGN_PLAYER,
+		SCORE_ALIGN_OTHER,
+		NB_SCORE_FACTOR
+	} ScoreFactor_t;
+
+	struct ScoreFactors {
+		double factors[NB_SCORE_FACTOR];
+	};
+
 	/* object to describe a board, given cols, rows and align
 	 * once constructed, does not change.
 	 */
