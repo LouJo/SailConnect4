@@ -79,12 +79,13 @@ class Game : public GameInterface {
 		void Reset();
 
 		bool PlayAtIndex(int idx, int player);
-		bool PlayPossibleAtIndex(int idx);
+		bool PlayPossibleAtColumn(int col, int &idx);
 		bool IsEnded(int &winner, int* &caseAligned);
 		bool Back();
 
 		private:
 		int8_t *board;
+		int *columnNbPlayed;
 		PlayerState **playerState;
 		BoardDescription *boardDesc;
 		std::vector<GameDiff> gameDiff;

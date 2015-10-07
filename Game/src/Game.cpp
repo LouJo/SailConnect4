@@ -231,6 +231,7 @@ Game::GameState::GameState(BoardDescription *desc)
 {
 	boardDesc = desc;
 	board = new int8_t[boardDesc->nbCase];
+	columnNbPlayed = new int[boardDesc->columns];
 	playerState = new PlayerState*[boardDesc->nbPlayer];
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i] = new PlayerState(boardDesc);
 
@@ -241,12 +242,14 @@ Game::GameState::~GameState()
 {
 	for (int i = 0; i < boardDesc->nbPlayer; i++) delete playerState[i];
 	delete[] playerState;
+	delete[] columnNbPlayed;
 	delete[] board;
 }
 
 void Game::GameState::Reset()
 {
 	fill(board, board + boardDesc->nbCase, -1);
+	fill(columnNbPlayed, columnNbPlayed + boardDesc->columns, 0);
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i]->Reset();
 	gameDiff.clear();
 }
@@ -275,16 +278,19 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 		}
 	}
 	board[idx] = player;
+	columnNbPlayed[idx % boardDesc->columns]++;
 	diff.casePlayed = idx;
 
 	gameDiff.push_back(diff);
 	return true;
 }
 
-bool Game::GameState::PlayPossibleAtIndex(int idx)
+bool Game::GameState::PlayPossibleAtColumn(int col, int &idx)
 {
-	assert(idx >= 0 && idx < boardDesc->nbCase);
-	return board[idx] == -1;
+	assert(col >= 0 && col < boardDesc->columns);
+	if (columnNbPlayed[col] == boardDesc->rows) return false;
+	idx = col + (boardDesc->rows - columnNbPlayed[col] - 1) * boardDesc->columns;
+	return true;
 }
 
 bool Game::GameState::IsEnded(int &winner, int* &caseAligned)
@@ -310,6 +316,8 @@ bool Game::GameState::Back()
 void Game::GameState::ApplyDiff(const GameDiff &diff)
 {
 	board[diff.casePlayed] = -1;
+	columnNbPlayed[diff.casePlayed % boardDesc->columns]--;
+
 	for (auto &loosed : diff.aligntLoosed) playerState[loosed.player]->RevertLooseAlignement(loosed.algnt, loosed.previousNb);
 	for (auto &played : diff.aligntPlayed) playerState[played.player]->RevertPlayAlignement(played.algnt);
 }
@@ -386,15 +394,7 @@ bool Game::PlayAtIndex(int index)
 bool Game::PlayPossibleAtCol(int col, int &index)
 {
 	// find the lowest fee case in col
-	int y = boardDesc->rows - 1;
-
-	while (y >= 0) {
-		index = y * boardDesc->columns + col;
-		if (gameState->PlayPossibleAtIndex(index)) return true;
-		y--;
-	}
-
-	return false;
+	return gameState->PlayPossibleAtColumn(col, index);
 }
 
 void Game::SetIAForce(int force)
