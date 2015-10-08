@@ -341,12 +341,14 @@ Game::GameState::GameState(BoardDescription *desc)
 	playerState = new PlayerState*[boardDesc->nbPlayer];
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i] = new PlayerState(boardDesc);
 	scoring = new Scoring[boardDesc->nbPlayer];
+	playable = new PlayableRange(this);
 
 	Reset();
 }
 
 Game::GameState::~GameState()
 {
+	delete playable;
 	delete[] scoring;
 	for (int i = 0; i < boardDesc->nbPlayer; i++) delete playerState[i];
 	delete[] playerState;
@@ -447,8 +449,18 @@ void Game::GameState::ApplyDiff(const GameDiff &diff)
 int Game::GameState::BestPlay(int player)
 {
 	// find the best play
-	int idx, bestIdx = -1;
+	int bestIdx = -1;
 	double bestScore = 0, s;
+
+	for (int idx : Playable()) {
+		PlayAtIndex(idx, player);
+		s = Score(player);
+		if (s > bestScore) bestScore = s, bestIdx = idx;
+//		cerr << "IA: col " << col << " score " << s << endl;
+		Back();
+	}
+	/*
+	int idx;
 	for (int col = 0; col < boardDesc->columns; col++) {
 		if (PlayPossibleAtColumn(col, idx)) {
 			PlayAtIndex(idx, player);
@@ -457,10 +469,54 @@ int Game::GameState::BestPlay(int player)
 //			cerr << "IA: col " << col << " score " << s << endl;
 			Back();
 		}
-	}
+	}*/
 	return bestIdx;
 }
 
+// Playable range
+
+void Game::GameState::PlayableRangeIterator::operator++ ()
+{
+	col++;
+	while (col < game->boardDesc->columns && !game->PlayPossibleAtColumn(col, idx)) col++;
+	if (col == game->boardDesc->columns) idx = -1;
+}
+
+int& Game::GameState::PlayableRangeIterator::operator* ()
+{
+	return idx;
+}
+
+bool Game::GameState::PlayableRangeIterator::operator!= (const PlayableRangeIterator &it)
+{
+	return idx != it.idx;
+}
+
+Game::GameState::PlayableRangeIterator::PlayableRangeIterator(GameState *g, int c) :
+	col(c),
+	game(g)
+{
+	while (col < game->boardDesc->columns && !game->PlayPossibleAtColumn(col, idx)) col++;
+	if (col == game->boardDesc->columns) idx = -1;
+}
+
+Game::GameState::PlayableRangeIterator Game::GameState::PlayableRange::begin()
+{
+	return PlayableRangeIterator(game, 0);
+}
+
+Game::GameState::PlayableRangeIterator Game::GameState::PlayableRange::end()
+{
+	return PlayableRangeIterator(game, game->boardDesc->columns);
+}
+
+Game::GameState::PlayableRange::PlayableRange(GameState *g) : game(g) {}
+
+Game::GameState::PlayableRange Game::GameState::Playable()
+{
+//	return *playable;
+	return PlayableRange(this);
+}
 
 // score of the game
 
