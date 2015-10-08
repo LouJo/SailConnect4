@@ -195,12 +195,12 @@ void Game::PlayerState::Reset()
 
 // play in alignement
 
-void Game::PlayerState::PlayAlignement(int algnt)
+bool Game::PlayerState::PlayAlignement(int algnt)
 {
 	assert(algnt >= 0 && algnt < boardDesc->nbAlignement);
 
 	int *a = alignementState + algnt;
-	if (*a == -1) return;
+	if (*a == -1) return false;
 
 	assert(*a >= 0 && *a < boardDesc->align);
 	assert(nbAlignementDone[*a] > 0);
@@ -209,9 +209,10 @@ void Game::PlayerState::PlayAlignement(int algnt)
 	(*a)++;
 	nbAlignementDone[*a]++;
    if (*a == boardDesc->align) {
-		cerr << "game: completed algt " << algnt << endl;
+		//cerr << "game: completed algt " << algnt << endl;
 		alignementCompleted = algnt;
 	}
+	return true;
 }
 
 bool Game::PlayerState::LooseAlignement(int algnt, int &previousNb)
@@ -336,11 +337,11 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 	PlayerState *stateOther = playerState[otherPlayer];
 
 	for (int &algt : boardDesc->alignementFromCase[idx]) {
-		stateMe->PlayAlignement(algt);	
-		diff.aligntPlayed.push_back({ player, algt });
-
+		if (stateMe->PlayAlignement(algt)) {
+			diff.aligntPlayed.push_back({ player, algt });
+		}
 		if (stateOther->LooseAlignement(algt, previousNb)) {
-			diff.aligntLoosed.push_back({ player, algt, previousNb });
+			diff.aligntLoosed.push_back({ otherPlayer, algt, previousNb });
 		}
 	}
 	board[idx] = player;
@@ -348,13 +349,6 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 	diff.casePlayed = idx;
 
 	gameDiff.push_back(diff);
-
-	DebugNbAligned();
-
-	cerr << "game: score ";
-	for (int i = 0; i < boardDesc->nbPlayer; i++)
-		cerr << "player " << i << ": " << Score(i) << " ";
-	cerr << endl;
 
 	return true;
 }
@@ -403,6 +397,24 @@ void Game::GameState::ApplyDiff(const GameDiff &diff)
 	for (auto &loosed : diff.aligntLoosed) playerState[loosed.player]->RevertLooseAlignement(loosed.algnt, loosed.previousNb);
 	for (auto &played : diff.aligntPlayed) playerState[played.player]->RevertPlayAlignement(played.algnt);
 }
+
+int Game::GameState::BestPlay(int player)
+{
+	// find the best play
+	int idx, bestIdx = -1;
+	double bestScore = 0, s;
+	for (int col = 0; col < boardDesc->columns; col++) {
+		if (PlayPossibleAtColumn(col, idx)) {
+			PlayAtIndex(idx, player);
+			s = Score(player);
+			if (s > bestScore) bestScore = s, bestIdx = idx;
+			cerr << "IA: col " << col << " score " << s << endl;
+			Back();
+		}
+	}
+	return bestIdx;
+}
+
 
 // score of the game
 
@@ -465,7 +477,7 @@ void Game::NewGame()
 
 int Game::IAPlay()
 {
-	return 0;
+	return gameState->BestPlay(currentPlayer);
 }
 
 bool Game::IsEnded(int &winner, int* &caseAligned)
@@ -483,6 +495,14 @@ bool Game::PlayAtIndex(int index)
 	if (gameState->PlayAtIndex(index, currentPlayer)) {
 		currentPlayer = 1 - currentPlayer;
 		nbPlayed++;
+
+		gameState->DebugNbAligned();
+
+		cerr << "game: score ";
+		for (int i = 0; i < boardDesc->nbPlayer; i++)
+			cerr << "player " << i << ": " << gameState->Score(i) << " ";
+		cerr << endl;
+
 		return true;
 	}
 	else {

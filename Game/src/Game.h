@@ -76,7 +76,7 @@ class Game : public GameInterface {
 		~PlayerState();
 		void Reset();
 		// play in an alignement
-		void PlayAlignement(int algnt);
+		bool PlayAlignement(int algnt);
 		bool LooseAlignement(int algnt, int &previousNb);
 		// revert play in alignement
 		void RevertPlayAlignement(int algnt);
@@ -120,6 +120,7 @@ class Game : public GameInterface {
 
 		double Score(int player);
 		void DebugNbAligned();
+		int BestPlay(int player);
 
 		private:
 		Scoring scoring;
