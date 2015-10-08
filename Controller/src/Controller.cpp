@@ -53,13 +53,15 @@ void Controller::Start()
 	ui->SetController(this);
 	ui->Launch();
 	LoadGame();
-	ui->EnablePlay(true);
+	EnablePlay();
 }
 
 void Controller::ConfigChange(const Config &config)
 {
+	ui->EnablePlay(false);
 	this->config = config;
 	SaveConfig();
+	EnablePlay();
 }
 
 void Controller::ExitGame()
@@ -83,7 +85,7 @@ void Controller::NewGame()
 	ui->HideAligned();
 	ui->ResetBoard();
 	ui->ChangePlayer(player);
-	ui->EnablePlay(true);
+	EnablePlay();
 }
 
 bool Controller::PlayAtCol(int col)
@@ -95,7 +97,7 @@ bool Controller::PlayAtCol(int col)
 
 	if (game->PlayPossibleAtCol(col, idx)) {
 		PlayAtIndex(idx);
-		if (!ended) ui->EnablePlay(true);
+		if (!ended) EnablePlay();
 		return true;
 	}
 	else {
@@ -119,6 +121,24 @@ void Controller::NextPlayer()
 	player = 1 - player;
 	// game does it by itself
 	ui->ChangePlayer(player);
+}
+
+void Controller::EnablePlay()
+{
+	if (config.player[player].type == TypeHuman) {
+		ui->EnablePlay(true);
+	}
+	else {
+		int idx = game->IAPlay();
+		if (idx == -1) {
+			cerr << "ctrl: IA answered nothing !!!" << endl;
+			ui->EnablePlay(true);
+		}
+		else {
+			PlayAtIndex(idx);
+			if (!ended) EnablePlay(); // next turn
+		}
+	}
 }
 
 void Controller::PlayAtIndex(int index)

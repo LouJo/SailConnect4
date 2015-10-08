@@ -28,6 +28,7 @@ class Controller : public ControllerInterface {
 
 	void Win(int player, int *aligned);
 	void NextPlayer();
+	void EnablePlay();
 	void PlayAtIndex(int index);
 	bool PlayPossibleAtCol(int col, int &idx);
 

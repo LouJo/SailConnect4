@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "Game.h"
 
@@ -17,15 +18,39 @@
 #define max(a,b) (a>b?a:b)
 #endif
 
+#define NB_ELT(a) (sizeof(a)/sizeof(*a))
+
 using namespace std;
 
 
 /* Scoring */
 
 Game::ScoreFactors Game::defaultScoreFactors = {
+	"default",
 	{ 0, 0.5, 0.5 },  // Score factors
 	0.75,             // alignedMore
 	{ 70, 30, 10, 5 } // maxAligned
+};
+
+Game::ScoreFactors Game::aggressiveFactors = {
+	"aggressive",
+	{ 0, 0.7, 0.3 },  // Score factors
+	0.75,             // alignedMore
+	{ 10, 10, 10, 5 } // maxAligned
+};
+
+
+Game::ScoreFactors Game::defensiveFactors = {
+	"defensive",
+	{ 0, 0.3, 0.7 },  // Score factors
+	0.75,             // alignedMore
+	{ 70, 30, 10, 5 } // maxAligned
+};
+
+Game::ScoreFactors *Game::strategies[] = {
+	&defaultScoreFactors,
+	&aggressiveFactors,
+	&defensiveFactors,
 };
 
 Game::Scoring::Scoring() : score(0)
@@ -36,6 +61,20 @@ Game::Scoring::Scoring() : score(0)
 void Game::Scoring::Reset()
 {
 	score = 0;
+}
+
+void Game::ScoreFactors::operator= (const ScoreFactors &s)
+{
+	name = s.name;
+	for (int i = 0; i < NB_SCORE_FACTOR; i++) factors[i] = s.factors[i];
+	factorAlignedMore = s.factorAlignedMore;
+	for (int i = 0; i < maxNbAligned; i++) maxAligned[i] = s.maxAligned[i];
+}
+
+void Game::Scoring::SetStrategie(int i)
+{
+	assert(i >= 0 && i < 3);
+	factors = *strategies[i];
 }
 
 void Game::Scoring::SetScore(const ScoreFactor_t factorId, double s)
@@ -301,12 +340,14 @@ Game::GameState::GameState(BoardDescription *desc)
 	columnNbPlayed = new int[boardDesc->columns];
 	playerState = new PlayerState*[boardDesc->nbPlayer];
 	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i] = new PlayerState(boardDesc);
+	scoring = new Scoring[boardDesc->nbPlayer];
 
 	Reset();
 }
 
 Game::GameState::~GameState()
 {
+	delete[] scoring;
 	for (int i = 0; i < boardDesc->nbPlayer; i++) delete playerState[i];
 	delete[] playerState;
 	delete[] columnNbPlayed;
@@ -317,7 +358,12 @@ void Game::GameState::Reset()
 {
 	fill(board, board + boardDesc->nbCase, -1);
 	fill(columnNbPlayed, columnNbPlayed + boardDesc->columns, 0);
-	for (int i = 0; i < boardDesc->nbPlayer; i++) playerState[i]->Reset();
+
+	for (int i = 0; i < boardDesc->nbPlayer; i++) {
+		playerState[i]->Reset();
+		scoring[i].SetStrategie(rand() % NB_ELT(strategies));
+		cerr << "game: player 1 strategie " << scoring[i].factors.name << endl;
+	}
 	gameDiff.clear();
 }
 
@@ -408,7 +454,7 @@ int Game::GameState::BestPlay(int player)
 			PlayAtIndex(idx, player);
 			s = Score(player);
 			if (s > bestScore) bestScore = s, bestIdx = idx;
-			cerr << "IA: col " << col << " score " << s << endl;
+//			cerr << "IA: col " << col << " score " << s << endl;
 			Back();
 		}
 	}
@@ -425,12 +471,14 @@ double Game::GameState::Score(int player)
 	if (playerState[player]->HasWon()) return 1;
 	if (playerState[other]->HasWon()) return 0;
 
-	scoring.Reset();
-	scoring.SetAligned(SCORE_ALIGN_PLAYER, playerState[player]->nbAlignementDone, boardDesc->align);
-	scoring.SetAligned(SCORE_ALIGN_OTHER, playerState[other]->nbAlignementDone, boardDesc->align);
-	scoring.SetRandom();
+	Scoring *sc = &scoring[player];
 
-	return scoring();
+	sc->Reset();
+	sc->SetAligned(SCORE_ALIGN_PLAYER, playerState[player]->nbAlignementDone, boardDesc->align);
+	sc->SetAligned(SCORE_ALIGN_OTHER, playerState[other]->nbAlignementDone, boardDesc->align);
+	sc->SetRandom();
+
+	return (*sc)();
 }
 
 /* main game class with public api
@@ -439,6 +487,8 @@ double Game::GameState::Score(int player)
 
 Game::Game()
 {
+	srand (time(NULL));
+
 	// minimal before receiving config
 	boardDesc = new BoardDescription(0,0,1);
 	gameState = new GameState(boardDesc);
@@ -447,6 +497,8 @@ Game::Game()
 
 Game::Game(int rows, int columns, int align)
 {
+	srand (time(NULL));
+
 	// minimal before receiving config
 	boardDesc = new BoardDescription(rows, columns, align);
 	gameState = new GameState(boardDesc);

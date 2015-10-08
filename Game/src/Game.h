@@ -4,6 +4,7 @@
 /* Game implementation headers */
 
 #include <stdint.h>
+#include <string>
 #include <vector>
 
 #include "../include/GameInterface.h"
@@ -21,19 +22,24 @@ class Game : public GameInterface {
 
 	struct ScoreFactors {
 		static const int maxNbAligned = 4;
-
+		const char* name;
 		double factors[NB_SCORE_FACTOR];
 		double factorAlignedMore;
 		int maxAligned[maxNbAligned];
+
+		void operator= (const ScoreFactors &s);
 	};
 
 	static ScoreFactors defaultScoreFactors;
+	static ScoreFactors aggressiveFactors, defensiveFactors;
+	static ScoreFactors* strategies[];
 
 	class Scoring {
 		public:
 		ScoreFactors factors;
 
 		Scoring();
+		void SetStrategie(int i);
 		void Reset();
 		void SetScore(const ScoreFactor_t factorId, double s);
 		void SetAligned(const ScoreFactor_t factorId, int *nbAligned, int align);
@@ -123,7 +129,7 @@ class Game : public GameInterface {
 		int BestPlay(int player);
 
 		private:
-		Scoring scoring;
+		Scoring *scoring;
 		int8_t *board;
 		int *columnNbPlayed;
 		PlayerState **playerState;
