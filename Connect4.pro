@@ -7,6 +7,7 @@ SOURCES += \
 	UI/src/UI.cpp \
 	Controller/src/Controller.cpp \
 	Game/src/Game.cpp \
+	Game/src/Minimax.cpp \
 	Controller/src/main.cpp
 
 RESOURCES += UI/qml/qml.qrc
@@ -17,4 +18,5 @@ HEADERS += \
 	Controller/include/ControllerInterface.h \
 	Controller/src/Controller.h \
 	Game/include/GameInterface.h \
-	Game/src/Game.h
+	Game/src/Game.h \
+	Game/src/Minimax.h

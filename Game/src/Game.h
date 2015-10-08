@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../include/GameInterface.h"
+#include "Minimax.h"
 
 class Game : public GameInterface {
 	private:
@@ -113,24 +114,34 @@ class Game : public GameInterface {
 		void Clear();
 	};
 
-	class GameState {
+	class GameState : public MinimaxGameInterface {
 		public:
 		GameState(BoardDescription*);
 		~GameState();
 		void Reset();
 
+		// minimax client
 		bool PlayAtIndex(int idx, int player);
+		bool Back();
+		bool Ended(int &winner);
+		int NextPlayer(int player);
+		double Score(int player);
+		// playable iterator
+		int PlayableBegin();
+		int PlayableNext();
+		int PlayableEnd();
+
+		// Game client
 		bool PlayPossibleAtColumn(int col, int &idx);
 		bool IsEnded(int &winner, int* &caseAligned);
-		bool Back();
-
-		double Score(int player);
-		void DebugNbAligned();
 		int BestPlay(int player);
+
+		void DebugNbAligned();
 
 		private:
 		Scoring *scoring;
 		int8_t *board;
+		int playableCol;
 		int *columnNbPlayed;
 		PlayerState **playerState;
 		BoardDescription *boardDesc;

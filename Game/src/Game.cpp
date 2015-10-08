@@ -435,6 +435,12 @@ bool Game::GameState::Back()
 	return true;
 }
 
+bool Game::GameState::Ended(int &winner)
+{
+	int* aligned;
+	return IsEnded(winner, aligned);
+}
+
 void Game::GameState::ApplyDiff(const GameDiff &diff)
 {
 	board[diff.casePlayed] = -1;
@@ -447,20 +453,46 @@ void Game::GameState::ApplyDiff(const GameDiff &diff)
 int Game::GameState::BestPlay(int player)
 {
 	// find the best play
-	int idx, bestIdx = -1;
+	int bestIdx = -1;
 	double bestScore = 0, s;
-	for (int col = 0; col < boardDesc->columns; col++) {
-		if (PlayPossibleAtColumn(col, idx)) {
-			PlayAtIndex(idx, player);
-			s = Score(player);
-			if (s > bestScore) bestScore = s, bestIdx = idx;
-//			cerr << "IA: col " << col << " score " << s << endl;
-			Back();
-		}
+
+	for (int idx = PlayableBegin(); idx != PlayableEnd(); idx = PlayableNext()) {
+		PlayAtIndex(idx, player);
+		s = Score(player);
+		if (s > bestScore) bestScore = s, bestIdx = idx;
+//		cerr << "IA: col " << col << " score " << s << endl;
+		Back();
 	}
 	return bestIdx;
 }
 
+int Game::GameState::NextPlayer(int player)
+{
+	return (player + 1) % boardDesc->nbPlayer;
+}
+
+// playable iterotor
+
+int Game::GameState::PlayableBegin()
+{
+	int idx = -1;
+	playableCol = 0;
+	while (playableCol < boardDesc->columns && !PlayPossibleAtColumn(playableCol, idx)) playableCol++;
+	return idx;
+}
+
+int Game::GameState::PlayableNext()
+{
+	int idx = -1;
+	playableCol++;
+	while (playableCol < boardDesc->columns && !PlayPossibleAtColumn(playableCol, idx)) playableCol++;
+	return idx;
+}
+
+int Game::GameState::PlayableEnd()
+{
+	return -1;
+}
 
 // score of the game
 
