@@ -23,8 +23,9 @@ using namespace std;
 /* Scoring */
 
 Game::ScoreFactors Game::defaultScoreFactors = {
-	{ 0, 0.5, 0.5 },
-	5
+	{ 0, 0.5, 0.5 },  // Score factors
+	0.75,             // alignedMore
+	{ 70, 30, 10, 5 } // maxAligned
 };
 
 Game::Scoring::Scoring() : score(0)
@@ -52,8 +53,13 @@ void Game::Scoring::SetAligned(const ScoreFactor_t factorId, int *nbAligned, int
 	 */
 	double s = 0;
 	for (int i = 0; i < align; i++) {
-		int nb = max(factors.maxAlignedNb, *(nbAligned + i));
-		s = s / 3 + (double) nb / factors.maxAlignedNb * 2 / 3;
+		// max nb to take account for this nb
+		int max;
+		if (i < factors.maxNbAligned) max = factors.maxAligned[i];
+		else max = factors.maxAligned[factors.maxNbAligned - 1];
+
+		int nb = min(max, *(nbAligned + i));
+		s = s * (1 - factors.factorAlignedMore) + (double) nb / max * factors.factorAlignedMore;
 	}
 	if (factorId == SCORE_ALIGN_OTHER) s = 1 - s;
 	SetScore(factorId, s);
@@ -269,6 +275,13 @@ int* Game::PlayerState::CaseArrayAligned()
 	return boardDesc->CaseArrayFromAlignement(alignementCompleted);
 }
 
+void Game::PlayerState::DebugNbAligned()
+{
+	for (int i = 0; i < boardDesc->align; i++)
+		cerr << *(nbAlignementDone + i) << " ";
+	cerr << endl;
+}
+
 /* Game diff */
 
 void Game::GameDiff::Clear()
@@ -336,12 +349,22 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 
 	gameDiff.push_back(diff);
 
+	DebugNbAligned();
+
 	cerr << "game: score ";
 	for (int i = 0; i < boardDesc->nbPlayer; i++)
 		cerr << "player " << i << ": " << Score(i) << " ";
 	cerr << endl;
 
 	return true;
+}
+
+void Game::GameState::DebugNbAligned()
+{
+	for (int i = 0; i < boardDesc->nbPlayer; i++) {
+		cerr << "game: player " << i << " aligned ";
+		playerState[i]->DebugNbAligned();
+	}
 }
 
 bool Game::GameState::PlayPossibleAtColumn(int col, int &idx)

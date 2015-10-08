@@ -20,8 +20,11 @@ class Game : public GameInterface {
 	} ScoreFactor_t;
 
 	struct ScoreFactors {
+		static const int maxNbAligned = 4;
+
 		double factors[NB_SCORE_FACTOR];
-		int maxAlignedNb;
+		double factorAlignedMore;
+		int maxAligned[maxNbAligned];
 	};
 
 	static ScoreFactors defaultScoreFactors;
@@ -84,6 +87,8 @@ class Game : public GameInterface {
 		bool HasWon();
 		int* CaseArrayAligned();
 
+		void DebugNbAligned();
+
 		private:
 		BoardDescription *boardDesc;
 		// -1 if align is not possible, nb of cases done if possible
@@ -114,6 +119,7 @@ class Game : public GameInterface {
 		bool Back();
 
 		double Score(int player);
+		void DebugNbAligned();
 
 		private:
 		Scoring scoring;
