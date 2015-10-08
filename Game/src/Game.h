@@ -123,7 +123,6 @@ class Game : public GameInterface {
 		// minimax client
 		bool PlayAtIndex(int idx, int player);
 		bool Back();
-		bool Ended(int &winner);
 		int NextPlayer(int player);
 		double Score(int player);
 		// playable iterator
@@ -134,6 +133,7 @@ class Game : public GameInterface {
 		// Game client
 		bool PlayPossibleAtColumn(int col, int &idx);
 		bool IsEnded(int &winner, int* &caseAligned);
+		bool IsEnded();
 		int BestPlay(int player);
 
 		void DebugNbAligned();
@@ -152,10 +152,12 @@ class Game : public GameInterface {
 	};
 
 	static const int defaultIAForce = 2;
+	static const int maxNodesTree = 10000;
 
 	BoardDescription *boardDesc;
 	GameState *gameState;
 	int currentPlayer, nbPlayed, iaForce;
+	Minimax *minimax;
 
 	public:
 	Game();

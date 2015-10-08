@@ -13,7 +13,6 @@ class MinimaxGameInterface {
 	public:
 	virtual ~MinimaxGameInterface() {}
 	virtual bool Back() = 0;
-	virtual bool Ended(int &winner) = 0;
 	virtual int NextPlayer(int player) = 0;
 	virtual bool PlayAtIndex(int idx, int player) = 0;
 	virtual double Score(int player) = 0;
@@ -41,6 +40,7 @@ class Minimax {
 			struct {
 				uint16_t childs : 1;
 				uint16_t ownScore: 1;
+				uint16_t ended: 1;
 			};
 			uint16_t val;
 		} found;
@@ -49,7 +49,7 @@ class Minimax {
 	};
 
 	MinimaxGameInterface *game;
-	int maxNodes, maxNodesCurrent, nbNodes;
+	int maxNodes, maxNodesCurrent, nbNodes, maxDepth;
 	Node *nodes;
 	int player;
 
@@ -57,7 +57,7 @@ class Minimax {
 	Node* NewNode(int depth);
 	inline void NodeFindChilds(Node *node);
 	inline double NodeOwnScore(Node *node);
-	void NodeFindScore(Node *node, int currentPlayer, int maxDepth);
+	void NodeFindScore(Node *node, int currentPlayer);
 };
 
 #endif

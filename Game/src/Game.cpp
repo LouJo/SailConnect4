@@ -426,6 +426,12 @@ bool Game::GameState::IsEnded(int &winner, int* &caseAligned)
 	return false;
 }
 
+bool Game::GameState::IsEnded()
+{
+	int winner, *aligned;
+	return IsEnded(winner, aligned);
+}
+
 bool Game::GameState::Back()
 {
 	if (gameDiff.size() == 0) return false;
@@ -433,12 +439,6 @@ bool Game::GameState::Back()
 	ApplyDiff(diff);
 	gameDiff.pop_back();
 	return true;
-}
-
-bool Game::GameState::Ended(int &winner)
-{
-	int* aligned;
-	return IsEnded(winner, aligned);
 }
 
 void Game::GameState::ApplyDiff(const GameDiff &diff)
@@ -476,6 +476,7 @@ int Game::GameState::NextPlayer(int player)
 int Game::GameState::PlayableBegin()
 {
 	int idx = -1;
+	if (IsEnded()) return idx;
 	playableCol = 0;
 	while (playableCol < boardDesc->columns && !PlayPossibleAtColumn(playableCol, idx)) playableCol++;
 	return idx;
@@ -524,7 +525,9 @@ Game::Game()
 	// minimal before receiving config
 	boardDesc = new BoardDescription(0,0,1);
 	gameState = new GameState(boardDesc);
+	minimax = NULL;
 	nbPlayed = 0;
+	iaForce = defaultIAForce;
 }
 
 Game::Game(int rows, int columns, int align)
@@ -534,23 +537,27 @@ Game::Game(int rows, int columns, int align)
 	// minimal before receiving config
 	boardDesc = new BoardDescription(rows, columns, align);
 	gameState = new GameState(boardDesc);
+	minimax = new Minimax(gameState, maxNodesTree);
 	nbPlayed = 0;
 	iaForce = defaultIAForce;
 }
 
 Game::~Game()
 {
+	if (minimax) delete minimax;
 	delete gameState;
 	delete boardDesc;
 }
 
 void Game::ConfigSet(const ControllerInterface::Config &config)
 {
+	if (minimax) delete minimax;
 	delete gameState;
 	delete boardDesc;
 
 	boardDesc = new BoardDescription(config.rows, config.columns, config.align);
 	gameState = new GameState(boardDesc);
+	minimax = new Minimax(gameState, maxNodesTree);
 }
 
 void Game::NewGame()
@@ -561,6 +568,8 @@ void Game::NewGame()
 
 int Game::IAPlay()
 {
+	if (minimax) (*minimax)(currentPlayer, 3, 1000);
+
 	return gameState->BestPlay(currentPlayer);
 }
 
