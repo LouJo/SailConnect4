@@ -27,14 +27,14 @@ using namespace std;
 
 Game::ScoreFactors Game::defaultScoreFactors = {
 	"default",
-	{ 0, 0.5, 0.5 },  // Score factors
+	{ 0.01, 0.49, 0.5 },  // Score factors
 	0.75,             // alignedMore
 	{ 70, 30, 10, 5 } // maxAligned
 };
 
 Game::ScoreFactors Game::aggressiveFactors = {
 	"aggressive",
-	{ 0, 0.7, 0.3 },  // Score factors
+	{ 0.01, 0.69, 0.3 },  // Score factors
 	0.75,             // alignedMore
 	{ 10, 10, 10, 5 } // maxAligned
 };
@@ -42,7 +42,7 @@ Game::ScoreFactors Game::aggressiveFactors = {
 
 Game::ScoreFactors Game::defensiveFactors = {
 	"defensive",
-	{ 0, 0.3, 0.7 },  // Score factors
+	{ 0.01, 0.29, 0.7 },  // Score factors
 	0.75,             // alignedMore
 	{ 70, 30, 10, 5 } // maxAligned
 };
@@ -55,7 +55,7 @@ Game::ScoreFactors *Game::strategies[] = {
 
 Game::Scoring::Scoring() : score(0)
 {
-	memcpy(&factors, &defaultScoreFactors, sizeof(defaultScoreFactors));
+	factors = defaultScoreFactors;
 }
 
 void Game::Scoring::Reset()
@@ -106,8 +106,8 @@ void Game::Scoring::SetAligned(const ScoreFactor_t factorId, int *nbAligned, int
 
 void Game::Scoring::SetRandom()
 {
-	if (SCORE_RANDOM == 0) return;
-	SetScore(SCORE_RANDOM, (double) rand() / (double) RAND_MAX);
+	if (factors.factors[SCORE_RANDOM] == 0) return;
+	SetScore(SCORE_RANDOM, (double) (rand() % 1000) / (double) 1000);
 }
 
 double Game::Scoring::operator() ()
@@ -548,7 +548,7 @@ bool Game::PlayAtIndex(int index)
 		currentPlayer = 1 - currentPlayer;
 		nbPlayed++;
 
-		gameState->DebugNbAligned();
+		//gameState->DebugNbAligned();
 
 		cerr << "game: score ";
 		for (int i = 0; i < boardDesc->nbPlayer; i++)
