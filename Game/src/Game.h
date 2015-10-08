@@ -128,28 +128,6 @@ class Game : public GameInterface {
 		void DebugNbAligned();
 		int BestPlay(int player);
 
-		// iterate playable
-		struct PlayableRangeIterator {
-			int col, idx;
-
-			PlayableRangeIterator(GameState *game, int col);
-			void operator++ ();
-			int& operator* ();
-			bool operator!= (const PlayableRangeIterator &it);
-			private:
-			GameState *game;
-		};
-
-		struct PlayableRange {
-			PlayableRange(GameState *game);
-			PlayableRangeIterator begin();
-			PlayableRangeIterator end();
-			private:
-			GameState *game;
-		};
-
-		PlayableRange Playable();
-
 		private:
 		Scoring *scoring;
 		int8_t *board;
@@ -157,7 +135,6 @@ class Game : public GameInterface {
 		PlayerState **playerState;
 		BoardDescription *boardDesc;
 		std::vector<GameDiff> gameDiff;
-		PlayableRange *playable;
 
 		void ApplyDiff(const GameDiff &diff);
 		inline int OtherPlayer(int p) { return 1 - p; }
