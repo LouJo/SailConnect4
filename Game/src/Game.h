@@ -12,7 +12,7 @@ class Game : public GameInterface {
 	private:
 
 	// score factors
-	enum {
+	typedef enum {
 		SCORE_RANDOM,
 		SCORE_ALIGN_PLAYER,
 		SCORE_ALIGN_OTHER,
@@ -21,6 +21,24 @@ class Game : public GameInterface {
 
 	struct ScoreFactors {
 		double factors[NB_SCORE_FACTOR];
+		int maxAlignedNb;
+	};
+
+	static ScoreFactors defaultScoreFactors;
+
+	class Scoring {
+		public:
+		ScoreFactors factors;
+
+		Scoring();
+		void Reset();
+		void SetScore(const ScoreFactor_t factorId, double s);
+		void SetAligned(const ScoreFactor_t factorId, int *nbAligned, int align);
+		void SetRandom();
+		double operator() ();
+
+		private:
+		double score;
 	};
 
 	/* object to describe a board, given cols, rows and align
@@ -48,6 +66,9 @@ class Game : public GameInterface {
 
 	class PlayerState {
 		public:
+		// number of align done 0, 1, 2, 3, 4
+		int *nbAlignementDone;
+		//
 		PlayerState(BoardDescription*);
 		~PlayerState();
 		void Reset();
@@ -67,9 +88,6 @@ class Game : public GameInterface {
 		BoardDescription *boardDesc;
 		// -1 if align is not possible, nb of cases done if possible
 		int *alignementState;
-		// number of align done 0, 1, 2, 3, 4
-		int *nbAlignementDone;
-		//
 		int alignementCompleted;
 	};
 
@@ -95,7 +113,10 @@ class Game : public GameInterface {
 		bool IsEnded(int &winner, int* &caseAligned);
 		bool Back();
 
+		double Score(int player);
+
 		private:
+		Scoring scoring;
 		int8_t *board;
 		int *columnNbPlayed;
 		PlayerState **playerState;
@@ -103,6 +124,7 @@ class Game : public GameInterface {
 		std::vector<GameDiff> gameDiff;
 
 		void ApplyDiff(const GameDiff &diff);
+		inline int OtherPlayer(int p) { return 1 - p; }
 	};
 
 	static const int defaultIAForce = 2;

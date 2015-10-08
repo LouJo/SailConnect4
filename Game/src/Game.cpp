@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "Game.h"
 
@@ -17,6 +19,57 @@
 
 using namespace std;
 
+
+/* Scoring */
+
+Game::ScoreFactors Game::defaultScoreFactors = {
+	{ 0, 0.5, 0.5 },
+	5
+};
+
+Game::Scoring::Scoring() : score(0)
+{
+	memcpy(&factors, &defaultScoreFactors, sizeof(defaultScoreFactors));
+}
+
+void Game::Scoring::Reset()
+{
+	score = 0;
+}
+
+void Game::Scoring::SetScore(const ScoreFactor_t factorId, double s)
+{
+	assert(factorId >= 0 && factorId < NB_SCORE_FACTOR);
+	s *= factors.factors[factorId];
+	s = min(1, max(0, s));
+	score += s;
+}
+
+void Game::Scoring::SetAligned(const ScoreFactor_t factorId, int *nbAligned, int align)
+{
+	/* score more important for aligned more
+	 * maxAlignedNb is the max for every nb
+	 */
+	double s = 0;
+	for (int i = 0; i < align; i++) {
+		int nb = max(factors.maxAlignedNb, *(nbAligned + i));
+		s = s / 3 + (double) nb / factors.maxAlignedNb * 2 / 3;
+	}
+	if (factorId == SCORE_ALIGN_OTHER) s = 1 - s;
+	SetScore(factorId, s);
+}
+
+void Game::Scoring::SetRandom()
+{
+	if (SCORE_RANDOM == 0) return;
+	SetScore(SCORE_RANDOM, (double) rand() / (double) RAND_MAX);
+}
+
+double Game::Scoring::operator() ()
+{
+	score = min(1, max(0, score));
+	return score;
+}
 
 /* Game state */
 
@@ -282,6 +335,12 @@ bool Game::GameState::PlayAtIndex(int idx, int player)
 	diff.casePlayed = idx;
 
 	gameDiff.push_back(diff);
+
+	cerr << "game: score ";
+	for (int i = 0; i < boardDesc->nbPlayer; i++)
+		cerr << "player " << i << ": " << Score(i) << " ";
+	cerr << endl;
+
 	return true;
 }
 
@@ -320,6 +379,23 @@ void Game::GameState::ApplyDiff(const GameDiff &diff)
 
 	for (auto &loosed : diff.aligntLoosed) playerState[loosed.player]->RevertLooseAlignement(loosed.algnt, loosed.previousNb);
 	for (auto &played : diff.aligntPlayed) playerState[played.player]->RevertPlayAlignement(played.algnt);
+}
+
+// score of the game
+
+double Game::GameState::Score(int player)
+{
+	int other = OtherPlayer(player);
+
+	if (playerState[player]->HasWon()) return 1;
+	if (playerState[other]->HasWon()) return 0;
+
+	scoring.Reset();
+	scoring.SetAligned(SCORE_ALIGN_PLAYER, playerState[player]->nbAlignementDone, boardDesc->align);
+	scoring.SetAligned(SCORE_ALIGN_OTHER, playerState[other]->nbAlignementDone, boardDesc->align);
+	scoring.SetRandom();
+
+	return scoring();
 }
 
 /* main game class with public api
