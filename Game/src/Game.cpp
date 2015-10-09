@@ -531,27 +531,11 @@ double Game::GameState::Score(int player)
  * wait ConfigSet to construct objects
 */
 
-Game::Game()
+Game::Game(const ControllerInterface::Config &config)
 {
 	srand (time(NULL));
 
-	// minimal before receiving config
-	boardDesc = new BoardDescription(0,0,1);
-	gameState = new GameState(boardDesc);
-	minimax = NULL;
-	iaForce = new int[boardDesc->nbPlayer];
-	nbPlayed = 0;
-
-	int f = defaultIAForce;
-	fill(iaForce, iaForce + boardDesc->nbPlayer, f);
-}
-
-Game::Game(int rows, int columns, int align)
-{
-	srand (time(NULL));
-
-	// minimal before receiving config
-	boardDesc = new BoardDescription(rows, columns, align);
+	boardDesc = new BoardDescription(config.rows, config.columns, config.align);
 	gameState = new GameState(boardDesc);
 	minimax = new Minimax(gameState, maxNodesTree);
 	iaForce = new int[boardDesc->nbPlayer];
@@ -564,13 +548,15 @@ Game::Game(int rows, int columns, int align)
 Game::~Game()
 {
 	delete[] iaForce;
-	if (minimax) delete minimax;
+	delete minimax;
 	delete gameState;
 	delete boardDesc;
 }
 
 void Game::ConfigSet(const ControllerInterface::Config &config)
 {
+	// reset everything to continue with new config
+
 	delete[] iaForce;
 	if (minimax) delete minimax;
 	delete gameState;

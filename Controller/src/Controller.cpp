@@ -23,16 +23,13 @@ ControllerInterface::Config Controller::defaultConfig = {
 	6, 7, 4
 };
 
-Controller::Controller(UIInterface *ui, GameInterface *game)
+Controller::Controller(FactoryInterface *factory)
 {
-	Init(ui, game);
+	Init(factory);
 }
 
-void Controller::Init(UIInterface *ui, GameInterface *game)
+void Controller::Init(FactoryInterface *factory)
 {
-	this->ui = ui;
-	this->game = game;
-
 	score[0] = score[1] = 0;
 	player = firstPlayer = 0;
 	ended = false;
@@ -51,8 +48,11 @@ void Controller::Init(UIInterface *ui, GameInterface *game)
 		gameFilePath = path + "/" + gameFileName;
 	}
 	if (!LoadConfig()) config = defaultConfig;
+
+	this->ui = factory->NewUI();
+	this->game = factory->NewGame(config);
+
 	ui->ConfigSet(config);
-	game->ConfigSet(config);
 	game->SetPlayer(player);
 	LoadScore();
 }
@@ -148,6 +148,11 @@ void Controller::ResetScores()
 	ui->SetScore(0,0);
 	ui->SetScore(1,0);
 	SaveScore();
+}
+
+void Controller::Loop()
+{
+	ui->Loop();
 }
 
 // private
@@ -393,9 +398,9 @@ bool Controller::SaveGame()
 
 #include <QtConcurrent>
 
-ControllerConcurrent::ControllerConcurrent(UIInterface *ui, GameInterface *game)
+ControllerConcurrent::ControllerConcurrent(FactoryInterface *factory)
 {
-	Init(ui, game);
+	Init(factory);
 	watcher = new QFutureWatcher<int>;
 	connect(watcher, SIGNAL(finished()), this, SLOT(IAReturn()));
 }

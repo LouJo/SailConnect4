@@ -173,8 +173,7 @@ class Game : public GameInterface {
 	Minimax *minimax;
 
 	public:
-	Game();
-	Game(int rows, int columns, int align);
+	Game(const ControllerInterface::Config &config);
 	~Game();
 
 	// API funcs

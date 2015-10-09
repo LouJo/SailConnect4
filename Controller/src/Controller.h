@@ -6,8 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../../UI/include/UIInterface.h"
-#include "../../Game/include/GameInterface.h"
+#include "../include/FactoryInterface.h"
 
 class Controller : public ControllerInterface {
 	private:
@@ -47,12 +46,12 @@ class Controller : public ControllerInterface {
 
 	protected:
 	virtual void IAPlay();
-	void Init(UIInterface *ui, GameInterface *game);
+	void Init(FactoryInterface *factory);
 	void IAFinished(int index, int currentGame);
 	void ConfigChangeLocal(const Config &config);
 
 	public:
-	Controller(UIInterface *ui, GameInterface *game);
+	Controller(FactoryInterface *factory);
 	Controller() {}
 	~Controller() {}
 
@@ -65,6 +64,7 @@ class Controller : public ControllerInterface {
 	void NewGame();
 	bool PlayAtCol(int col);
 	void ResetScores();
+	void Loop();
 };
 
 #include <QtConcurrent>
@@ -85,7 +85,7 @@ class ControllerConcurrent : public QObject, public Controller {
 	void IAPlay();
 
 	public:
-	ControllerConcurrent(UIInterface *ui, GameInterface *game);
+	ControllerConcurrent(FactoryInterface *factory);
 	~ControllerConcurrent() {}
 };
 
