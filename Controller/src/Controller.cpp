@@ -32,6 +32,8 @@ Controller::Controller(UIInterface *ui, GameInterface *game)
 	player = firstPlayer = 0;
 	ended = false;
 
+	nGame = 0; // identifie the game number
+
 	QString qDataDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 	qDebug() << "ctrl: standart config path: " << qDataDir;
 	if (qDataDir == "") { configFilePath = scoreFilePath = gameFilePath = ""; }
@@ -82,6 +84,7 @@ void Controller::ExitGame()
 void Controller::NewGame()
 {
 	// change first player
+	nGame++;
 	played.clear();
 	firstPlayer = 1 - firstPlayer;
 	player = firstPlayer;
@@ -139,15 +142,28 @@ void Controller::EnablePlay()
 		ui->EnablePlay(true);
 	}
 	else {
-		int idx = game->IAPlay();
-		if (idx == -1) {
-			cerr << "ctrl: IA answered nothing !!!" << endl;
-			ui->EnablePlay(true);
-		}
-		else {
-			PlayAtIndex(idx);
-			if (!ended) EnablePlay(); // next turn
-		}
+		IAPlay();
+	}
+}
+
+void Controller::IAPlay()
+{
+	const int currentGame = nGame;
+	int idx = game->IAPlay();
+
+	// do not apply if player not more IA or new game launched
+	if (nGame  != currentGame && config.player[player].type == TypeHuman) {
+		cerr << "ctrl: current IA canceled" << endl;
+		return;
+	}
+
+	if (idx == -1) {
+		cerr << "ctrl: IA answered nothing !!!" << endl;
+		ui->EnablePlay(true);
+	}
+	else {
+		PlayAtIndex(idx);
+		if (!ended) EnablePlay(); // next turn
 	}
 }
 

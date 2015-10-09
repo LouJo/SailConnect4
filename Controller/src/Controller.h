@@ -20,12 +20,14 @@ class Controller : public ControllerInterface {
 	GameInterface *game;
 
 	int player, firstPlayer;
+	int nGame;
 	int score[2];
 	bool ended;
 	Config config;
 	std::string configFilePath, scoreFilePath, gameFilePath;
 	std::vector<int> played;
 
+	void IAPlay();
 	void Win(int player, int *aligned);
 	void NextPlayer();
 	void EnablePlay();
