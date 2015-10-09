@@ -1,7 +1,7 @@
 QT += qml quick gui concurrent
 TARGET = Connect4
 
-CONFIG += c++11 debug
+CONFIG += c++11
 
 SOURCES += \
 	UI/src/UI.cpp \

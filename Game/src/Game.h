@@ -165,7 +165,7 @@ class Game : public GameInterface {
 	};
 
 	static const int defaultIAForce = 2;
-	static const int maxNodesTree = 100000;
+	static const int maxNodesTree = 200000;
 
 	BoardDescription *boardDesc;
 	GameState *gameState;

@@ -58,7 +58,7 @@ Game::ScoreFactors *Game::strategies[] = {
 Game::IAForceConfig Game::iaForceConfig[] = {
 	{ 1, 1000 },
 	{ 2, 1000 },
-	{ 3, 1000 },
+	{ 4, 4000 },
 	{ 6, 10000 },
 	{ 20, Game::maxNodesTree }
 };
