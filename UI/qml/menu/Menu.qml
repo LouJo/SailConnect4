@@ -21,14 +21,14 @@ Rectangle {
 
 	ButtonMenu {
 		property int idx: 0
-		property string buttonText: "New game"
+		property string buttonText: qsTr("New game")
 
 		onActivated: newGame()
 	}
 
 	ButtonMenu {
 		property int idx: 1
-		property string buttonText: "Configuration"
+		property string buttonText: qsTr("Configuration")
 
 		onActivated: {
 			var conf = Qt.createComponent("../config/Configure.qml")
@@ -41,7 +41,7 @@ Rectangle {
 
 	ButtonMenu {
 		property int idx: 2
-		property string buttonText: "Exit"
+		property string buttonText: qsTr("Exit")
 
 		onActivated: exit()
 	}
