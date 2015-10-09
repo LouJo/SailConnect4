@@ -37,6 +37,8 @@ void Controller::Init(UIInterface *ui, GameInterface *game)
 	player = firstPlayer = 0;
 	ended = false;
 
+	isIAPlaying = toNewGame = toConfigChange = false;
+
 	nGame = 0; // identifie the game number
 
 	QString qDataDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
@@ -63,8 +65,14 @@ void Controller::Start()
 	EnablePlay();
 }
 
-void Controller::ConfigChange(const Config &config)
+void Controller::ConfigChangeLocal(const Config &config)
 {
+	if (isIAPlaying) {
+		cerr << "ctrl: delay config change after IA play" << endl;
+		configToChange = config;
+		toConfigChange = true;
+		return;
+	}
 	ui->EnablePlay(false);
 
 	if (this->config.columns != config.columns
@@ -77,6 +85,11 @@ void Controller::ConfigChange(const Config &config)
 
 	this->config = config;
 	SaveConfig();
+}
+
+void Controller::ConfigChange(const Config &config)
+{
+	ConfigChangeLocal(config);
 	EnablePlay();
 }
 
@@ -88,6 +101,12 @@ void Controller::ExitGame()
 
 void Controller::NewGame()
 {
+	if (isIAPlaying) {
+		cerr << "ctrl: delay new game after IA playing" << endl;
+		toNewGame = true;
+		return;
+	}
+
 	// change first player
 	nGame++;
 	played.clear();
@@ -154,14 +173,22 @@ void Controller::EnablePlay()
 void Controller::IAPlay()
 {
 	const int currentGame = nGame;
+	if (isIAPlaying) {
+		cerr << "ctrl: IA already playing" << endl;
+		return;
+	}
+	isIAPlaying = true;
 	int idx = game->IAPlay();
 	IAFinished(idx, currentGame);
 }
 
 void Controller::IAFinished(int idx, int currentGame)
 {
+	isIAPlaying = false;
+	PendingActions();
+
 	// do not apply if player not more IA or new game launched
-	if (nGame  != currentGame && config.player[player].type == TypeHuman) {
+	if (nGame  != currentGame || config.player[player].type == TypeHuman) {
 		cerr << "ctrl: current IA canceled" << endl;
 		return;
 	}
@@ -173,6 +200,21 @@ void Controller::IAFinished(int idx, int currentGame)
 	else {
 		PlayAtIndex(idx);
 		if (!ended) EnablePlay(); // next turn
+	}
+}
+
+void Controller::PendingActions()
+{
+	if (isIAPlaying) return;
+
+	if (toConfigChange) {
+		toConfigChange = false;
+		ConfigChangeLocal(configToChange);
+	}
+
+	if (toNewGame) {
+		toNewGame = false;
+		NewGame();
 	}
 }
 
@@ -366,6 +408,11 @@ int ControllerConcurrent::IAFunc()
 
 void ControllerConcurrent::IAPlay()
 {
+	if (isIAPlaying) {
+		cerr << "ctrl: IA already playing" << endl;
+		return;
+	}
+	isIAPlaying = true;
 	currentGame = nGame;
 	QFuture<int> idx = QtConcurrent::run(this, &ControllerConcurrent::IAFunc);
 	watcher->setFuture(idx);

@@ -20,11 +20,13 @@ class Controller : public ControllerInterface {
 	UIInterface *ui;
 	GameInterface *game;
 
+	bool isIAPlaying, toConfigChange, toNewGame;
+
 	int player, firstPlayer;
 	int nGame;
 	int score[2];
 	bool ended;
-	Config config;
+	Config config, configToChange;
 	std::string configFilePath, scoreFilePath, gameFilePath;
 	std::vector<int> played;
 
@@ -34,6 +36,7 @@ class Controller : public ControllerInterface {
 	void EnablePlay();
 	void PlayAtIndex(int index);
 	bool PlayPossibleAtCol(int col, int &idx);
+	void PendingActions();
 
 	bool LoadConfig();
 	bool SaveConfig();
@@ -46,6 +49,7 @@ class Controller : public ControllerInterface {
 	virtual void IAPlay();
 	void Init(UIInterface *ui, GameInterface *game);
 	void IAFinished(int index, int currentGame);
+	void ConfigChangeLocal(const Config &config);
 
 	public:
 	Controller(UIInterface *ui, GameInterface *game);
