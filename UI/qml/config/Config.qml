@@ -19,4 +19,6 @@ QtObject {
 
 	property int player1_type: DefaultConfig.player1_type
 	property int player2_type: DefaultConfig.player2_type
+
+	property bool animation: DefaultConfig.animation
 }

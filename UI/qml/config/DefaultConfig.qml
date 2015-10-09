@@ -18,4 +18,6 @@ QtObject {
 
 	property int player1_type: typeHuman
 	property int player2_type: typeIA
+
+	property bool animation: true
 }

@@ -111,7 +111,7 @@ Rectangle {
 
 				Behavior on y {
 					NumberAnimation {
-						duration: bounce ? timeAnimation : timeAnimationDefault / 2
+						duration: Config.animation ? (bounce ? timeAnimation : timeAnimationDefault / 2) : 0
 						easing.type: bounce ? Easing.OutBounce : Easing.Linear
 						easing.amplitude: bounce ? 1 : 0
 					}
@@ -123,7 +123,7 @@ Rectangle {
 					bounce = true
 					played = true
 					timeAnimation = 0
-					console.log("player " + player + " played: " + index)
+					console.log("player " + player + " played: " + index + " col " + (index % Config.columns))
 
 					return true
 				}
