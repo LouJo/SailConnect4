@@ -541,8 +541,7 @@ Game::Game(const ControllerInterface::Config &config)
 	iaForce = new int[boardDesc->nbPlayer];
 	nbPlayed = 0;
 
-	int f = defaultIAForce;
-	fill(iaForce, iaForce + boardDesc->nbPlayer, f);
+	for (int i = 0; i < boardDesc->nbPlayer; i++) SetIAForce(config.player[i].force, i);
 }
 
 Game::~Game()
