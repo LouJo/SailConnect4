@@ -25,6 +25,11 @@ ControllerInterface::Config Controller::defaultConfig = {
 
 Controller::Controller(UIInterface *ui, GameInterface *game)
 {
+	Init(ui, game);
+}
+
+void Controller::Init(UIInterface *ui, GameInterface *game)
+{
 	this->ui = ui;
 	this->game = game;
 
@@ -150,7 +155,11 @@ void Controller::IAPlay()
 {
 	const int currentGame = nGame;
 	int idx = game->IAPlay();
+	IAFinished(idx, currentGame);
+}
 
+void Controller::IAFinished(int idx, int currentGame)
+{
 	// do not apply if player not more IA or new game launched
 	if (nGame  != currentGame && config.player[player].type == TypeHuman) {
 		cerr << "ctrl: current IA canceled" << endl;
@@ -334,4 +343,36 @@ bool Controller::SaveGame()
 
 	f.close();
 	return true;
+}
+
+/* IA play concurrent
+ * in another thread
+ */
+
+#include <QtConcurrent>
+
+ControllerConcurrent::ControllerConcurrent(UIInterface *ui, GameInterface *game)
+{
+	Init(ui, game);
+	watcher = new QFutureWatcher<int>;
+	connect(watcher, SIGNAL(finished()), this, SLOT(IAReturn()));
+}
+
+int ControllerConcurrent::IAFunc()
+{
+	idx = game->IAPlay();
+	return idx;
+}
+
+void ControllerConcurrent::IAPlay()
+{
+	currentGame = nGame;
+	QFuture<int> idx = QtConcurrent::run(this, &ControllerConcurrent::IAFunc);
+	watcher->setFuture(idx);
+}
+
+void ControllerConcurrent::IAReturn()
+{
+	cerr << "ctrl: IAReturn " << idx << endl;
+	IAFinished(idx, currentGame);
 }

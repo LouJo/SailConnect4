@@ -16,6 +16,7 @@ class Controller : public ControllerInterface {
 	static std::string gameFileName;
 	static Config defaultConfig;
 
+	protected:
 	UIInterface *ui;
 	GameInterface *game;
 
@@ -27,7 +28,7 @@ class Controller : public ControllerInterface {
 	std::string configFilePath, scoreFilePath, gameFilePath;
 	std::vector<int> played;
 
-	void IAPlay();
+	private:
 	void Win(int player, int *aligned);
 	void NextPlayer();
 	void EnablePlay();
@@ -41,8 +42,15 @@ class Controller : public ControllerInterface {
 	bool LoadGame();
 	bool SaveGame();
 
+	protected:
+	virtual void IAPlay();
+	void Init(UIInterface *ui, GameInterface *game);
+	void IAFinished(int index, int currentGame);
+
 	public:
 	Controller(UIInterface *ui, GameInterface *game);
+	Controller() {}
+	~Controller() {}
 
 	void Start();
 
@@ -55,5 +63,26 @@ class Controller : public ControllerInterface {
 	void ResetScores();
 };
 
+#include <QtConcurrent>
+
+class ControllerConcurrent : public QObject, public Controller {
+	Q_OBJECT
+
+	private:
+	int currentGame, idx;
+	QFutureWatcher<int> *watcher;
+
+	int IAFunc();
+
+	private slots:
+	void IAReturn();
+
+	protected:
+	void IAPlay();
+
+	public:
+	ControllerConcurrent(UIInterface *ui, GameInterface *game);
+	~ControllerConcurrent() {}
+};
 
 #endif
