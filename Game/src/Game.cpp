@@ -23,7 +23,7 @@
 using namespace std;
 
 
-/* Scoring */
+/* Scoring config */
 
 Game::ScoreFactors Game::defaultScoreFactors = {
 	"default",
@@ -52,6 +52,18 @@ Game::ScoreFactors *Game::strategies[] = {
 	&aggressiveFactors,
 	&defensiveFactors,
 };
+
+/* IA force configuration */
+
+Game::IAForceConfig Game::iaForceConfig[] = {
+	{ 1, 1000 },
+	{ 2, 1000 },
+	{ 3, 1000 },
+	{ 6, 10000 },
+	{ 20, Game::maxNodesTree }
+};
+
+/* Scoring */
 
 Game::Scoring::Scoring() : score(0)
 {
@@ -361,7 +373,8 @@ void Game::GameState::Reset()
 
 	for (int i = 0; i < boardDesc->nbPlayer; i++) {
 		playerState[i]->Reset();
-		scoring[i].SetStrategie(rand() % NB_ELT(strategies));
+		scoring[i].SetStrategie(0); // TODO
+//		scoring[i].SetStrategie(rand() % NB_ELT(strategies));
 		cerr << "game: player " << i << " strategie " << scoring[i].factors.name << endl;
 	}
 	gameDiff.clear();
@@ -526,8 +539,11 @@ Game::Game()
 	boardDesc = new BoardDescription(0,0,1);
 	gameState = new GameState(boardDesc);
 	minimax = NULL;
+	iaForce = new int[boardDesc->nbPlayer];
 	nbPlayed = 0;
-	iaForce = defaultIAForce;
+
+	int f = defaultIAForce;
+	fill(iaForce, iaForce + boardDesc->nbPlayer, f);
 }
 
 Game::Game(int rows, int columns, int align)
@@ -538,12 +554,16 @@ Game::Game(int rows, int columns, int align)
 	boardDesc = new BoardDescription(rows, columns, align);
 	gameState = new GameState(boardDesc);
 	minimax = new Minimax(gameState, maxNodesTree);
+	iaForce = new int[boardDesc->nbPlayer];
 	nbPlayed = 0;
-	iaForce = defaultIAForce;
+
+	int f = defaultIAForce;
+	fill(iaForce, iaForce + boardDesc->nbPlayer, f);
 }
 
 Game::~Game()
 {
+	delete[] iaForce;
 	if (minimax) delete minimax;
 	delete gameState;
 	delete boardDesc;
@@ -551,6 +571,7 @@ Game::~Game()
 
 void Game::ConfigSet(const ControllerInterface::Config &config)
 {
+	delete[] iaForce;
 	if (minimax) delete minimax;
 	delete gameState;
 	delete boardDesc;
@@ -558,6 +579,9 @@ void Game::ConfigSet(const ControllerInterface::Config &config)
 	boardDesc = new BoardDescription(config.rows, config.columns, config.align);
 	gameState = new GameState(boardDesc);
 	minimax = new Minimax(gameState, maxNodesTree);
+	iaForce = new int[boardDesc->nbPlayer];
+
+	for (int i = 0; i < boardDesc->nbPlayer; i++) SetIAForce(config.player[i].force, i);
 }
 
 void Game::NewGame()
@@ -568,19 +592,20 @@ void Game::NewGame()
 
 int Game::IAPlay()
 {
-	if (minimax) return (*minimax)(currentPlayer, 1, 1000);
+	if (minimax) return (*minimax)(currentPlayer, iaForceConfig[iaForce[currentPlayer]].maxDepth, iaForceConfig[iaForce[currentPlayer]].maxNodes);
 
-	return gameState->BestPlay(currentPlayer);
+	else return gameState->BestPlay(currentPlayer);
 }
 
 bool Game::IsEnded(int &winner, int* &caseAligned)
 {
-	if (nbPlayed == boardDesc->nbCase) {
+	if (gameState->IsEnded(winner, caseAligned)) return true;
+	else if (nbPlayed == boardDesc->nbCase) {
 		// no winner
 		winner = -1;
 		return true;
 	}
-	return gameState->IsEnded(winner, caseAligned);
+	else return false;
 }
 
 bool Game::PlayAtIndex(int index)
@@ -609,9 +634,11 @@ bool Game::PlayPossibleAtCol(int col, int &index)
 	return gameState->PlayPossibleAtColumn(col, index);
 }
 
-void Game::SetIAForce(int force)
+void Game::SetIAForce(int force, int player)
 {
-	iaForce = force;
+	assert(player >= 0 && player < boardDesc->nbPlayer);
+	iaForce[player] = min((unsigned int ) force, NB_ELT(iaForceConfig));
+	cerr << "game: set IA force " << iaForce[player] << " for player " << player << endl;
 }
 
 void Game::SetPlayer(int player)

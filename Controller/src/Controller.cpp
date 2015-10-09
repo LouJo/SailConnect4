@@ -59,6 +59,15 @@ void Controller::Start()
 void Controller::ConfigChange(const Config &config)
 {
 	ui->EnablePlay(false);
+
+	if (this->config.columns != config.columns
+		|| this->config.rows != config.rows
+		|| this->config.align != config.align
+	)
+		game->ConfigSet(config);
+	else
+		for (int i = 0; i < 2; i++) game->SetIAForce(config.player[i].force, i);
+
 	this->config = config;
 	SaveConfig();
 	EnablePlay();
@@ -125,6 +134,7 @@ void Controller::NextPlayer()
 
 void Controller::EnablePlay()
 {
+	if (ended) return;
 	if (config.player[player].type == TypeHuman) {
 		ui->EnablePlay(true);
 	}

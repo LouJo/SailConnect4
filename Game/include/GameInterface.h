@@ -24,7 +24,7 @@ class GameInterface {
 	// just say if play col is possible, and set index var
 	virtual bool PlayPossibleAtCol(int col, int &index) = 0;
 	// set force for IA
-	virtual void SetIAForce(int force) = 0;
+	virtual void SetIAForce(int force, int player) = 0;
 	// set next player (not needed after played, only for beginning)
 	virtual void SetPlayer(int player) = 0;
 };

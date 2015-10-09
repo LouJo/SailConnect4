@@ -73,13 +73,15 @@ void Minimax::NodeFindScore(Node *node, int currentPlayer)
 
 	if (node->depth == maxDepth) {
 		node->score = NodeOwnScore(node);
+		/*
 		cerr << " final node depth " << node->depth << " current player " << currentPlayer
 			<< " own score " << node->ownScore
 			<< " ended " << node->found.ended << endl;
+		*/
 		return;
 	}
 
-	cerr << " node depth " << node->depth << " current player " << currentPlayer << " ended " << node->found.ended << endl;
+	//cerr << " node depth " << node->depth << " current player " << currentPlayer << " ended " << node->found.ended << endl;
 
 	NodeFindChilds(node);
 
@@ -135,15 +137,17 @@ void Minimax::NodeFindScore(Node *node, int currentPlayer)
 
 int Minimax::operator() (int player, int maxDepth, int maxNodes_)
 {
+	int bestIndex = -1;
 	maxNodesCurrent = min(maxNodes, maxNodes_);
 	Reset();
 	Node *root = NewNode(0);
-	this->maxDepth = maxDepth;
+	//this->maxDepth = maxDepth;
 	this->player = player;
 
-	for (int i = 1; i <= maxDepth; i++) {
+	for (this->maxDepth = 1; this->maxDepth <= maxDepth; this->maxDepth++) {
 		if (root->found.ended) break;
 		NodeFindScore(root, player);
+		if (nbNodes < maxNodesCurrent) bestIndex = root->bestChildIndex;
 	}
 
 	cerr
@@ -154,7 +158,7 @@ int Minimax::operator() (int player, int maxDepth, int maxNodes_)
 		<< " play " << root->bestChildIndex
 		<< endl;
 
-	return root->bestChildIndex;
+	return bestIndex;
 }
 
 // Nodes struct

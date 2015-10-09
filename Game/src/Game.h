@@ -13,7 +13,10 @@
 class Game : public GameInterface {
 	private:
 
-	// score factors
+	/* score factors
+	 * manage configuration for score computation
+	 */
+
 	typedef enum {
 		SCORE_RANDOM,
 		SCORE_ALIGN_PLAYER,
@@ -50,6 +53,16 @@ class Game : public GameInterface {
 		private:
 		double score;
 	};
+
+	/* IA forces configuration
+	 * Structures to configure IA forces
+	 */
+
+	struct IAForceConfig {
+		int maxDepth, maxNodes;
+	};
+
+	static IAForceConfig iaForceConfig[];
 
 	/* object to describe a board, given cols, rows and align
 	 * once constructed, does not change.
@@ -152,11 +165,11 @@ class Game : public GameInterface {
 	};
 
 	static const int defaultIAForce = 2;
-	static const int maxNodesTree = 10000;
+	static const int maxNodesTree = 100000;
 
 	BoardDescription *boardDesc;
 	GameState *gameState;
-	int currentPlayer, nbPlayed, iaForce;
+	int currentPlayer, nbPlayed, *iaForce;
 	Minimax *minimax;
 
 	public:
@@ -171,7 +184,7 @@ class Game : public GameInterface {
 	bool IsEnded(int &winner, int* &caseAligned);
 	bool PlayAtIndex(int index);
 	bool PlayPossibleAtCol(int col, int &index);
-	void SetIAForce(int force);
+	void SetIAForce(int force, int player);
 	void SetPlayer(int player);
 };
 
