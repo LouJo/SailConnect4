@@ -73,8 +73,13 @@ void Minimax::NodeFindScore(Node *node, int currentPlayer)
 
 	if (node->depth == maxDepth) {
 		node->score = NodeOwnScore(node);
+		cerr << " final node depth " << node->depth << " current player " << currentPlayer
+			<< " own score " << node->ownScore
+			<< " ended " << node->found.ended << endl;
 		return;
 	}
+
+	cerr << " node depth " << node->depth << " current player " << currentPlayer << " ended " << node->found.ended << endl;
 
 	NodeFindChilds(node);
 
@@ -92,7 +97,7 @@ void Minimax::NodeFindScore(Node *node, int currentPlayer)
 	int nextPlayer = game->NextPlayer(currentPlayer);
 
 	for (Node *child : node->childs) {
-		game->PlayAtIndex(child->caseIndex, nextPlayer);
+		game->PlayAtIndex(child->caseIndex, currentPlayer);
 		NodeFindScore(child, nextPlayer);
 		game->Back();
 
@@ -134,13 +139,20 @@ int Minimax::operator() (int player, int maxDepth, int maxNodes_)
 	Reset();
 	Node *root = NewNode(0);
 	this->maxDepth = maxDepth;
+	this->player = player;
 
 	for (int i = 1; i <= maxDepth; i++) {
 		if (root->found.ended) break;
 		NodeFindScore(root, player);
 	}
 
-	cerr << "minimax: max depth " << root->maxChildDepth << " better depth " << root->betterDepth << " score " << root->score << " play " << root->bestChildIndex << endl;
+	cerr
+		<< "minimax: max depth " << root->maxChildDepth
+		<< " nb nodes " << nbNodes
+		<< " better depth " << root->betterDepth
+		<< " score " << root->score
+		<< " play " << root->bestChildIndex
+		<< endl;
 
 	return root->bestChildIndex;
 }

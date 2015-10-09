@@ -362,7 +362,7 @@ void Game::GameState::Reset()
 	for (int i = 0; i < boardDesc->nbPlayer; i++) {
 		playerState[i]->Reset();
 		scoring[i].SetStrategie(rand() % NB_ELT(strategies));
-		cerr << "game: player 1 strategie " << scoring[i].factors.name << endl;
+		cerr << "game: player " << i << " strategie " << scoring[i].factors.name << endl;
 	}
 	gameDiff.clear();
 }
@@ -568,7 +568,7 @@ void Game::NewGame()
 
 int Game::IAPlay()
 {
-	if (minimax) (*minimax)(currentPlayer, 3, 1000);
+	if (minimax) return (*minimax)(currentPlayer, 1, 1000);
 
 	return gameState->BestPlay(currentPlayer);
 }
