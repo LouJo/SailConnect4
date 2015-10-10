@@ -16,7 +16,7 @@ GroupBox {
 
 	ColumnLayout {
 		RowLayout {
-			Label { text: "Name: " }
+			Label { text: qsTr("Name") + ": " }
 			TextField { 
 				id: nameField
 				text: name
@@ -28,13 +28,13 @@ GroupBox {
 		RowLayout {
 			RadioButton {
 				id: human
-				text: "Human"
+				text: qsTr("Human")
 				checked: controlPlayer.type == 0
 				exclusiveGroup: player
 			}
 			RadioButton {
 				id: ia
-				text: "IA force:"
+				text: qsTr("IA force") + ":"
 				checked: controlPlayer.type == 1
 				exclusiveGroup: player
 			}

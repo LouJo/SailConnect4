@@ -4,6 +4,7 @@
 #include <QQuickView>
 #include <QGuiApplication>
 #include <QQuickItem>
+#include <QTranslator>
 
 #include "../include/UIInterface.h"
 
@@ -20,6 +21,7 @@ class UI : public QObject, public UIInterface {
 	QGuiApplication *app;
 	QQuickView *view;
 	QObject *game, *main, *menu, *config, *board;
+	QTranslator *translator;
 
 	public:
 	UI(int &argc, char *argv[]);

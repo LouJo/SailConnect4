@@ -6,7 +6,7 @@ import "."
 
 ApplicationWindow {
 	property int margin: 10
-	title: Config.programTitle + " configuration"
+	title: Config.programTitle + " " + qsTr("configuration")
 	width: mainLayout.implicitWidth + 2 * margin
 	height: mainLayout.implicitHeight + 2 * margin
 	minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
@@ -23,7 +23,7 @@ ApplicationWindow {
 
 		ControlsPlayer {
 			id: p1
-			title: "Player 1"
+			title: qsTr("Player %1").arg(1)
 			name: Config.player1_name
 			force: Config.player1_force
 			type: Config.player1_type
@@ -37,7 +37,7 @@ ApplicationWindow {
 
 		ControlsPlayer {
 			id: p2
-			title: "Player 2"
+			title: qsTr("Player %1").arg(2)
 			name: Config.player2_name
 			force: Config.player2_force
 			type: Config.player2_type
@@ -50,7 +50,7 @@ ApplicationWindow {
 		}
 
 		Button {
-			text: "Erase scores"
+			text: qsTr("Erase scores")
 			Layout.alignment: Qt.AlignCenter
 
 			onClicked: {
@@ -61,7 +61,7 @@ ApplicationWindow {
 		}
 
 		Button {
-			text: "Submit"
+			text: qsTr("Submit")
 			Layout.alignment: Qt.AlignCenter
 			onClicked: {
 				p1.submitAll()

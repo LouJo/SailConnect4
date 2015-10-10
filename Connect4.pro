@@ -10,7 +10,9 @@ SOURCES += \
 	Game/src/Minimax.cpp \
 	Controller/src/main.cpp
 
-RESOURCES += UI/qml/qml.qrc
+RESOURCES += \
+	UI/qml/qml.qrc \
+	UI/i18n/translations.qrc
 
 HEADERS += \
 	UI/include/UIInterface.h \
@@ -23,7 +25,7 @@ HEADERS += \
 	Game/src/Minimax.h
 
 TRANSLATIONS += \
-	UI/locale/Connect4_fr.ts
+	UI/i18n/Connect4_fr.ts
 
 lupdate_only {
 SOURCES = \

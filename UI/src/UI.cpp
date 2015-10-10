@@ -10,6 +10,13 @@ ControllerNull ControllerInterface::controllerNull;
 UI::UI(int &argc, char* argv[])
 {
 	app = new QGuiApplication(argc, argv);
+
+	translator = new QTranslator();
+	if (translator->load(":/langs/Connect4_" + QLocale::system().name())) {
+		qDebug() << "ui: load translation";
+		app->installTranslator(translator);
+	}
+
 	view = new QQuickView();
 	view->setResizeMode(view->SizeRootObjectToView);
 	view->setSource(QUrl("qrc:///Main.qml"));

@@ -234,6 +234,8 @@ void Controller::PlayAtIndex(int index)
 	if (game->IsEnded(winner, caseAligned)) {
 		if (winner != -1) Win(winner, caseAligned);
 		else ended = true;
+
+		if (config.player[0].type == TypeIA && config.player[1].type == TypeIA) NewGame();
 	}
 	else {
 		NextPlayer();
