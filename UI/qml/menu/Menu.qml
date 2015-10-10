@@ -41,6 +41,17 @@ Rectangle {
 
 	ButtonMenu {
 		property int idx: 2
+		property string buttonText: qsTr("Apropos")
+
+		onActivated: {
+			var apropos = Qt.createComponent("../apropos/Apropos.qml")
+			var win = apropos.createObject(apropos)
+			win.show()
+		}
+	}
+
+	ButtonMenu {
+		property int idx: 3
 		property string buttonText: qsTr("Exit")
 
 		onActivated: exit()

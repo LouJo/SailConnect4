@@ -1,7 +1,9 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/">
+<qresource prefix="/qml/">
 <file>Main.qml</file>
 <file>Style.qml</file>
+<file>apropos/Apropos.qml</file>
+<file>apropos/qmldir</file>
 <file>config/qmldir</file>
 <file>config/Config.qml</file>
 <file>config/ControlsPlayer.qml</file>

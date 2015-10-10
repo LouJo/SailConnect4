@@ -12,6 +12,7 @@ SOURCES += \
 
 RESOURCES += \
 	UI/qml/qml.qrc \
+	UI/icons/icons.qrc \
 	UI/i18n/translations.qrc
 
 RC_FILE = UI/icons/icons.rc

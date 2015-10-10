@@ -21,4 +21,7 @@ QtObject {
 	property int player2_type: DefaultConfig.player2_type
 
 	property bool animation: DefaultConfig.animation
+
+	property string program_author: "Louis-Joseph Fournier"
+	property string program_date: "10-2015"
 }
