@@ -3,9 +3,9 @@ import QtQuick 2.0
 import "Controller.js" as Controller
 
 import "."
-import "./board"
-import "./config"
-import "./menu"
+import "../board"
+import "../config"
+import "../menu"
 
 Item {
 	id: main

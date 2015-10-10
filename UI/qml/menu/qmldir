@@ -1,1 +1,1 @@
-singleton Style ../Style.qml
+singleton Style ../main/Style.qml
