@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="fr_FR">
 <context>
+    <name>Apropos</name>
+    <message>
+        <source>apropos</source>
+        <translation>a propos</translation>
+    </message>
+    <message>
+        <source>Connect 4</source>
+        <translation>Puisance 4</translation>
+    </message>
+    <message>
+        <source>A smart program to play Connect 4 with.</source>
+        <translation>A programme intelligent pour jouer au Puissance 4.</translation>
+    </message>
+    <message>
+        <source>Author</source>
+        <translation>Auteur</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Date</translation>
+    </message>
+</context>
+<context>
     <name>Configure</name>
     <message>
         <source>Erase scores</source>
@@ -40,6 +63,13 @@
     </message>
 </context>
 <context>
+    <name>DefaultConfig</name>
+    <message>
+        <source>Connect4</source>
+        <translation>Puissance 4</translation>
+    </message>
+</context>
+<context>
     <name>Menu</name>
     <message>
         <source>New game</source>
@@ -52,6 +82,10 @@
     <message>
         <source>Exit</source>
         <translation>Quitter</translation>
+    </message>
+    <message>
+        <source>Apropos</source>
+        <translation>A propos</translation>
     </message>
 </context>
 </TS>

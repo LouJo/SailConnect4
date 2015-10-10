@@ -35,6 +35,7 @@ TRANSLATIONS += \
 lupdate_only {
 SOURCES = \
 		UI/qml/menu/*.qml \
+		UI/qml/apropos/*.qml \
 		UI/qml/board/*.qml \
 		UI/qml/config/*.qml \
 		UI/qml/*.qml \

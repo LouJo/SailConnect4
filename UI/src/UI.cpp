@@ -21,6 +21,7 @@ UI::UI(int &argc, char* argv[])
 	view->setResizeMode(view->SizeRootObjectToView);
 	view->setSource(QUrl("qrc:///qml/Main.qml"));
 
+
 	qDebug() << "ui: init UI";
 	main = view->rootObject();
 	game = main->findChild<QObject*>("game");
@@ -42,6 +43,7 @@ UI::UI(int &argc, char* argv[])
 void UI::Launch()
 {
 	view->show();
+	view->setTitle(config->property("programTitle").toString());
 }
 
 void UI::EnablePlay(bool en)

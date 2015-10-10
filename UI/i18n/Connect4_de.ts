@@ -2,6 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>Apropos</name>
+    <message>
+        <location filename="../qml/apropos/Apropos.qml" line="9"/>
+        <source>apropos</source>
+        <translation>angemessen</translation>
+    </message>
+    <message>
+        <location filename="../qml/apropos/Apropos.qml" line="32"/>
+        <source>Connect 4</source>
+        <translation>Connect 4</translation>
+    </message>
+    <message>
+        <location filename="../qml/apropos/Apropos.qml" line="38"/>
+        <source>A smart program to play Connect 4 with.</source>
+        <translation>ein intelligentes Connect 4 Programm zum Spielen.</translation>
+    </message>
+    <message>
+        <location filename="../qml/apropos/Apropos.qml" line="41"/>
+        <source>Author</source>
+        <translation>Verfasser</translation>
+    </message>
+    <message>
+        <location filename="../qml/apropos/Apropos.qml" line="44"/>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+</context>
+<context>
     <name>Configure</name>
     <message>
         <location filename="../qml/config/Configure.qml" line="9"/>
@@ -44,6 +72,14 @@
     </message>
 </context>
 <context>
+    <name>DefaultConfig</name>
+    <message>
+        <location filename="../qml/config/DefaultConfig.qml" line="5"/>
+        <source>Connect4</source>
+        <translation>Connect4</translation>
+    </message>
+</context>
+<context>
     <name>Menu</name>
     <message>
         <location filename="../qml/menu/Menu.qml" line="24"/>
@@ -57,6 +93,11 @@
     </message>
     <message>
         <location filename="../qml/menu/Menu.qml" line="44"/>
+        <source>Apropos</source>
+        <translation>Angemessen</translation>
+    </message>
+    <message>
+        <location filename="../qml/menu/Menu.qml" line="55"/>
         <source>Exit</source>
         <translation>Verlassen</translation>
     </message>
