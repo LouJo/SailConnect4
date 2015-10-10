@@ -23,6 +23,9 @@ class UI : public QObject, public UIInterface {
 	QObject *game, *main, *menu, *config, *board;
 	QTranslator *translator;
 
+	protected:
+	void PostInit();
+
 	public:
 	UI(int &argc, char *argv[]);
 	~UI() {}
@@ -31,7 +34,7 @@ class UI : public QObject, public UIInterface {
 	void ConfigSet(const ControllerInterface::Config &config);
 	void Exit();
 	void EnablePlay(bool en);
-	void Launch();
+	virtual void Launch();
 	void Loop();
 	bool PlayAtIndex(int player, int idx);
 	void ResetBoard();

@@ -9,6 +9,7 @@ ControllerNull ControllerInterface::controllerNull;
 
 UI::UI(int &argc, char* argv[])
 {
+	qDebug() << "ui: init UI";
 	app = new QGuiApplication(argc, argv);
 
 	translator = new QTranslator();
@@ -21,9 +22,14 @@ UI::UI(int &argc, char* argv[])
 	view->setResizeMode(view->SizeRootObjectToView);
 	view->setSource(QUrl("qrc:///qml/main/Main.qml"));
 
-
-	qDebug() << "ui: init UI";
 	main = view->rootObject();
+	PostInit();
+}
+
+void UI::PostInit()
+{
+	qDebug() << "ui: post init";
+
 	game = main->findChild<QObject*>("game");
 	menu = main->findChild<QObject*>("menu");
 	board = game->findChild<QObject*>("board");
