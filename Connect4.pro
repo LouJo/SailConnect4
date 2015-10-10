@@ -25,7 +25,9 @@ HEADERS += \
 	Game/src/Minimax.h
 
 TRANSLATIONS += \
-	UI/i18n/Connect4_fr.ts
+	UI/i18n/Connect4_fr.ts \
+	UI/i18n/Connect4_es.ts \
+	UI/i18n/Connect4_de.ts
 
 lupdate_only {
 SOURCES = \

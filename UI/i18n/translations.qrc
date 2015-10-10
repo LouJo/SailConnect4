@@ -1,5 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/langs">
 <file>Connect4_fr.qm</file>
+<file>Connect4_es.qm</file>
+<file>Connect4_de.qm</file>
 </qresource>
 </RCC>
