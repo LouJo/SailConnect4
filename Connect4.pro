@@ -14,6 +14,8 @@ RESOURCES += \
 	UI/qml/qml.qrc \
 	UI/i18n/translations.qrc
 
+RC_FILE = UI/icons/icons.rc
+
 HEADERS += \
 	UI/include/UIInterface.h \
 	UI/src/UI.h \
