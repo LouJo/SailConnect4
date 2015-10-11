@@ -52,7 +52,8 @@ ApplicationWindow {
 				id: game
 				objectName: "game"
 				width: page.width
-				height: page.height - header.height * 2
+				height: page.height - header.height * 3
+				extra_margin: 20
 			}
 		}
 	}}}

@@ -171,9 +171,6 @@ Rectangle {
 
 		visible: showed && ball1.placed && ball2.placed
 
-		onVisibleChanged: console.log("BOB visible")
-		onShowedChanged: console.log("BOB showed")
-
 		function show(i1, i2) {
 			item1 = grid_repeater.itemAt(i1)
 			item2 = grid_repeater.itemAt(i2)
