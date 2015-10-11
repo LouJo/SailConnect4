@@ -18,7 +18,7 @@ Rectangle {
 		id: board
 		objectName: "board"
 		width: parent.width
-		height: width * Config.rows / Config.columns
+		height: parent.width * Config.rows / Config.columns
 		canPlay: game.canPlay
 	}
 

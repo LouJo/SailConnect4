@@ -8,7 +8,9 @@ import "../config"
 ApplicationWindow {
 	property var config: Config // for UISailfish.cpp
 
-	initialPage: Page { SilicaFlickable {
+	initialPage: Component { Page { SilicaFlickable {
+		anchors.fill: parent
+
 		PullDownMenu {
 			id: menu
 			objectName: "menu"
@@ -20,19 +22,19 @@ ApplicationWindow {
 
 			MenuItem {
 				text: qsTr("New game")
-				onClicked: newGame()
+				onClicked: menu.newGame()
 			}
 			MenuItem {
-				text: gsTr("Configuration")
+				text: qsTr("Configuration")
 				onClicked: {
 					var confpage = pageStack.push(Qt.resolvedUrl("ConfigurePage.qml"))
-					confpage.configChanged.connect(configChanged)
-					confpage.resetScores.connect(resetScores)
+					confpage.configChanged.connect(menu.configChanged)
+					confpage.resetScores.connect(menu.resetScores)
 				}
 			}
 			MenuItem {
 				text: qsTr("Exit")
-				onClicked: exit()
+				onClicked: menu.exit()
 			}
 		}
 
@@ -41,7 +43,7 @@ ApplicationWindow {
 			objectName: "game"
 			anchors.fill: parent
 		}
-	}}
+	}}}
 
 	allowedOrientations: Orientation.Portrait
 }

@@ -38,7 +38,7 @@ TRANSLATIONS += \
 	UI/i18n/Connect4_de.ts
 
 lupdate_only {
-SOURCES = \
+SOURCES += \
 		UI/qml/menu/*.qml \
 		UI/qml/apropos/*.qml \
 		UI/qml/board/*.qml \
