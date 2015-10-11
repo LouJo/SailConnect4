@@ -16,9 +16,13 @@ UISailfish::UISailfish(int &argc, char* argv[])
 	}
 
 	view = SailfishApp::createView();
-	view->setSource(SailfishApp::pathTo("qml/sailfish/Sailfish.qml"));
+	view->setSource(QUrl("qrc:///qml/sailfish/Sailfish.qml"));
 
 	main = view->rootObject();
+	if (!main) {
+		qDebug() << "ui error: main is NULL";
+		return;
+	}
 	PostInit();
 }
 
@@ -37,6 +41,7 @@ void UISailfish::PostInit()
 
 void UISailfish::Launch()
 {
+	qDebug() << "ui: Launch";
 	view->showFullScreen();
 //	view->setTitle(config->property("programTitle").toString());
 }

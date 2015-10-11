@@ -75,6 +75,8 @@ bool UI::PlayAtIndex(int player, int idx)
 
 void UI::ConfigSet(const ControllerInterface::Config &conf)
 {
+	qDebug() << "ui: set config";
+
 	config->setProperty("player1_name", conf.player[0].name.c_str());
 	config->setProperty("player2_name", conf.player[1].name.c_str());
 	config->setProperty("player1_force", conf.player[0].force);
