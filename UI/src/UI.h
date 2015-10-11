@@ -24,7 +24,7 @@ class UI : public QObject, public UIInterface {
 	QTranslator *translator;
 
 	protected:
-	void PostInit();
+	virtual void PostInit();
 
 	public:
 	UI(int &argc, char *argv[]);

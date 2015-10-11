@@ -6,6 +6,7 @@
 class UISailfish : public UI {
 	public:
 	UISailfish(int &argc, char *argv[]);
+	void PostInit();
 	void Launch();
 };
 

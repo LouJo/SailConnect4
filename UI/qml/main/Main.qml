@@ -15,7 +15,9 @@ Item {
 	height: Style.window_height
 
 	property var config: Config
+	property var board: game.board
 
+	// adaptative style
 	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
 	property int board_height: board_width * Config.rows / Config.columns
 	property int info_height: board_height / (1 - Style.infos_height) * Style.infos_height
@@ -24,38 +26,16 @@ Item {
 	property int game_height: board_height + info_height
 	property bool menuOnRight: height - game_height < width - game_width
 
-	Rectangle {
+	Game {
 		id: game
 		objectName: "game"
 		x: 0
 		y: 0
 		width: main.game_width
 		height: main.game_height
-
-		color: Style.color_main_bg
-
-		property bool canPlay: false
-		property int player: 1
-
-		signal playCol(variant col);
-
-		Board {
-			id: board
-			objectName: "board"
-			width: main.board_width
-			height: main.board_height
-			canPlay: game.canPlay
-		}
-
-		Infos {
-			id: info
-			width: main.board_width
-			height: main.info_height
-			anchors.top: board.bottom
-			playerPlaying: game.canPlay ? game.player : 0
-		}
+		board_height: main.board_height
 	}
-	
+
 	Menu {
 		id: menu
 		objectName: "menu"
@@ -75,6 +55,5 @@ Item {
 
 			Controller.begin()
 		}
-		board.playCol.connect(game.playCol)
 	}
 }

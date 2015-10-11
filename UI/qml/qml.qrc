@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/">
+<file>main/Game.qml</file>
 <file>main/Main.qml</file>
 <file>main/Style.qml</file>
 <file>apropos/Apropos.qml</file>

@@ -21,6 +21,19 @@ UISailfish::UISailfish(int &argc, char* argv[])
 	PostInit();
 }
 
+void UISailfish::PostInit()
+{
+	qDebug() << "ui: post init";
+
+	game = main->findChild<QObject*>("game");
+	board = game->findChild<QObject*>("board");
+
+	config = qvariant_cast<QObject*> (main->property("config"));
+
+	QObject::connect(view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(SlotExit()));
+	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
+}
+
 void UISailfish::Launch()
 {
 	view->showFullScreen();

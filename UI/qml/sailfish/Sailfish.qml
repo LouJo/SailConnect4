@@ -4,6 +4,8 @@ import Sailfish.Silica 1.0
 import "../main"
 
 ApplicationWindow {
-	initialPage: Main {
+	initialPage: Game {
+		objectName: "game"
+		anchors.fill: parent
 	}
 }

@@ -25,12 +25,12 @@ function begin()
 }
 
 function playCol(x) {
-	if (x >= board.columns) return false;
+	if (x >= game.columns) return false;
 
 	enablePlay(false)
-	var y = board.rows - 1
+	var y = game.rows - 1
 	while (y >= 0) {
-		if (playIndex(x + y * board.columns)) {
+		if (playIndex(x + y * game.columns)) {
 			changePlayer()
 			enablePlay(true)
 			return true
@@ -44,7 +44,7 @@ function playCol(x) {
 }
 
 function playIndex(index) {
-	if (board.play(index, game.player)) {
+	if (game.play(index, game.player)) {
 		return true
 	}
 	else {
@@ -61,7 +61,7 @@ function new_game()
 
 function reset() {
 	enablePlay(false)
-	board.reset()
+	game.reset()
 	game.player = 1
 	enablePlay(true)
 }
