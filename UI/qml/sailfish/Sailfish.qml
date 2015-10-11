@@ -43,16 +43,24 @@ ApplicationWindow {
 		Column {
          width: page.width
          spacing: Theme.paddingLarge
-            PageHeader {
-             title: qsTr("Connect 4")
-         }
+
+			PageHeader {
+				title: qsTr("Connect 4")
+				id: header
+			}
 			Game {
 				id: game
 				objectName: "game"
 				width: page.width
+				height: page.height - header.height * 2
 			}
 		}
 	}}}
+
+	/*Component.onCompleted: {
+		Style.color_board_bg = "transparent"
+		Style.color_info_bg = "transparent"
+	}*/
 
 	allowedOrientations: Orientation.Portrait
 }

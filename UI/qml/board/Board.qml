@@ -101,7 +101,7 @@ Rectangle {
 				property int timeAnimationDefault: Style.timeAnimationRow * (row + 1)
 				property int timeAnimation: timeAnimationDefault
 				property bool bounce: true
-				property bool placed: y == posY
+				property bool placed: Math.abs(y -posY) < 1
 
 				y: played ? posY : -board.ballLength
 
@@ -171,14 +171,14 @@ Rectangle {
 
 		visible: showed && ball1.placed && ball2.placed
 
+		onVisibleChanged: console.log("BOB visible")
+		onShowedChanged: console.log("BOB showed")
+
 		function show(i1, i2) {
 			item1 = grid_repeater.itemAt(i1)
 			item2 = grid_repeater.itemAt(i2)
 			ball1 = balls_repeater.itemAt(i1)
 			ball2 = balls_repeater.itemAt(i2)
-
-			console.log("qml: show line beetween " + i1 + " and " + i2);
-			console.log("qml: line x1 " + parent.item1.x);
 
 			colorLine = ball1.color
 			showed = true
