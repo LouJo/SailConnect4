@@ -9,6 +9,7 @@ ApplicationWindow {
 	property var board: game.board
 
 	initialPage: Game {
+		id: game
 		objectName: "game"
 		anchors.fill: parent
 	}
