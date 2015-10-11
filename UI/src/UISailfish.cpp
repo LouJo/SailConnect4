@@ -1,6 +1,7 @@
 
 /* UI derivated for Sailfish */
 
+#include <sailfishapp.h>
 #include "UISailfish.h"
 
 UISailfish::UISailfish(int &argc, char* argv[])

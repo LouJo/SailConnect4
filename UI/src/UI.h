@@ -17,17 +17,17 @@ class UI : public QObject, public UIInterface {
 	void SlotResetScore();
 	void SlotExit();
 
-	private:
+    protected:
 	QGuiApplication *app;
 	QQuickView *view;
 	QObject *game, *main, *menu, *config, *board;
 	QTranslator *translator;
 
-	protected:
 	virtual void PostInit();
 
 	public:
 	UI(int &argc, char *argv[]);
+    UI() {}
 	~UI() {}
 
 	void ChangePlayer(int player);
