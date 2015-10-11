@@ -8,7 +8,10 @@ import "../config"
 ApplicationWindow {
 	property var config: Config // for UISailfish.cpp
 
-	initialPage: Component { Page { SilicaFlickable {
+	initialPage: Component { Page {
+		id: page
+
+		SilicaFlickable {
 		anchors.fill: parent
 
 		PullDownMenu {
@@ -37,11 +40,17 @@ ApplicationWindow {
 				onClicked: menu.exit()
 			}
 		}
-
-		Game {
-			id: game
-			objectName: "game"
-			anchors.fill: parent
+		Column {
+         width: page.width
+         spacing: Theme.paddingLarge
+            PageHeader {
+             title: qsTr("Connect 4")
+         }
+			Game {
+				id: game
+				objectName: "game"
+				width: page.width
+			}
 		}
 	}}}
 

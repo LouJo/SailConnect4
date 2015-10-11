@@ -177,6 +177,9 @@ Rectangle {
 			ball1 = balls_repeater.itemAt(i1)
 			ball2 = balls_repeater.itemAt(i2)
 
+			console.log("qml: show line beetween " + i1 + " and " + i2);
+			console.log("qml: line x1 " + parent.item1.x);
+
 			colorLine = ball1.color
 			showed = true
 		}

@@ -7,7 +7,7 @@ import "../menu"
 
 Rectangle {
 	id: game
-	color: Style.color_main_bg
+	color: Style.color_board_bg
 
 	property bool canPlay: false
 	property int player: 1
@@ -17,14 +17,17 @@ Rectangle {
 	Board {
 		id: board
 		objectName: "board"
-		width: parent.width
+		x: Style.board_margin
+		y: Style.board_margin
+		width: parent.width - Style.board_margin * 2
 		height: parent.width * Config.rows / Config.columns
 		canPlay: game.canPlay
 	}
 
 	Infos {
 		id: info
-		width: parent.width
+		x: Style.board_margin
+		width: board.width
 		height: parent.height - board.height
 		anchors.top: board.bottom
 		playerPlaying: game.canPlay ? game.player : 0
