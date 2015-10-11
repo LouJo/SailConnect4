@@ -25,12 +25,12 @@ function begin()
 }
 
 function playCol(x) {
-	if (x >= game.columns) return false;
+	if (x >= config.columns) return false;
 
 	enablePlay(false)
-	var y = game.rows - 1
+	var y = config.rows - 1
 	while (y >= 0) {
-		if (playIndex(x + y * game.columns)) {
+		if (playIndex(x + y * config.columns)) {
 			changePlayer()
 			enablePlay(true)
 			return true

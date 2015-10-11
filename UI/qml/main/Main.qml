@@ -14,8 +14,8 @@ Item {
 	width: Style.window_width
 	height: Style.window_height
 
-	property var config: Config
-	property var board: game.board
+	property var config: Config // for UI.cpp
+	property var board: game.board // for js controller
 
 	// adaptative style
 	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
@@ -33,7 +33,6 @@ Item {
 		y: 0
 		width: main.game_width
 		height: main.game_height
-		board_height: main.board_height
 	}
 
 	Menu {

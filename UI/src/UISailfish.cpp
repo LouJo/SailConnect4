@@ -28,15 +28,21 @@ UISailfish::UISailfish(int &argc, char* argv[])
 
 void UISailfish::PostInit()
 {
+	// TODO remove if same as UI
 	qDebug() << "ui: post init";
 
 	game = main->findChild<QObject*>("game");
 	board = game->findChild<QObject*>("board");
+	menu = main->findChild<QObject*>("menu");
 
 	config = qvariant_cast<QObject*> (main->property("config"));
 
 	QObject::connect(view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(SlotExit()));
 	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
+	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
+	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
+//	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
+//	QObject::connect(menu, SIGNAL(configChanged()), this, SLOT(SlotConfigChanged()));
 }
 
 void UISailfish::Launch()

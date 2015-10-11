@@ -31,7 +31,7 @@ Rectangle {
 		property string buttonText: qsTr("Configuration")
 
 		onActivated: {
-			var conf = Qt.createComponent("../config/Configure.qml")
+			var conf = Qt.createComponent("../config/ConfigureWindow.qml")
 			var win = conf.createObject(menu)
 			win.configChanged.connect(menu.configChanged)
 			win.resetScores.connect(menu.resetScores)

@@ -9,6 +9,7 @@
 <file>config/Config.qml</file>
 <file>config/ControlsPlayer.qml</file>
 <file>config/Configure.qml</file>
+<file>config/ConfigureWindow.qml</file>
 <file>config/DefaultConfig.qml</file>
 <file>board/qmldir</file>
 <file>board/Infos.qml</file>

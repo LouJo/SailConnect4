@@ -11,10 +11,6 @@ Rectangle {
 
 	property bool canPlay: false
 	property int player: 1
-	property double board_height
-
-	property var columns: board.columns
-	property var rows: board.rows
 
 	signal playCol(variant col);
 
@@ -22,14 +18,14 @@ Rectangle {
 		id: board
 		objectName: "board"
 		width: parent.width
-		height: parent.board_height
+		height: width * Config.rows / Config.columns
 		canPlay: game.canPlay
 	}
 
 	Infos {
 		id: info
 		width: parent.width
-		height: parent.height - parent.board_height
+		height: parent.height - board.height
 		anchors.top: board.bottom
 		playerPlaying: game.canPlay ? game.player : 0
 	}

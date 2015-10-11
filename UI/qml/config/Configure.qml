@@ -4,16 +4,16 @@ import QtQuick.Layouts 1.0
 
 import "."
 
-ApplicationWindow {
-	property int margin: 10
-	title: Config.programTitle + " " + qsTr("configuration")
-	width: mainLayout.implicitWidth + 2 * margin
-	height: mainLayout.implicitHeight + 2 * margin
-	minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
-	minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
-
+Item {
 	signal configChanged()
 	signal resetScores()
+
+	property double minW: mainLayout.Layout.minimumWidth
+	property double minH: mainLayout.Layout.minimumHeight
+	property double implW: mainLayout.implicitWidth
+	property double implH: mainLayout.implicitHeight
+
+	anchors.fill: parent
 
 	ColumnLayout {
 		id: mainLayout
