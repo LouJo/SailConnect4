@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
+import "."
 import "../main"
 import "../config"
 
@@ -12,12 +13,22 @@ ApplicationWindow {
 			id: menu
 			objectName: "menu"
 
+			signal configChanged()
+			signal resetScores()
 			signal newGame()
 			signal exit()
 
 			MenuItem {
 				text: qsTr("New game")
 				onClicked: newGame()
+			}
+			MenuItem {
+				text: gsTr("Configuration")
+				onClicked: {
+					var confpage = pageStack.push(Qt.resolvedUrl("ConfigurePage.qml"))
+					confpage.configChanged.connect(configChanged)
+					confpage.resetScores.connect(resetScores)
+				}
 			}
 			MenuItem {
 				text: qsTr("Exit")

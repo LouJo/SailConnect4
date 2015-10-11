@@ -67,7 +67,6 @@ Item {
 				p1.submitAll()
 				p2.submitAll()
 				configChanged()
-				close()
 			}
 		}
 	}

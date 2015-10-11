@@ -24,4 +24,5 @@ ApplicationWindow {
 		configure.configChanged.connect(configChanged)
 		configure.resetScores.connect(resetScores)
 	}
+	onConfigChanged: close()
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/sailfish/">
 <file>Sailfish.qml</file>
+<file>ConfigurePage.qml</file>
 </qresource>
 </RCC>
