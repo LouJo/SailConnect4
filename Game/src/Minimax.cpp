@@ -45,7 +45,7 @@ void Minimax::NodeFindChilds(Node *node)
 	if (node->found.childs) return;
 
 	int depth = node->depth + 1;
-	Node *child;
+	Node *child, *prevChild = NULL;
 
 	node->found.childs = 1;
 
@@ -53,7 +53,11 @@ void Minimax::NodeFindChilds(Node *node)
 		child = NewNode(depth);
 		if (!child) return; // no more memory
 		child->caseIndex = idx;
-		node->childs.push_back(child);
+
+		if (prevChild) prevChild->nextSibling = child;
+		else node->firstChild = child;
+
+		prevChild = child;
 	}
 }
 
@@ -88,7 +92,7 @@ void Minimax::NodeFindScore(Node *node, int currentPlayer)
 	// ended, unless a least one child not ended
 	node->found.ended = 1;
 
-	if (node->childs.size() == 0) {
+	if (!node->firstChild) {
 		node->score = NodeOwnScore(node);
 		return;
 	}
@@ -98,7 +102,7 @@ void Minimax::NodeFindScore(Node *node, int currentPlayer)
 
 	int nextPlayer = game->NextPlayer(currentPlayer);
 
-	for (Node *child : node->childs) {
+	for (Node *child = node->firstChild; child; child = child->nextSibling) {
 		game->PlayAtIndex(child->caseIndex, currentPlayer);
 		NodeFindScore(child, nextPlayer);
 		game->Back();
@@ -165,7 +169,7 @@ int Minimax::operator() (int player, int maxDepth, int maxNodes_)
 
 void Minimax::Node::Reset()
 {
-	childs.clear();
+	firstChild = nextSibling = NULL;
 	bestChildIndex = -1;
 	found.val = 0;
 }

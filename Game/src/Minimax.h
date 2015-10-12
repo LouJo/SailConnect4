@@ -33,7 +33,7 @@ class Minimax {
 	private:
 	struct Node {
 		double score, ownScore;
-		std::vector<Node*> childs;
+		Node *firstChild, *nextSibling;
 		int caseIndex, bestChildIndex, depth, maxChildDepth, betterDepth;
 
 		union {
