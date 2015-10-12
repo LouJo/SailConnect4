@@ -28,21 +28,11 @@ UISailfish::UISailfish(int &argc, char* argv[])
 
 void UISailfish::PostInit()
 {
-	// TODO remove if same as UI
-	qDebug() << "ui: post init";
-
-	game = main->findChild<QObject*>("game");
-	board = game->findChild<QObject*>("board");
-	menu = main->findChild<QObject*>("menu");
-
-	config = qvariant_cast<QObject*> (main->property("config"));
-
-	QObject::connect(view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(SlotExit()));
-	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
-	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
-	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
-	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
-	QObject::connect(menu, SIGNAL(configChanged()), this, SLOT(SlotConfigChanged()));
+	UI::PostInit();
+//	cover = qvariant_cast<QObject*> (main->property("sailCover"));
+	cover = main->findChild<QObject*>("myCover");
+	if (cover) qDebug() << "cover is not null";
+	else qDebug() << "cover is null";
 }
 
 void UISailfish::Launch()
@@ -51,3 +41,24 @@ void UISailfish::Launch()
 	view->showFullScreen();
 //	view->setTitle(config->property("programTitle").toString());
 }
+
+bool UISailfish::PlayAtIndex(int player, int idx)
+{
+	QVariant ret;
+	QVariant qplayer = player + 1;
+	QVariant qindex = idx;
+
+	QMetaObject::invokeMethod(board, "play", Q_RETURN_ARG(QVariant, ret), Q_ARG(QVariant, qindex), Q_ARG(QVariant, qplayer));
+
+	bool r = ret.toBool();
+	QMetaObject::invokeMethod(cover, "play", Q_RETURN_ARG(QVariant, ret), Q_ARG(QVariant, qindex), Q_ARG(QVariant, qplayer));
+
+	return r;
+}
+
+void UISailfish::ResetBoard()
+{
+	QMetaObject::invokeMethod(board, "reset");
+	QMetaObject::invokeMethod(cover, "reset");
+}
+

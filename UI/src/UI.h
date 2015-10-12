@@ -36,8 +36,8 @@ class UI : public QObject, public UIInterface {
 	void EnablePlay(bool en);
 	virtual void Launch();
 	void Loop();
-	bool PlayAtIndex(int player, int idx);
-	void ResetBoard();
+	virtual bool PlayAtIndex(int player, int idx);
+	virtual void ResetBoard();
 	void SetScore(int player, int score);
 
 	void ShowAligned(int* aligned);

@@ -64,4 +64,11 @@ ApplicationWindow {
 	}*/
 
 	allowedOrientations: Orientation.Portrait
+
+	cover: Component {
+		Cover {
+			id: myCover
+			objectName: "myCover"
+		}
+	}
 }
