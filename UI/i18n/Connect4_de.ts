@@ -32,9 +32,8 @@
 <context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/config/Configure.qml" line="9"/>
         <source>configuration</source>
-        <translation>Konfiguration</translation>
+        <translation type="vanished">Konfiguration</translation>
     </message>
     <message>
         <location filename="../qml/config/Configure.qml" line="26"/>
@@ -51,6 +50,14 @@
         <location filename="../qml/config/Configure.qml" line="64"/>
         <source>Submit</source>
         <translation>Validieren</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigureWindow</name>
+    <message>
+        <location filename="../qml/config/ConfigureWindow.qml" line="10"/>
+        <source>configuration</source>
+        <translation>Konfiguration</translation>
     </message>
 </context>
 <context>
@@ -100,6 +107,29 @@
         <location filename="../qml/menu/Menu.qml" line="55"/>
         <source>Exit</source>
         <translation>Verlassen</translation>
+    </message>
+</context>
+<context>
+    <name>Sailfish</name>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="27"/>
+        <source>New game</source>
+        <translation>Neues Spiel</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="31"/>
+        <source>Configuration</source>
+        <translation>Konfiguration</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="39"/>
+        <source>Exit</source>
+        <translation>Verlassen</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="48"/>
+        <source>Connect 4</source>
+        <translation>Connect 4</translation>
     </message>
 </context>
 </TS>

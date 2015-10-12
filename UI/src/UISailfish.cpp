@@ -11,7 +11,7 @@ UISailfish::UISailfish(int &argc, char* argv[])
 
 	translator = new QTranslator();
 	if (translator->load(":/langs/Connect4_" + QLocale::system().name())) {
-		qDebug() << "ui: load translation";
+		qDebug() << "ui: load translation for lang " << QLocale::system().name();
 		app->installTranslator(translator);
 	}
 

@@ -40,11 +40,18 @@
     </message>
     <message>
         <source>configuration</source>
-        <translation>configuration</translation>
+        <translation type="vanished">configuration</translation>
     </message>
     <message>
         <source>Player %1</source>
         <translation>Joueur %1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigureWindow</name>
+    <message>
+        <source>configuration</source>
+        <translation>configuration</translation>
     </message>
 </context>
 <context>
@@ -86,6 +93,25 @@
     <message>
         <source>Apropos</source>
         <translation>A propos</translation>
+    </message>
+</context>
+<context>
+    <name>Sailfish</name>
+    <message>
+        <source>New game</source>
+        <translation>Nouvelle partie</translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation>Réglages</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation>Quitter</translation>
+    </message>
+    <message>
+        <source>Connect 4</source>
+        <translation>Puisance 4</translation>
     </message>
 </context>
 </TS>
