@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Connect 4</source>
-        <translation>Puisance 4</translation>
+        <translation>Puissance 4</translation>
     </message>
     <message>
         <source>A smart program to play Connect 4 with.</source>
@@ -111,7 +111,7 @@
     </message>
     <message>
         <source>Connect 4</source>
-        <translation>Puisance 4</translation>
+        <translation>Puissance 4</translation>
     </message>
 </context>
 </TS>
