@@ -6,7 +6,10 @@ import "../main"
 import "../config"
 
 ApplicationWindow {
+	id: app
+
 	property var config: Config // for UISailfish.cpp
+	property QtObject boardToGrab
 
 	initialPage: Component { Page {
 		id: page
@@ -45,7 +48,7 @@ ApplicationWindow {
          spacing: Theme.paddingLarge
 
 			PageHeader {
-				title: qsTr("Connect 4")
+				title: DefaultConfig.programTitle
 				id: header
 			}
 			Game {
@@ -54,6 +57,10 @@ ApplicationWindow {
 				width: page.width
 				height: page.height - header.height * 3
 				extra_margin: 20
+			}
+
+			Component.onCompleted: {
+				app.boardToGrab = game
 			}
 		}
 	}}}
@@ -66,9 +73,9 @@ ApplicationWindow {
 	allowedOrientations: Orientation.Portrait
 
 	cover: Component {
-		Cover {
+		CoverPage {
 			id: myCover
-			objectName: "myCover"
+			objectToGrab: app.boardToGrab
 		}
 	}
 }

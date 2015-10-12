@@ -2,6 +2,6 @@
 <qresource prefix="/qml/sailfish/">
 <file>Sailfish.qml</file>
 <file>ConfigurePage.qml</file>
-<file>Cover.qml</file>
+<file>CoverPage.qml</file>
 </qresource>
 </RCC>
