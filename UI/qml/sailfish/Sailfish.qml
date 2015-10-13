@@ -57,18 +57,16 @@ ApplicationWindow {
 				width: page.width
 				height: page.height - header.height * 3
 				extra_margin: 20
-			}
-
-			Component.onCompleted: {
-				app.boardToGrab = game
+				Component.onCompleted: {
+					game.grabOk.connect(app.setBoardToGrab)
+				}
 			}
 		}
 	}}}
 
-	/*Component.onCompleted: {
-		Style.color_board_bg = "transparent"
-		Style.color_info_bg = "transparent"
-	}*/
+	function setBoardToGrab(obj) {
+		app.boardToGrab = obj;
+	}
 
 	allowedOrientations: Orientation.Portrait
 

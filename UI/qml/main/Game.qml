@@ -9,11 +9,14 @@ Rectangle {
 	id: game
 	color: Style.color_board_bg
 
+	property QtObject boardObject
+
 	property bool canPlay: false
 	property int player: 1
 	property double extra_margin: 0
 
-	signal playCol(variant col);
+	signal playCol(variant col)
+	signal grabOk(QtObject obj)
 
 	Board {
 		id: board
@@ -23,6 +26,10 @@ Rectangle {
 		width: parent.width - Style.board_margin * 2
 		height: parent.width * Config.rows / Config.columns
 		canPlay: game.canPlay
+
+		Component.onCompleted: {
+			game.grabOk(board)
+		}
 	}
 
 	Infos {

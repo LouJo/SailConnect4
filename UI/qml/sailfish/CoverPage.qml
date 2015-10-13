@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 import Sailfish.Silica 1.0
 
 import "../board"
@@ -10,28 +11,30 @@ CoverBackground {
 	Label {
 		id: label
 		text: DefaultConfig.programTitle
-		anchors.centerIn: parent
-		y: 10
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.top: parent.top
+		anchors.topMargin: Theme.paddingLarge
+		anchors.bottomMargin: Theme.paddingLarge
 	}
 
-	Image {
+	Rectangle {
+		anchors.fill: parent
+		visible: false
+		color: "transparent"
+		id: bg
+	}
+
+	Blend {
 		id: previewImage
-		anchors.centerIn: parent
-		y: 20 + label.height
-		width: parent.width - 20
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.top: label.bottom
+		anchors.topMargin: Theme.paddingLarge
+		anchors.left: parent.left
+		anchors.leftMargin: Theme.paddingSmall
+
 		height: objectToGrab.height * width / objectToGrab.width
 
-		function updatePreview() {
-			objectToGrab.grabToImage(function(res) {
-				previewImage.source = res.url; },
-				Qt.size(width, height)
-			);
-			console.log("cover changed");
-		}
-	}
-
-	onStatusChanged: {
-		console.log("cover status " + status);
-		if (status == Cover.Activating) previewImage.updatePreview()
+		source: objectToGrab
+		foregroundSource: bg
 	}
 }
