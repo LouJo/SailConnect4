@@ -30,12 +30,8 @@ CoverBackground {
 		}
 	}
 
-	Component.onCompleted: {
-//		previewImage.updatePreview()
-		console.log("cover complete")
-	}
 	onStatusChanged: {
-		console.log("cover status " + status + " active: " + Cover.Active);
-		if (status == Cover.Active) previewImage.updatePreview()
+		console.log("cover status " + status);
+		if (status == Cover.Activating) previewImage.updatePreview()
 	}
 }
