@@ -38,7 +38,7 @@ SSH_EMULATOR = ssh -p 2223 -i $(SSH_KEY_EMULATOR) $(SSH_LOGIN_EMULATOR)
 SCP_EMULATOR = scp -P 2223 -i $(SSH_KEY_EMULATOR)
 
 RPM_I486 = SailConnect4-0.1-1.i486.rpm 
-RPM_JOLLA = SailConnnect4-0.1-1.armv7hl.rpm
+RPM_JOLLA = SailConnect4-0.1-1.armv7hl.rpm
 
 MB2 = mb2 -p $(SOURCE_DIR_ENGINE) 
 
@@ -61,11 +61,11 @@ $(BUILD_DIR_LOCAL_JOLLA):
 	mkdir -p $@
 
 $(BUILD_DIR_LOCAL_JOLLA)/Makefile: $(BUILD_DIR_LOCAL_JOLLA)
-	$(SSH_ENGINE) cd $(BUILD_DIR_ENGINE_JOLLA) && "$(MB2) qmake $(SOURCE_DIR_ENGINE)/$(PRO_FILE)"
+	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_JOLLA) && $(MB2) -t $(JOLLA_TARGET) qmake $(SOURCE_DIR_ENGINE)/$(PRO_FILE)"
 
 rpm-jolla: $(BUILD_DIR_LOCAL_JOLLA)/Makefile
-	$(SSH_ENGINE) cd $(BUILD_DIR_ENGINE_JOLLA) && "$(MB2) rpm"
+	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_JOLLA) && $(MB2) -t $(JOLLA_TARGET) rpm"
 
 install-jolla: rpm-jolla
 	scp $(BUILD_DIR_LOCAL_JOLLA)/RPMS/$(RPM_JOLLA) $(SSH_LOGIN_JOLLA):
-	ssh $(SSH_LOGIN_JOLLA) "sudo rpm -i $(RPM_JOLLA) --force"
+	ssh $(SSH_LOGIN_JOLLA) "devel-su rpm -i $(RPM_JOLLA) --force"
