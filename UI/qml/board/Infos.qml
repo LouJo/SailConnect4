@@ -27,7 +27,7 @@ Rectangle {
 			width: parent.width; height: parent.height / 2
 			anchors.top: parent.top
 			text: parent.player_name
-			font.pixelSize: width / 8 + 1
+			font.pixelSize: width / 5 + 1
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
@@ -39,7 +39,7 @@ Rectangle {
 			width: parent.width; height: parent.height / 2
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
-			font.pixelSize: width / 12 + 1
+			font.pixelSize: width / 8 + 1
 			x: 0; y: parent.height / 2
 			text: parent.points
 		}
@@ -60,7 +60,7 @@ Rectangle {
 			width: parent.width; height: parent.height / 2
 			anchors.top: parent.top
 			text: parent.player_name
-			font.pixelSize: width / 8 + 1
+			font.pixelSize: width / 5 + 1
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
@@ -72,7 +72,7 @@ Rectangle {
 			width: parent.width; height: parent.height / 2
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
-			font.pixelSize: width / 12 + 1
+			font.pixelSize: width / 8 + 1
 			x: 0; y: parent.height / 2
 			text: parent.points
 		}
