@@ -1,0 +1,39 @@
+# helper to build for Sailfish with sdk engine
+
+SAILFISHOS_DIR = $(HOME)/SailfishOS
+
+SSH_KEYS_DIR = $(SAILFISHOS_DIR)/vmshare/ssh/private_keys
+SSH_KEY_ENGINE = $(SSH_KEYS_DIR)/engine/mersdk
+SSH_KEY_EMULATOR = $(SSH_KEYS_DIR)/SailfishOS_Emulator/nemo
+
+SSH_LOGIN_ENGINE = mersdk@localhost
+SSH_LOGIN_EMULATOR = nemo@localhost
+
+HOME_ENGINE = /home/mersdk/share
+
+BUILD_DIR_LOCAL = $(HOME)/merBuild
+BUILD_DIR_ENGINE = $(HOME_ENGINE)/merBuild
+
+SOURCE_DIR_LOCAL = $(PWD)/..
+SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
+
+I486_TARGET = SailfishOS-i486
+JOLLA_TARGET = SailfishOS-armv7hl
+
+ENGINE_PORT = 2222
+EMULATOR_PORT = 2223
+
+BUILD_DIR_LOCAL_I486 = $(BUILD_DIR_LOCAL)/$(I486_TARGET)
+BUILD_DIR_LOCAL_JOLLA = $(BUILD_DIR_LOCAL)/$(JOLLA_TARGET)
+
+SSH_ENGINE = ssh -p 2222 -i $(SSH_KEY_ENGINE) $(SSH_LOGIN_ENGINE)
+SSH_EMULATOR = ssh -p 2223 -i $(SSH_KEY_EMULATOR) $(SSH_LOGIN_EMULATOR)
+
+all: $(BUILD_DIR_LOCAL_I486)/Makefile
+
+$(BUILD_DIR_LOCAL_I486):
+	mkdir -p $@
+
+$(BUILD_DIR_LOCAL_I486)/Makefile: $(BUILD_DIR_LOCAL_I486)
+	@echo $(SOURCE_DIR_ENGINE)
+#	$(SSH_ENGINE) 
