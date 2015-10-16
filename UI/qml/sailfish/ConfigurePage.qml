@@ -2,19 +2,40 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 import "../config"
+import "./configure"
 
-Page {
+Dialog {
+	id: configurePage
+
 	signal configChanged()
 	signal resetScores()
 
-	SilicaFlickable {
-		Configure {
-			id: configure
+	Column {
+		width: parent.width
+
+		DialogHeader {
+			id: header
+			title: qsTr("Configuration")
+		}
+
+		ControlPlayerSailfish {
+			id: player1
+			anchors.margins: Theme.paddingLarge
+			width: parent.width
+			name: Config.player1_name
+			force: Config.player1_force
+			type: Config.player1_type
+		}
+
+		ControlPlayerSailfish {
+			id: player2
+			anchors.margins: Theme.paddingLarge
+			width: parent.width
+			name: Config.player2_name
+			force: Config.player2_force
+			type: Config.player2_type
 		}
 	}
-	Component.onCompleted: {
-		configure.configChanged.connect(configChanged)
-		configure.resetScores.connect(resetScores)
-	}
+
 	onConfigChanged: pageStack.pop()
 }

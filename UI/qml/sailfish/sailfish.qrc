@@ -3,5 +3,6 @@
 <file>Sailfish.qml</file>
 <file>ConfigurePage.qml</file>
 <file>CoverPage.qml</file>
+<file>configure/ControlPlayerSailfish.qml</file>
 </qresource>
 </RCC>

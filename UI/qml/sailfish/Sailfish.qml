@@ -17,9 +17,12 @@ ApplicationWindow {
 		SilicaFlickable {
 		anchors.fill: parent
 
+
 		PullDownMenu {
 			id: menu
 			objectName: "menu"
+
+			RemorsePopup { id: remorse }
 
 			signal configChanged()
 			signal resetScores()
@@ -36,6 +39,12 @@ ApplicationWindow {
 					var confpage = pageStack.push(Qt.resolvedUrl("ConfigurePage.qml"))
 					confpage.configChanged.connect(menu.configChanged)
 					confpage.resetScores.connect(menu.resetScores)
+				}
+			}
+			MenuItem {
+				text: qsTr("Reset scores")
+				onClicked: {
+					remorse.execute("Reseting scores", function() { menu.resetScores() })
 				}
 			}
 			MenuItem {
