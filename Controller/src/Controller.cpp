@@ -193,7 +193,12 @@ void Controller::IAFinished(int idx, int currentGame)
 	PendingActions();
 
 	// do not apply if player not more IA or new game launched
-	if (nGame  != currentGame || config.player[player].type == TypeHuman) {
+	if (config.player[player].type == TypeHuman) {
+		cerr << "ctrl: current IA canceled" << endl;
+		ui->EnablePlay(true);
+		return;
+	}
+	else if (nGame  != currentGame) {
 		cerr << "ctrl: current IA canceled" << endl;
 		return;
 	}

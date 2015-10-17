@@ -103,7 +103,7 @@ Rectangle {
 				property int timeAnimationDefault: Style.timeAnimationRow * (row + 1)
 				property int timeAnimation: timeAnimationDefault
 				property bool bounce: true
-				property bool placed: Math.abs(y -posY) < 1
+				property bool placed: played && !yAnimation.running
 
 				y: played ? posY : -board.ballLength
 
@@ -114,6 +114,7 @@ Rectangle {
 
 				Behavior on y {
 					NumberAnimation {
+						id: yAnimation
 						duration: Config.animation ? (bounce ? timeAnimation : timeAnimationDefault / 2) : 0
 						easing.type: bounce ? Easing.OutBounce : Easing.Linear
 						easing.amplitude: bounce ? 1 : 0
