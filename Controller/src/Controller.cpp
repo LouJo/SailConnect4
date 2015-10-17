@@ -7,6 +7,7 @@
 
 #include <QDebug>
 #include <QStandardPaths>
+#include <QTime>
 
 #include "Controller.h"
 #include "../../Game/include/GameInterface.h"
@@ -414,7 +415,10 @@ ControllerConcurrent::ControllerConcurrent(FactoryInterface *factory)
 
 int ControllerConcurrent::IAFunc()
 {
+	QTime finishTime = QTime::currentTime().addMSecs(minIntervalPlayMs);
 	idx = game->IAPlay();
+	QTime currentTime = QTime::currentTime();
+	if (currentTime < finishTime) QThread::msleep(currentTime.msecsTo(finishTime));
 	return idx;
 }
 
