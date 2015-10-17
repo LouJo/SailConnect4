@@ -43,5 +43,6 @@ CoverBackground {
 
 	Component.onCompleted: {
 		objectToGrab.updated.connect(previewImage.updatePreview)
+		previewImage.updatePreview()
 	}
 }

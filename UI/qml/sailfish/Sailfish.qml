@@ -58,18 +58,24 @@ ApplicationWindow {
 				}
 			}
 		}
-		Column {
+		Item {
          width: page.width
-         spacing: Theme.paddingLarge
+			height: page.height
+         //spacing: Theme.paddingLarge
 
 			PageHeader {
+				anchors.top: parent.top
+				width: parent.width
+
 				title: DefaultConfig.programTitle
 				id: header
 			}
 			Game {
 				id: game
 				objectName: "game"
-				width: page.width
+				width: parent.width
+				anchors.top: header.bottom
+				anchors.topMargin: header.height / 2
 				height: page.height - header.height * 3
 				extra_margin: 20
 				Component.onCompleted: {

@@ -13,6 +13,7 @@
 <file>config/DefaultConfig.qml</file>
 <file>board/qmldir</file>
 <file>board/Infos.qml</file>
+<file>board/InfosPlayer.qml</file>
 <file>board/Board.qml</file>
 <file>board/Case.qml</file>
 <file>board/LocalLine.qml</file>
