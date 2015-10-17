@@ -8,13 +8,15 @@ Dialog {
 	id: configurePage
 
 	signal configChanged()
-	signal resetScores()
 
 	Column {
 		width: parent.width
 
 		DialogHeader {
 			id: header
+		}
+
+		PageHeader {
 			title: qsTr("Configuration")
 		}
 
@@ -25,6 +27,12 @@ Dialog {
 			name: Config.player1_name
 			force: Config.player1_force
 			type: Config.player1_type
+
+			onNameEdited: Config.player1_name = new_name
+			onSubmit: {
+				Config.player1_force = force
+				Config.player1_type = getType()
+			}
 		}
 
 		ControlPlayerSailfish {
@@ -34,8 +42,18 @@ Dialog {
 			name: Config.player2_name
 			force: Config.player2_force
 			type: Config.player2_type
+
+			onNameEdited: Config.player2_name = new_name
+			onSubmit: {
+				Config.player2_force = force
+				Config.player2_type = getType()
+			}
 		}
 	}
 
-	onConfigChanged: pageStack.pop()
+	onAccepted: {
+		player1.submitAll()
+		player2.submitAll()
+		configChanged()
+	}
 }

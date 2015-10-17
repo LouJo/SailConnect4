@@ -21,6 +21,8 @@ Rectangle {
 
 	property bool canPlay: false
 
+	property alias ended: lineAligned.showed
+
 	color: Style.color_board_bg
 
 	signal playCol(int col)

@@ -48,10 +48,32 @@
     </message>
 </context>
 <context>
+    <name>ConfigurePage</name>
+    <message>
+        <source>Configuration</source>
+        <translation>Réglages</translation>
+    </message>
+</context>
+<context>
     <name>ConfigureWindow</name>
     <message>
         <source>configuration</source>
         <translation>configuration</translation>
+    </message>
+</context>
+<context>
+    <name>ControlPlayerSailfish</name>
+    <message>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <source>Player name</source>
+        <translation>Nom du joueur</translation>
+    </message>
+    <message>
+        <source>IA force</source>
+        <translation>IA force</translation>
     </message>
 </context>
 <context>
@@ -111,7 +133,19 @@
     </message>
     <message>
         <source>Connect 4</source>
-        <translation>Puissance 4</translation>
+        <translation type="vanished">Puissance 4</translation>
+    </message>
+    <message>
+        <source>Reset scores</source>
+        <translation>Effacer les scores</translation>
+    </message>
+    <message>
+        <source>Reseting scores</source>
+        <translation>Effacement des scores</translation>
+    </message>
+    <message>
+        <source>Stop this game</source>
+        <translation>Arrêter le jeu en cours</translation>
     </message>
 </context>
 </TS>

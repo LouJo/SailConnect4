@@ -10,6 +10,7 @@ Rectangle {
 	color: Style.color_board_bg
 
 	property QtObject boardObject
+	property alias ended: board.ended
 
 	property bool canPlay: false
 	property int player: 1

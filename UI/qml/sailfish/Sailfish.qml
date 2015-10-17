@@ -30,26 +30,32 @@ ApplicationWindow {
 			signal exit()
 
 			MenuItem {
-				text: qsTr("New game")
-				onClicked: menu.newGame()
+				text: qsTr("Exit")
+				onClicked: menu.exit()
+			}
+			MenuItem {
+				text: qsTr("Reset scores")
+				onClicked: {
+					remorse.execute(qsTr("Reseting scores"), function() { menu.resetScores() })
+				}
 			}
 			MenuItem {
 				text: qsTr("Configuration")
 				onClicked: {
 					var confpage = pageStack.push(Qt.resolvedUrl("ConfigurePage.qml"))
 					confpage.configChanged.connect(menu.configChanged)
-					confpage.resetScores.connect(menu.resetScores)
 				}
 			}
 			MenuItem {
-				text: qsTr("Reset scores")
+				text: qsTr("New game")
 				onClicked: {
-					remorse.execute("Reseting scores", function() { menu.resetScores() })
+					if (game.ended) {
+						menu.newGame()
+					}
+					else {
+						remorse.execute(qsTr("Stop this game"), function() { menu.newGame() })
+					}
 				}
-			}
-			MenuItem {
-				text: qsTr("Exit")
-				onClicked: menu.exit()
 			}
 		}
 		Column {

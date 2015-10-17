@@ -39,5 +39,6 @@ SOURCES = \
 		UI/qml/board/*.qml \
 		UI/qml/config/*.qml \
 		UI/qml/sailfish/*.qml \
+		UI/qml/sailfish/configure/*.qml \
 		UI/qml/*.qml \
 }

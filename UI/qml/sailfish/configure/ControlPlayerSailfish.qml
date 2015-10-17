@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
+import "../../config"
+
 Column {
 	id: controlPlayer
 
@@ -19,13 +21,11 @@ Column {
 		label: qsTr("Name")
 		placeholderText: qsTr("Player name")
 		width: parent.width
-
-		function submit() { controlPlayer.nameEdited(text) }
 	}
 
 	TextSwitch {
 		id: ia
-		text: "IA"
+		text: qsTr("IA force") + " " + sliderForce.value
 		checked: controlPlayer.type == 1
 		width: parent.width
 	}
@@ -36,60 +36,21 @@ Column {
 			stepSize: 1
 			minimumValue: 0
 			maximumValue: 4
-			valueText: qsTr("IA force") + " " + value
 			//tickmarksEnabled: true
-			width: parent.width
 			enabled: ia.checked
 			value: force
-		//	opacity: enabled ? 1 : 0.3
+			width: parent.width
+
+			opacity: enabled ? 1 : 0.3
 		//	updateValueWhileDragging: false
 	}
 
-/*
-	ColumnLayout {
-		RowLayout {
-			Label { text: qsTr("Name") + ": " }
-			TextField { 
-				id: nameField
-				text: name
-				Layout.fillWidth: true
-				function submit() { controlPlayer.nameEdited(text) }
-			}
-		}
-		ExclusiveGroup { id: player }
-		RowLayout {
-			RadioButton {
-				id: human
-				text: qsTr("Human")
-				checked: controlPlayer.type == 0
-				exclusiveGroup: player
-			}
-			RadioButton {
-				id: ia
-				text: qsTr("IA force") + ":"
-				checked: controlPlayer.type == 1
-				exclusiveGroup: player
-			}
-		}
-		Slider {
-			id: sliderForce
-			stepSize: 1
-			minimumValue: 0
-			maximumValue: 4
-			tickmarksEnabled: true
-			width: parent.width * 0.9
-			enabled: ia.checked
-			opacity: enabled ? 1 : 0.3
-			updateValueWhileDragging: false
-		}
-	}
-
 	function submitAll() {
-		nameField.submit()
+		nameEdited(nameField.text)
 		submit()
 	}
 
 	function getType() {
-		return human.checked ? 0 : 1
-	}*/
+		return ia.checked ? DefaultConfig.typeIA : DefaultConfig.typeHuman
+	}
 }

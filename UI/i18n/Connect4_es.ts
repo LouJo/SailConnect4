@@ -53,11 +53,37 @@
     </message>
 </context>
 <context>
+    <name>ConfigurePage</name>
+    <message>
+        <location filename="../qml/sailfish/ConfigurePage.qml" line="20"/>
+        <source>Configuration</source>
+        <translation>Configuración</translation>
+    </message>
+</context>
+<context>
     <name>ConfigureWindow</name>
     <message>
         <location filename="../qml/config/ConfigureWindow.qml" line="10"/>
         <source>configuration</source>
         <translation>configuración</translation>
+    </message>
+</context>
+<context>
+    <name>ControlPlayerSailfish</name>
+    <message>
+        <location filename="../qml/sailfish/configure/ControlPlayerSailfish.qml" line="21"/>
+        <source>Name</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/configure/ControlPlayerSailfish.qml" line="22"/>
+        <source>Player name</source>
+        <translation>Jugador Nombre</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/configure/ControlPlayerSailfish.qml" line="28"/>
+        <source>IA force</source>
+        <translation>IA fuerza</translation>
     </message>
 </context>
 <context>
@@ -112,24 +138,38 @@
 <context>
     <name>Sailfish</name>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="27"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="50"/>
         <source>New game</source>
         <translation>Nuevo juego</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="31"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="43"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="39"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="33"/>
         <source>Exit</source>
         <translation>Dejar</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="48"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="37"/>
+        <source>Reset scores</source>
+        <translation>Borrar las puntuaciones</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="39"/>
+        <source>Reseting scores</source>
+        <translation>Borrar las puntuaciones</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="56"/>
+        <source>Stop this game</source>
+        <translation>detener este juego</translation>
+    </message>
+    <message>
         <source>Connect 4</source>
-        <translation>Conectar 4</translation>
+        <translation type="vanished">Conectar 4</translation>
     </message>
 </context>
 </TS>
