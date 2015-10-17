@@ -29,7 +29,7 @@ Rectangle {
 		canPlay: game.canPlay
 
 		Component.onCompleted: {
-			game.grabOk(board)
+			game.grabOk(toGrab)
 		}
 	}
 

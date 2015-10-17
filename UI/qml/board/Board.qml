@@ -22,6 +22,7 @@ Rectangle {
 	property bool canPlay: false
 
 	property alias ended: lineAligned.showed
+	property alias toGrab: board_render
 
 	color: Style.color_board_bg
 
@@ -59,11 +60,21 @@ Rectangle {
 	}
 
 	Blend {
-		id: "board_mask"
+		id: board_mask
 		anchors.fill: parent
 		source: board_bg
 		foregroundSource: grid
 		mode: "normal"
+	}
+
+	Blend {
+		id: board_render
+		visible: false
+		anchors.fill: parent
+		source: board_mask
+		foregroundSource: balls
+		mode: "normal"
+		signal updated()
 	}
 
 	// hole borders
@@ -88,9 +99,12 @@ Rectangle {
 		id: balls
 
 		property double ballOffset: board.cellMargin
+		property int nbPlaced: parent.nbCells
 
 		visible: false
 		anchors.fill: parent
+
+		signal updated()
 
 		Repeater {
 			model: board.nbCells
@@ -104,6 +118,7 @@ Rectangle {
 				property int timeAnimation: timeAnimationDefault
 				property bool bounce: true
 				property bool placed: played && !yAnimation.running
+				property bool parked: !played && !yAnimation.running
 
 				y: played ? posY : -board.ballLength
 
@@ -111,6 +126,21 @@ Rectangle {
 				border.color: Style.color_ball_border
 
 				//Text { text: index; x:10; y:10; color:"red" }
+
+				onPlacedChanged: {
+					if (placed) {
+						balls.nbPlaced++
+						balls.updated()
+						//console.log("qml: balls placed: " + balls.nbPlaced)
+					}
+				}
+				onParkedChanged: {
+					if (parked) {
+						balls.nbPlaced--
+						if (balls.nbPlaced == 0) balls.updated()
+						//console.log("qml: balls placed: " + balls.nbPlaced)
+					}
+				}
 
 				Behavior on y {
 					NumberAnimation {
@@ -147,6 +177,10 @@ Rectangle {
 
 		function play(idx, player) {
 			return balls_repeater.itemAt(idx).play(player)
+		}
+
+		Component.onCompleted: {
+			onNbPlacedChanged.connect(updated)
 		}
 	}
 
@@ -204,6 +238,10 @@ Rectangle {
 			//console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / board.cellLength) | 0))
 			board.playCol((mouse.x / board.cellLength) | 0)
 		}
+	}
+
+	Component.onCompleted: {
+		balls.updated.connect(board_render.updated)
 	}
 
 	function reset() { balls.reset() }

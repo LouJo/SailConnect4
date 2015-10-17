@@ -24,7 +24,7 @@ CoverBackground {
 		id: bg
 	}
 
-	Blend {
+	Image {
 		id: previewImage
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.top: label.bottom
@@ -34,7 +34,14 @@ CoverBackground {
 
 		height: objectToGrab.height * width / objectToGrab.width
 
-		source: objectToGrab
-		foregroundSource: bg
+		function updatePreview() {
+			objectToGrab.grabToImage(function(res) {
+				previewImage.source = res.url;
+			}, Qt.size(width, height))
+		}
+	}
+
+	Component.onCompleted: {
+		objectToGrab.updated.connect(previewImage.updatePreview)
 	}
 }
