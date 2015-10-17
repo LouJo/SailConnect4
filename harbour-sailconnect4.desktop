@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=SailConnect4
-Exec=SailConnect4
+Icon=harbour-sailconnect4
+Exec=harbour-sailconnect4
 Name=SailConnect4
 # translation example:
 # your app name in German locale (de)

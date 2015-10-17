@@ -1,5 +1,5 @@
 QT += qml quick gui concurrent
-TARGET = SailConnect4
+TARGET = harbour-sailconnect4
 
 CONFIG += c++11 sailfishapp
 

@@ -16,9 +16,10 @@ BUILD_DIR_LOCAL = $(HOME)/merBuild
 BUILD_DIR_ENGINE = $(HOME_ENGINE)/merBuild
 
 SOURCE_DIR_LOCAL = $(PWD)/..
-SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
+#SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
+SOURCE_DIR_ENGINE = /home/src1/Connect4
 
-PRO_FILE = SailConnect4.pro
+PRO_FILE = harbour-sailconnect4.pro
 
 I486_TARGET = SailfishOS-i486
 JOLLA_TARGET = SailfishOS-armv7hl
@@ -37,8 +38,8 @@ SSH_EMULATOR = ssh -p 2223 -i $(SSH_KEY_EMULATOR) $(SSH_LOGIN_EMULATOR)
 
 SCP_EMULATOR = scp -P 2223 -i $(SSH_KEY_EMULATOR)
 
-RPM_I486 = SailConnect4-0.1-1.i486.rpm 
-RPM_JOLLA = SailConnect4-0.1-1.armv7hl.rpm
+RPM_I486 = harbour-sailconnect4-0.1-1.i486.rpm 
+RPM_JOLLA = harbour-sailconnect4-0.1-1.armv7hl.rpm
 
 MB2 = mb2 -p $(SOURCE_DIR_ENGINE) 
 
