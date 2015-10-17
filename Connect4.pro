@@ -12,6 +12,7 @@ SOURCES += \
 
 RESOURCES += \
 	UI/qml/qml.qrc \
+	UI/qml/desktop.qrc \
 	UI/icons/icons.qrc \
 	UI/i18n/translations.qrc
 

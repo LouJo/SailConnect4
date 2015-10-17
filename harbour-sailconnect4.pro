@@ -31,5 +31,3 @@ HEADERS += \
 	Game/include/GameInterface.h \
 	Game/src/Game.h \
 	Game/src/Minimax.h
-
-

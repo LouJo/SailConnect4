@@ -3,7 +3,6 @@ import QtGraphicalEffects 1.0
 
 import "."
 import "../config"
-import "../menu"
 import "../main"
 
 Rectangle {

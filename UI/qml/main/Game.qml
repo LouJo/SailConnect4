@@ -3,7 +3,6 @@ import QtQuick 2.0
 import "."
 import "../board"
 import "../config"
-import "../menu"
 
 Rectangle {
 	id: game

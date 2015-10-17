@@ -1,15 +1,9 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/">
 <file>main/Game.qml</file>
-<file>main/Main.qml</file>
 <file>main/Style.qml</file>
-<file>apropos/Apropos.qml</file>
-<file>apropos/qmldir</file>
 <file>config/qmldir</file>
 <file>config/Config.qml</file>
-<file>config/ControlsPlayer.qml</file>
-<file>config/Configure.qml</file>
-<file>config/ConfigureWindow.qml</file>
 <file>config/DefaultConfig.qml</file>
 <file>board/qmldir</file>
 <file>board/Infos.qml</file>
@@ -17,10 +11,5 @@
 <file>board/Board.qml</file>
 <file>board/Case.qml</file>
 <file>board/LocalLine.qml</file>
-<file>menu/qmldir</file>
-<file>menu/ButtonGeneric.qml</file>
-<file>menu/ButtonMenu.qml</file>
-<file>menu/Menu.qml</file>
-<file alias="main/Controller.js">main/noController.js</file>
 </qresource>
 </RCC>
