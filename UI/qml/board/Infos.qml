@@ -27,7 +27,7 @@ Rectangle {
 			width: parent.width; height: parent.height / 2
 			anchors.top: parent.top
 			text: parent.player_name
-			font.pixelSize: Math.min(width / 5 + 1, width / (parent.player_name.length+1) * 2)
+			font.pixelSize: width / (Math.max(parent.player_name.length+1, 7)) * 1.8 
 			color: parent.player_color
 			horizontalAlignment: Text.AlignHCenter
 			verticalAlignment: Text.AlignVCenter
