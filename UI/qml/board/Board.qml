@@ -20,7 +20,7 @@ Rectangle {
 
 	property bool canPlay: false
 
-	property alias ended: lineAligned.showed
+	property bool ended: lineAligned.showed || (balls.nbPlaced == nbCells)
 	property alias toGrab: board_render
 
 	color: Style.color_board_bg
