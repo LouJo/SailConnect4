@@ -25,4 +25,4 @@ Translated in french, english, german and spanish.
 *Author: Louis-Joseph Fournier*  
 *First release date: 2015-10-18*  
 
-(https://github.com/LouJo/SailConnect4)
+https://github.com/LouJo/SailConnect4
