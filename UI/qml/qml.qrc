@@ -9,6 +9,7 @@
 <file>board/Infos.qml</file>
 <file>board/InfosPlayer.qml</file>
 <file>board/Board.qml</file>
+<file>board/Ball.qml</file>
 <file>board/Case.qml</file>
 <file>board/LocalLine.qml</file>
 </qresource>

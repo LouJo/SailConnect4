@@ -109,7 +109,7 @@ Rectangle {
 			model: board.nbCells
 			id: balls_repeater
 
-			Case {
+			Ball {
 				idx: index
 				property bool played: false 
 
@@ -121,8 +121,8 @@ Rectangle {
 
 				y: played ? posY : -board.ballLength
 
-				color: "transparent"
-				border.color: Style.color_ball_border
+				//color: "transparent"
+				//border.color: Style.color_ball_border
 
 				//Text { text: index; x:10; y:10; color:"red" }
 
@@ -150,9 +150,10 @@ Rectangle {
 					}
 				}
 
-				function play(player) {
+				function play(player_) {
 					if (played) return false
-					color = player == 1 ? Style.color_player1 : Style.color_player2
+					//color = player == 1 ? Style.color_player1 : Style.color_player2
+					player = player_
 					bounce = true
 					played = true
 					timeAnimation = 0
