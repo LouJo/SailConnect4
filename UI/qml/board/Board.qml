@@ -23,6 +23,8 @@ Rectangle {
 	property bool ended: lineAligned.showed || (balls.nbPlaced == nbCells)
 	property alias toGrab: board_render
 
+	property QtObject ballPlaying
+
 	color: Style.color_board_bg
 
 	signal playCol(int col)
@@ -176,7 +178,8 @@ Rectangle {
 		}
 
 		function play(idx, player) {
-			return balls_repeater.itemAt(idx).play(player)
+			board.ballPlaying = balls_repeater.itemAt(idx)
+			return board.ballPlaying.play(player)
 		}
 
 		Component.onCompleted: {
@@ -206,7 +209,7 @@ Rectangle {
 			color: parent.colorLine
 		}
 
-		visible: showed && ball1.placed && ball2.placed
+		visible: showed && ball1.placed && ball2.placed && board.ballPlaying.placed
 
 		function show(i1, i2) {
 			item1 = grid_repeater.itemAt(i1)
