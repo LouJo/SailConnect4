@@ -22,35 +22,41 @@
 
 using namespace std;
 
+/* Score factors ranges for every IA force.
+ * This permit to construct the strategie definition 
+ * every beginning of game.
+ * This look ugly, but powerful use of Range object.
+ */
 
-/* Scoring config */
+typedef Game::Range<double> RD;
+typedef Game::Range<int> RI;
 
-Game::ScoreFactors Game::defaultScoreFactors = {
-	"default",
-	{ 0.01, 0.49, 0.5 },  // Score factors
-	0.75,             // alignedMore
-	{ 70, 30, 10, 5 } // maxAligned
-};
-
-Game::ScoreFactors Game::aggressiveFactors = {
-	"aggressive",
-	{ 0.01, 0.69, 0.3 },  // Score factors
-	0.75,             // alignedMore
-	{ 10, 10, 10, 5 } // maxAligned
-};
-
-
-Game::ScoreFactors Game::defensiveFactors = {
-	"defensive",
-	{ 0.01, 0.29, 0.7 },  // Score factors
-	0.75,             // alignedMore
-	{ 70, 30, 10, 5 } // maxAligned
-};
-
-Game::ScoreFactors *Game::strategies[] = {
-	&defaultScoreFactors,
-	&aggressiveFactors,
-	&defensiveFactors,
+Game::ScoreFactorsRange Game::scoreFactorRangesForce[] = {
+	/* force 0 */ {
+		{ RD(0.1,1), RD(0,0.9), RD(0,0.9) },
+		RD(0.3, 1),
+		{ RI(0,20), RI(0,20), RI(0,10), RI(0,5) }
+	},
+	/* force 1 */ {
+		{ RD(0.01,0.2), RD(0,0.9), RD(0,0.9) },
+		RD(0.5, 0.9),
+		{ RI(0,30), RI(0,25), RI(2,10), RI(2,5) }
+	},
+	/* force 2 */ {
+		{ RD(0.01,0.1), RD(0.1,0.6), RD(0.2,0.7) },
+		RD(0.6, 0.9),
+		{ RI(5,70), RI(5,30), RI(4,10), RI(1,5) }
+	},
+	/* force 3 */ {
+		{ RD(0.01,0.05), RD(0.1,0.6), RD(0.4,0.7) },
+		RD(0.6, 0.9),
+		{ RI(50,70), RI(10,30), RI(5,10), RI(5,5) }
+	},
+	/* force 4 */ {
+		{ RD(0.01,0.01), RD(0.2,0.6), RD(0.4,0.7) },
+		RD(0.6, 0.8),
+		{ RI(50,70), RI(20,30), RI(5,10), RI(5,5) }
+	},
 };
 
 /* IA force configuration */
@@ -63,11 +69,48 @@ Game::IAForceConfig Game::iaForceConfig[] = {
 	{ 20, Game::maxNodesTree }
 };
 
+/* Range management for scoring initializition */
+
+template <> int Game::Range<int>::operator() () const
+{
+	if (min == max) return min;
+	return min + (rand() % (max - min + 1));
+}
+
+template <> double Game::Range<double>::operator() () const
+{
+	if (min == max) return min;
+	return min + (double) (rand() % 10001) / 10000 * (max - min);
+}
+
+/* Construct a strategie from ranges */
+
+Game::ScoreFactors Game::ScoreFactorsRange::operator() () const
+{
+	ScoreFactors ret;
+	double sum = 0;
+	for (int i = 0; i < NB_SCORE_FACTOR; i++) {
+		ret.factors[i] = factors[i]();
+		sum += ret.factors[i];
+	}
+	if (sum == 0) sum = 1; // bad
+
+	for (int i = 0; i < NB_SCORE_FACTOR; i++) ret.factors[i] /= sum;
+
+	ret.factorAlignedMore = factorAlignedMore();
+
+	for (int i = 0; i < ScoreFactors::maxNbAligned; i++) {
+		ret.maxAligned[i] = maxAligned[i]();
+	}
+
+	return ret;
+}
+
 /* Scoring */
 
 Game::Scoring::Scoring() : score(0)
 {
-	factors = defaultScoreFactors;
+	range = &Game::scoreFactorRangesForce[0];
 }
 
 void Game::Scoring::Reset()
@@ -77,16 +120,24 @@ void Game::Scoring::Reset()
 
 void Game::ScoreFactors::operator= (const ScoreFactors &s)
 {
-	name = s.name;
 	for (int i = 0; i < NB_SCORE_FACTOR; i++) factors[i] = s.factors[i];
 	factorAlignedMore = s.factorAlignedMore;
 	for (int i = 0; i < maxNbAligned; i++) maxAligned[i] = s.maxAligned[i];
 }
 
-void Game::Scoring::SetStrategie(int i)
+void Game::ScoreFactors::Debug()
 {
-	assert(i >= 0 && i < 3);
-	factors = *strategies[i];
+	cerr << "game: strategie factors ";
+	for (int i = 0; i < NB_SCORE_FACTOR; i++) cerr << factors[i] << " ";
+	cerr << factorAlignedMore << " ";
+	for (int i = 0; i < maxNbAligned; i++) cerr << maxAligned[i] << " ";
+	cerr << endl;
+}
+
+void Game::Scoring::SetStrategie()
+{
+	factors = (*range)();
+	factors.Debug();
 }
 
 void Game::Scoring::SetScore(const ScoreFactor_t factorId, double s)
@@ -110,7 +161,8 @@ void Game::Scoring::SetAligned(const ScoreFactor_t factorId, int *nbAligned, int
 		else max = factors.maxAligned[factors.maxNbAligned - 1];
 
 		int nb = min(max, *(nbAligned + i));
-		s = s * (1 - factors.factorAlignedMore) + (double) nb / max * factors.factorAlignedMore;
+		if (max == 0) s = s * (1 - factors.factorAlignedMore);
+		else s = s * (1 - factors.factorAlignedMore) + (double) nb / max * factors.factorAlignedMore;
 	}
 	if (factorId == SCORE_ALIGN_OTHER) s = 1 - s;
 	SetScore(factorId, s);
@@ -373,9 +425,7 @@ void Game::GameState::Reset()
 
 	for (int i = 0; i < boardDesc->nbPlayer; i++) {
 		playerState[i]->Reset();
-	//	scoring[i].SetStrategie(0); // TODO
-		scoring[i].SetStrategie(rand() % NB_ELT(strategies));
-		cerr << "game: player " << i << " strategie " << scoring[i].factors.name << endl;
+		scoring[i].SetStrategie();
 	}
 	gameDiff.clear();
 }
@@ -477,6 +527,13 @@ int Game::GameState::BestPlay(int player)
 		Back();
 	}
 	return bestIdx;
+}
+
+void Game::GameState::SetScoringRange(int player, ScoreFactorsRange *range)
+{
+	assert(player >= 0 && player < boardDesc->nbPlayer);
+	scoring[player].range = range;
+	scoring[player].SetStrategie();
 }
 
 int Game::GameState::NextPlayer(int player)
@@ -622,7 +679,11 @@ bool Game::PlayPossibleAtCol(int col, int &index)
 void Game::SetIAForce(int force, int player)
 {
 	assert(player >= 0 && player < boardDesc->nbPlayer);
+
 	iaForce[player] = min((unsigned int ) force, NB_ELT(iaForceConfig));
+
+	gameState->SetScoringRange(player, &scoreFactorRangesForce[min((unsigned int) force, NB_ELT(scoreFactorRangesForce))]);
+
 	cerr << "game: set IA force " << iaForce[player] << " for player " << player << endl;
 }
 

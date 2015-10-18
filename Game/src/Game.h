@@ -11,6 +11,17 @@
 #include "Minimax.h"
 
 class Game : public GameInterface {
+
+	public:
+
+	// Range of data management
+	template<typename A> class Range {
+		public:
+		A min, max;
+		Range(const A &min_, const A &max_) :  min(min_), max(max_) {}
+		A operator() () const;
+	};
+
 	private:
 
 	/* score factors
@@ -26,24 +37,31 @@ class Game : public GameInterface {
 
 	struct ScoreFactors {
 		static const int maxNbAligned = 4;
-		const char* name;
 		double factors[NB_SCORE_FACTOR];
 		double factorAlignedMore;
 		int maxAligned[maxNbAligned];
 
 		void operator= (const ScoreFactors &s);
+		void Debug();
 	};
 
-	static ScoreFactors defaultScoreFactors;
-	static ScoreFactors aggressiveFactors, defensiveFactors;
-	static ScoreFactors* strategies[];
+	struct ScoreFactorsRange {
+		Range<double> factors[NB_SCORE_FACTOR];
+		Range<double> factorAlignedMore;
+		Range<int> maxAligned[ScoreFactors::maxNbAligned];
+
+		ScoreFactors operator() () const;
+	};
+
+	static ScoreFactorsRange scoreFactorRangesForce[];
 
 	class Scoring {
 		public:
 		ScoreFactors factors;
+		ScoreFactorsRange *range;
 
 		Scoring();
-		void SetStrategie(int i);
+		void SetStrategie();
 		void Reset();
 		void SetScore(const ScoreFactor_t factorId, double s);
 		void SetAligned(const ScoreFactor_t factorId, int *nbAligned, int align);
@@ -148,6 +166,7 @@ class Game : public GameInterface {
 		bool IsEnded(int &winner, int* &caseAligned);
 		bool IsEnded();
 		int BestPlay(int player);
+		void SetScoringRange(int player, ScoreFactorsRange *range);
 
 		void DebugNbAligned();
 
