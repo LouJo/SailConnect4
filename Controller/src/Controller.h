@@ -73,7 +73,7 @@ class ControllerConcurrent : public QObject, public Controller {
 	Q_OBJECT
 
 	private:
-	static const int minIntervalPlayMs = 500;
+	static const int minIntervalPlayMs = 700;
 
 	int currentGame, idx;
 	QFutureWatcher<int> *watcher;

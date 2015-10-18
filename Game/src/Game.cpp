@@ -48,7 +48,7 @@ Game::ScoreFactorsRange Game::scoreFactorRangesForce[] = {
 		{ RI(5,70), RI(5,30), RI(4,10), RI(1,5) }
 	},
 	/* force 3 */ {
-		{ RD(0.01,0.05), RD(0.1,0.6), RD(0.4,0.7) },
+		{ RD(0.01,0.01), RD(0.1,0.6), RD(0.4,0.7) },
 		RD(0.6, 0.9),
 		{ RI(50,70), RI(10,30), RI(5,10), RI(5,5) }
 	},

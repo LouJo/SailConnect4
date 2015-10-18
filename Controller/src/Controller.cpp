@@ -20,7 +20,7 @@ string Controller::gameFileName = "C4game.dat";
 
 ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman },
-	  { "Nemo", 2, ControllerInterface::TypeIA } },
+	  { "Nemo", 1, ControllerInterface::TypeIA } },
 	6, 7, 4
 };
 
