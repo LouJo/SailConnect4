@@ -214,7 +214,7 @@ Rectangle {
 			ball1 = balls_repeater.itemAt(i1)
 			ball2 = balls_repeater.itemAt(i2)
 
-			colorLine = ball1.color
+			colorLine = ball1.player == 1 ? Style.color_player1 : Style.color_player2
 			showed = true
 		}
 		function hide() {
