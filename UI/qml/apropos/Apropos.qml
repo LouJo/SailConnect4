@@ -43,6 +43,10 @@ ApplicationWindow {
 			Text {
 				text: qsTr("Date") + ": " + Config.program_date
 			}
+			Text {
+				text: "<a href=\"http://https://github.com/LouJo/SailConnect4\">http://https://github.com/LouJo/SailConnect4</a>"
+				font.pixelSize: 10
+			}
 		}
 	}
 }
