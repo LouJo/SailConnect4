@@ -197,7 +197,7 @@ Rectangle {
 		property var ball1
 		property var ball2
 
-		property color colorLine: ball1 ? ball1.color : "white"
+		property color colorLine: ball1 ? (ball1.player == 1 ? Style.color_player1 : Style.color_player2) : "transparent"
 		property bool showed: false
 
 		LocalLine {
