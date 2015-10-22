@@ -7,6 +7,8 @@ import "./configure"
 Dialog {
 	id: configurePage
 
+    allowedOrientations: Orientation.All
+
 	signal configChanged()
 
 	Column {
