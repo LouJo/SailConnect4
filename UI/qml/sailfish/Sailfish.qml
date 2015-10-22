@@ -9,10 +9,14 @@ ApplicationWindow {
 	id: app
 
 	property var config: Config // for UISailfish.cpp
-	property QtObject boardToGrab
+    property QtObject boardToGrab
+
+    allowedOrientations: (Screen.sizeCategory > Screen.Medium) ? Orientation.All : Orientation.Portrait
 
 	initialPage: Component { Page {
 		id: page
+
+        allowedOrientations: Orientation.All
 
 		SilicaFlickable {
 		anchors.fill: parent
@@ -73,7 +77,9 @@ ApplicationWindow {
 			Game {
 				id: game
 				objectName: "game"
-				width: parent.width
+                width: page.orientation & Orientation.PortraitMask ? parent.width : parent.width / 2
+
+                anchors.horizontalCenter: parent.horizontalCenter
 				anchors.top: header.bottom
 				anchors.topMargin: header.height / 2
 				height: page.height - header.height * 3
@@ -88,8 +94,6 @@ ApplicationWindow {
 	function setBoardToGrab(obj) {
 		app.boardToGrab = obj;
 	}
-
-	allowedOrientations: Orientation.Portrait
 
 	cover: Component {
 		CoverPage {
