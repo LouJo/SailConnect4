@@ -2,6 +2,7 @@
 Type=Application
 Icon=harbour-sailconnect4
 Exec=harbour-sailconnect4
+X-Nemo-Application-Type=silica-qt5
 Name=SailConnect4
 # translation example:
 # your app name in German locale (de)
