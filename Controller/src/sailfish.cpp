@@ -27,7 +27,7 @@ class FactorySailfish : public FactoryInterface {
 	}
 };
 
-int main(int argc, char *argv[])
+Q_DECL_EXPORT int main(int argc, char *argv[])
 {
 	FactorySailfish factory(argc, argv);
 	ControllerInterface *ctrl = factory.NewController();
