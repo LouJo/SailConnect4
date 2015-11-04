@@ -2,8 +2,9 @@ QT += qml quick gui concurrent
 TARGET = harbour-sailconnect4
 
 CONFIG += c++11 sailfishapp
-
 CONFIG += sailfishapp_i18n
+
+DEFINES += TARGET=\""$(TARGET")\"
 
 SOURCES += \
 	UI/src/UI.cpp \

@@ -3,6 +3,8 @@ TARGET = Connect4
 
 CONFIG += c++11
 
+DEFINES += TARGET=\""$(TARGET")\"
+
 SOURCES += \
 	UI/src/UI.cpp \
 	Controller/src/Controller.cpp \

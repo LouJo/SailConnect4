@@ -14,9 +14,13 @@
 
 using namespace std;
 
-string Controller::configFileName = "C4config.dat";
-string Controller::scoreFileName = "C4score.dat";
-string Controller::gameFileName = "C4game.dat";
+#define name_(x) #x
+#define name(x) name_(x)
+#define NAME name(TARGET)
+
+string Controller::configFileName = NAME "_config.dat";
+string Controller::scoreFileName = NAME "_score.dat";
+string Controller::gameFileName = NAME "_game.dat";
 
 ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman },
