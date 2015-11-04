@@ -245,7 +245,8 @@ void Controller::PlayAtIndex(int index)
 		if (winner != -1) Win(winner, caseAligned);
 		else ended = true;
 
-		if (config.player[0].type == TypeIA && config.player[1].type == TypeIA) NewGame();
+		// loop play when 2 IA
+//		if (config.player[0].type == TypeIA && config.player[1].type == TypeIA) NewGame();
 	}
 	else {
 		NextPlayer();
