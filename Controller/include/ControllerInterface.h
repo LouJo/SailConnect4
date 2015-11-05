@@ -35,6 +35,7 @@ class ControllerInterface {
 	virtual bool PlayAtCol(int col) = 0;
 	virtual void ResetScores() = 0;
 	virtual void Loop() = 0;
+	virtual void Pause(bool pause) = 0;
 
 	// null controller
 
@@ -53,5 +54,6 @@ class ControllerNull : public ControllerInterface {
 	virtual void ResetScores() {}
 	virtual void Start() {}
 	virtual void Loop() {}
+	virtual void Pause(bool pause __attribute__((unused))) {}
 };
 #endif

@@ -37,7 +37,7 @@ void Controller::Init(FactoryInterface *factory)
 {
 	score[0] = score[1] = 0;
 	player = firstPlayer = 0;
-	ended = false;
+	ended = paused = false;
 
 	isIAPlaying = toNewGame = toConfigChange = false;
 
@@ -164,6 +164,13 @@ void Controller::Loop()
 	ui->Loop();
 }
 
+void Controller::Pause(bool pause)
+{
+	this->paused = pause;
+	if (pause) ui->EnablePlay(false);
+	else EnablePlay();
+}
+
 // private
 
 void Controller::NextPlayer()
@@ -175,7 +182,7 @@ void Controller::NextPlayer()
 
 void Controller::EnablePlay()
 {
-	if (ended) return;
+	if (ended || paused) return;
 	if (config.player[player].type == TypeHuman) {
 		ui->EnablePlay(true);
 	}
@@ -200,6 +207,11 @@ void Controller::IAFinished(int idx, int currentGame)
 {
 	isIAPlaying = false;
 	PendingActions();
+
+	if (paused) {
+		cerr << "ctrl: game paused while IA thouthed. Do not play" << endl;
+		return;
+	}
 
 	// do not apply if player not more IA or new game launched
 	if (config.player[player].type == TypeHuman) {
@@ -240,6 +252,10 @@ void Controller::PendingActions()
 void Controller::PlayAtIndex(int index)
 {
 	int winner, *caseAligned;
+	if (paused) {
+		qDebug() << "Ctrl error: play not permitted while paused";
+		return;
+	}
 
 	ui->PlayAtIndex(player, index);
 	game->PlayAtIndex(index);

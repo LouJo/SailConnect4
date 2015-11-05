@@ -19,7 +19,7 @@ class Controller : public ControllerInterface {
 	UIInterface *ui;
 	GameInterface *game;
 
-	bool isIAPlaying, toConfigChange, toNewGame;
+	bool isIAPlaying, toConfigChange, toNewGame, paused;
 
 	int player, firstPlayer;
 	int nGame;
@@ -65,6 +65,7 @@ class Controller : public ControllerInterface {
 	bool PlayAtCol(int col);
 	void ResetScores();
 	void Loop();
+	void Pause(bool pause);
 };
 
 #include <QtConcurrent>
