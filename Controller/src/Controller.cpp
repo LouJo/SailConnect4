@@ -18,9 +18,9 @@ using namespace std;
 #define name(x) name_(x)
 #define NAME name(TARGET)
 
-string Controller::configFileName = NAME "_config.dat";
-string Controller::scoreFileName = NAME "_score.dat";
-string Controller::gameFileName = NAME "_game.dat";
+string Controller::configFileName = "config.dat";
+string Controller::scoreFileName = "score.dat";
+string Controller::gameFileName = "game.dat";
 
 ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman },
@@ -41,13 +41,17 @@ void Controller::Init(FactoryInterface *factory)
 
 	isIAPlaying = toNewGame = toConfigChange = false;
 
-	nGame = 0; // identifie the game number
+	nGame = 0; // identify the game number
 
 	QString qDataDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 	qDebug() << "ctrl: standart config path: " << qDataDir;
 	if (qDataDir == "") { configFilePath = scoreFilePath = gameFilePath = ""; }
 	else {
-		string path = qDataDir.toStdString();
+		// create config path if needed
+		QDir dir(qDataDir);
+		dir.mkpath(NAME);
+
+		string path = qDataDir.toStdString() + "/" NAME;
 		configFilePath = path + "/" + configFileName;
 		scoreFilePath = path + "/" + scoreFileName;
 		gameFilePath = path + "/" + gameFileName;
