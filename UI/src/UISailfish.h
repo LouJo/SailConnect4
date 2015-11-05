@@ -4,10 +4,14 @@
 #include "UI.h"
 
 class UISailfish : public UI {
+	private:
+	QObject *cover;
+	void SlotPause(const QVariant &pause);
+
 	public:
 	UISailfish(int &argc, char *argv[]);
-	void PostInit();
 	void Launch();
+	void PostInit();
 };
 
 #endif

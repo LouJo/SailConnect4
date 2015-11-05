@@ -166,6 +166,7 @@ void Controller::Loop()
 
 void Controller::Pause(bool pause)
 {
+	cerr << "ctrl: " << (pause ? "pause" : "restart");
 	this->paused = pause;
 	if (pause) ui->EnablePlay(false);
 	else EnablePlay();

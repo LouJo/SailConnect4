@@ -28,21 +28,9 @@ UISailfish::UISailfish(int &argc, char* argv[])
 
 void UISailfish::PostInit()
 {
-	// TODO remove if same as UI
-	qDebug() << "ui: post init";
-
-	game = main->findChild<QObject*>("game");
-	board = game->findChild<QObject*>("board");
-	menu = main->findChild<QObject*>("menu");
-
-	config = qvariant_cast<QObject*> (main->property("config"));
-
-	QObject::connect(view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(SlotExit()));
-	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
-	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
-	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
-	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
-	QObject::connect(menu, SIGNAL(configChanged()), this, SLOT(SlotConfigChanged()));
+	cover = main->findChild<QObject*>("myCover");
+	QObject::connect(cover, SIGNAL(coverActive(const QVariant&)), this, SLOT(SlotPause(const QVariant&)));
+	UI::PostInit();
 }
 
 void UISailfish::Launch()
@@ -50,4 +38,10 @@ void UISailfish::Launch()
 	qDebug() << "ui: Launch";
 	view->showFullScreen();
 //	view->setTitle(config->property("programTitle").toString());
+}
+
+void UISailfish::SlotPause(const QVariant &pause)
+{
+	qDebug() << "ui: SlotPause " << pause;
+	controller->Pause(pause.toBool());
 }

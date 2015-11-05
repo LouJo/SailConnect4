@@ -7,6 +7,9 @@ import "../config"
 
 CoverBackground {
 	property QtObject objectToGrab
+	signal coverActive(bool active)
+
+	property bool active: status == Cover.Active
 
 	Label {
 		id: label
@@ -44,5 +47,10 @@ CoverBackground {
 	Component.onCompleted: {
 		objectToGrab.updated.connect(previewImage.updatePreview)
 		previewImage.updatePreview()
+	}
+
+	onActiveChanged: {
+		console.log("Cover active: " + active)
+		coverActive(active)
 	}
 }

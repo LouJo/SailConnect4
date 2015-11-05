@@ -9,9 +9,9 @@ ApplicationWindow {
 	id: app
 
 	property var config: Config // for UISailfish.cpp
-    property QtObject boardToGrab
+   property QtObject boardToGrab
 
-    allowedOrientations: (Screen.sizeCategory > Screen.Medium) ? Orientation.All : Orientation.Portrait
+   allowedOrientations: (Screen.sizeCategory > Screen.Medium) ? Orientation.All : Orientation.Portrait
 
 	initialPage: Component { Page {
 		id: page
@@ -98,6 +98,7 @@ ApplicationWindow {
 	cover: Component {
 		CoverPage {
 			id: myCover
+			objectName: "myCover"
 			objectToGrab: app.boardToGrab
 		}
 	}

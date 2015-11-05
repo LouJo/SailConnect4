@@ -17,7 +17,7 @@ class UI : public QObject, public UIInterface {
 	void SlotResetScore();
 	void SlotExit();
 
-    protected:
+   protected:
 	QGuiApplication *app;
 	QQuickView *view;
 	QObject *game, *main, *menu, *config, *board;
