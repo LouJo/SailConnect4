@@ -26,13 +26,6 @@ UISailfish::UISailfish(int &argc, char* argv[])
 	PostInit();
 }
 
-void UISailfish::PostInit()
-{
-	cover = main->findChild<QObject*>("myCover");
-	QObject::connect(cover, SIGNAL(coverActive(const QVariant&)), this, SLOT(SlotPause(const QVariant&)));
-	UI::PostInit();
-}
-
 void UISailfish::Launch()
 {
 	qDebug() << "ui: Launch";
