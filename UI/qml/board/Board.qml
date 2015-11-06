@@ -100,7 +100,7 @@ Rectangle {
 		id: balls
 
 		property double ballOffset: board.cellMargin
-		property int nbPlaced: parent.nbCells
+		property int nbPlaced: 0
 
 		visible: false
 		anchors.fill: parent
