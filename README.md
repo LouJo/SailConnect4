@@ -19,6 +19,13 @@ You can play against it without being boring !
 
 Translated in french, english, german and spanish.
 
+======
+### Résumé en Français
+
+>Le fameux jeu Puissance 4, codé en Qml/Qt/C++ pour PC et téléphone [Jolla](https://jolla.com), avec une intelligence artificielle forte et configurable.
+
+======
+
 ### Copyright
 
 *Licence: GPL*  
