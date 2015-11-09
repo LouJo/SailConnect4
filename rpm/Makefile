@@ -12,8 +12,8 @@ SSH_LOGIN_JOLLA = nemo@jolla
 
 HOME_ENGINE = /home/mersdk/share
 
-BUILD_DIR_LOCAL = $(HOME)/merBuild
-BUILD_DIR_ENGINE = $(HOME_ENGINE)/merBuild
+BUILD_DIR_LOCAL = $(HOME)/merBuild/sailconnect4
+BUILD_DIR_ENGINE = $(HOME_ENGINE)/merBuild/sailconnect4
 
 SOURCE_DIR_LOCAL = $(PWD)/..
 #SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
