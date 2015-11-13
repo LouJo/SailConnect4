@@ -258,4 +258,7 @@ Rectangle {
 		if (b.played) return b.player;
 		else return 0;
 	}
+	function resetBall(idx) {
+		balls_repeater.itemAt(idx).reset()
+	}
 }

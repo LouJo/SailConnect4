@@ -39,10 +39,10 @@ CoverBackground {
 		height: objectToGrab.height * width / objectToGrab.width
 
 		function updatePreview() {
-			previewImage.reset()
 			for (var i = 0; i < objectToGrab.nbCells; i++) {
 				var n = objectToGrab.played(i)
 				if (n) previewImage.play(i, n)
+				else previewImage.resetBall(i)
 			}
 		}
 	}
