@@ -55,9 +55,14 @@
 <context>
     <name>ConfigurePage</name>
     <message>
-        <location filename="../qml/sailfish/ConfigurePage.qml" line="20"/>
+        <location filename="../qml/sailfish/ConfigurePage.qml" line="22"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ConfigurePage.qml" line="57"/>
+        <source>Transparent background</source>
+        <translation>fondo transparente</translation>
     </message>
 </context>
 <context>
@@ -138,32 +143,32 @@
 <context>
     <name>Sailfish</name>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="50"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="54"/>
         <source>New game</source>
         <translation>Nuevo juego</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="43"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="47"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="33"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="37"/>
         <source>Exit</source>
         <translation>Dejar</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="37"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="41"/>
         <source>Reset scores</source>
         <translation>Borrar las puntuaciones</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="39"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="43"/>
         <source>Reseting scores</source>
         <translation>Borrar las puntuaciones</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="56"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="60"/>
         <source>Stop this game</source>
         <translation>detener este juego</translation>
     </message>

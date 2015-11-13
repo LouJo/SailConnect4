@@ -53,6 +53,10 @@
         <source>Configuration</source>
         <translation>Réglages</translation>
     </message>
+    <message>
+        <source>Transparent background</source>
+        <translation>Fond transparent</translation>
+    </message>
 </context>
 <context>
     <name>ConfigureWindow</name>
