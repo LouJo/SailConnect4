@@ -27,30 +27,34 @@ CoverBackground {
 		id: bg
 	}
 
-	Image {
+	Board {
 		id: previewImage
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.top: label.bottom
 		anchors.topMargin: Theme.paddingLarge
 		anchors.left: parent.left
 		anchors.leftMargin: Theme.paddingSmall
+		color: "transparent"
 
 		height: objectToGrab.height * width / objectToGrab.width
 
 		function updatePreview() {
-			objectToGrab.grabToImage(function(res) {
-				previewImage.source = res.url;
-			}, Qt.size(width, height))
+			previewImage.reset()
+			for (var i = 0; i < objectToGrab.nbCells; i++) {
+				var n = objectToGrab.played(i)
+				if (n) previewImage.play(i, n)
+			}
 		}
 	}
 
 	Component.onCompleted: {
-		objectToGrab.updated.connect(previewImage.updatePreview)
+		//objectToGrab.updated.connect(previewImage.updatePreview)
 		previewImage.updatePreview()
 	}
 
 	onActiveChanged: {
 		console.log("Cover active: " + active)
 		coverActive(active)
+		if (active) previewImage.updatePreview()
 	}
 }

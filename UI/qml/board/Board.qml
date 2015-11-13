@@ -17,11 +17,12 @@ Rectangle {
 	property double ballLength: cellLength - cellMargin * 2
 	property double ballInterior: ballLength - cellBorderWidth * 2
 	property double ballRadius: ballInterior / 2
+	property double timeAnimationRow: Style.timeAnimationRow
 
 	property bool canPlay: false
 
 	property bool ended: lineAligned.showed || (balls.nbPlaced == nbCells)
-	property alias toGrab: board_render
+	property alias toGrab: board
 
 	property QtObject ballPlaying
 
@@ -115,7 +116,7 @@ Rectangle {
 				idx: index
 				property bool played: false 
 
-				property int timeAnimationDefault: Style.timeAnimationRow * (row + 1)
+				property int timeAnimationDefault: board.timeAnimationRow * (row + 1)
 				property int timeAnimation: timeAnimationDefault
 				property bool bounce: true
 				property bool placed: played && !yAnimation.running
@@ -251,4 +252,10 @@ Rectangle {
 	function play(idx, player) { return balls.play(idx, player); }
 	function alignedShow(i1, i2) { lineAligned.show(i1, i2); }
 	function alignedHide() { lineAligned.hide(); }
+
+	function played(idx) {
+		var b = balls_repeater.itemAt(idx)
+		if (b.played) return b.player;
+		else return 0;
+	}
 }
