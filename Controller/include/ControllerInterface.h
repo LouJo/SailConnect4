@@ -23,6 +23,7 @@ class ControllerInterface {
 	struct Config {
 		ConfigPlayer player[2];
 		int rows, columns, align;
+		bool board_transparent;
 	};
 
 	virtual void Start() = 0;

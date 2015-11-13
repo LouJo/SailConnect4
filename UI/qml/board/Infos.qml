@@ -7,7 +7,7 @@ import "../main"
 
 Rectangle {
 	id: info
-	color: Style.color_info_bg
+	color: Config.info_bg_transparent ? "transparent" : Style.color_info_bg
 
 	property int playerPlaying: 0
 

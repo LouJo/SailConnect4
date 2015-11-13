@@ -25,7 +25,8 @@ string Controller::gameFileName = "game.dat";
 ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman },
 	  { "Nemo", 1, ControllerInterface::TypeIA } },
-	6, 7, 4
+	6, 7, 4,
+	false // not transparent
 };
 
 Controller::Controller(FactoryInterface *factory)
@@ -56,7 +57,9 @@ void Controller::Init(FactoryInterface *factory)
 		scoreFilePath = path + "/" + scoreFileName;
 		gameFilePath = path + "/" + gameFileName;
 	}
-	if (!LoadConfig()) config = defaultConfig;
+
+	config = defaultConfig;
+	LoadConfig();
 
 	this->ui = factory->NewUI();
 	this->game = factory->NewGame(config);
@@ -323,6 +326,11 @@ bool Controller::LoadConfig()
 		f >> type;
 		p->type = (PlayerType_t) type;
 	}
+
+	int t;
+	f >> t;
+	// to avoid false detection on old files, 12 = true
+	config.board_transparent = (t == 12);
 	f.close();
 
 	return true;
@@ -346,6 +354,9 @@ bool Controller::SaveConfig()
 		f << p->force << endl;
 		f << p->type << endl;
 	}
+	// to avoid false detection on old files, 12 = true
+	int t = config.board_transparent ? 12 : 0;
+	f << t << endl;
 
 	f.close();
 	return true;

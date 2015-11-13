@@ -86,6 +86,9 @@ void UI::ConfigSet(const ControllerInterface::Config &conf)
 	config->setProperty("rows", conf.rows);
 	config->setProperty("columns", conf.columns);
 	config->setProperty("align", conf.align);
+	config->setProperty("board_bg_transparent", conf.board_transparent);
+	config->setProperty("info_bg_transparent", conf.board_transparent);
+	qDebug() << "ui: transparence: " << conf.board_transparent;
 }
 
 void UI::SetScore(int player, int score)

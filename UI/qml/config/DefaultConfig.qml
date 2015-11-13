@@ -20,4 +20,7 @@ QtObject {
 	property int player2_type: typeIA
 
 	property bool animation: true
+
+	property bool board_bg_transparent: true //false
+	property bool info_bg_transparent: false
 }

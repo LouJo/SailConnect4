@@ -26,7 +26,7 @@ Rectangle {
 
 	property QtObject ballPlaying
 
-	color: Style.color_board_bg
+	color: Config.board_bg_transparent ? "transparent" : Style.color_board_bg
 
 	signal playCol(int col)
 
