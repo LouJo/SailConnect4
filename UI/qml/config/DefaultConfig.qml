@@ -21,6 +21,5 @@ QtObject {
 
 	property bool animation: true
 
-	property bool board_bg_transparent: true //false
-	property bool info_bg_transparent: false
+	property bool board_transparent: false
 }

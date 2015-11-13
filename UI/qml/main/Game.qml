@@ -6,7 +6,7 @@ import "../config"
 
 Rectangle {
 	id: game
-	color: Config.board_bg_transparent ? "transparent" : Style.color_board_bg
+	color: Config.board_transparent ? "transparent" : Style.color_board_bg
 
 	property QtObject boardObject
 	property alias ended: board.ended

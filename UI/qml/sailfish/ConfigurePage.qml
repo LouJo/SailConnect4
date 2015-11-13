@@ -51,11 +51,22 @@ Dialog {
 				Config.player2_type = getType()
 			}
 		}
+
+		TextSwitch {
+			id: bgTransparentButton
+			text: qsTr("Transparent background")
+			checked: Config.board_transparent
+			anchors.margins: Theme.paddingLarge
+
+			signal submit()
+			onSubmit: Config.board_transparent = checked
+		}
 	}
 
 	onAccepted: {
 		player1.submitAll()
 		player2.submitAll()
+		bgTransparentButton.submit()
 		configChanged()
 	}
 }

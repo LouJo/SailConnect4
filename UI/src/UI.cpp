@@ -86,9 +86,7 @@ void UI::ConfigSet(const ControllerInterface::Config &conf)
 	config->setProperty("rows", conf.rows);
 	config->setProperty("columns", conf.columns);
 	config->setProperty("align", conf.align);
-	config->setProperty("board_bg_transparent", conf.board_transparent);
-	config->setProperty("info_bg_transparent", conf.board_transparent);
-	qDebug() << "ui: transparence: " << conf.board_transparent;
+	config->setProperty("board_transparent", conf.board_transparent);
 }
 
 void UI::SetScore(int player, int score)
@@ -142,6 +140,7 @@ void UI::SlotConfigChanged()
 	conf.rows = config->property("rows").toInt();
 	conf.columns = config->property("columns").toInt();
 	conf.align = config->property("align").toInt();
+	conf.board_transparent = config->property("board_transparent").toBool();
 
 	controller->ConfigChange(conf);
 }

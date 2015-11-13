@@ -25,6 +25,5 @@ QtObject {
 	property string program_author: "Louis-Joseph Fournier"
 	property string program_date: "10-2015"
 
-	property bool board_bg_transparent: DefaultConfig.board_bg_transparent
-	property bool info_bg_transparent: DefaultConfig.info_bg_transparent
+	property bool board_transparent: DefaultConfig.board_transparent
 }
