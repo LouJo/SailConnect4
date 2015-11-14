@@ -69,11 +69,13 @@ Page {
 			anchors.horizontalCenter: parent.horizontalCenter
 			font.pixelSize: Theme.fontSizeSmall
 			text: "<a href=\"" + Config.program_code_url + "\">" +  Config.program_code_url + "<\a>"
+			onLinkActivated: Qt.openUrlExternally(link)
 		}
 		Label {
 			anchors.horizontalCenter: parent.horizontalCenter
 			font.pixelSize: Theme.fontSizeSmall
 			text: "<a href=\"" + Config.program_author_url + "\">" +  Config.program_author_url + "<\a>"
+			onLinkActivated: Qt.openUrlExternally(link)
 		}
 	}
 }
