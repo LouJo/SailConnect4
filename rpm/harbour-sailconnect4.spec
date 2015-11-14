@@ -13,11 +13,11 @@ Name:       harbour-sailconnect4
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Connect 4 Game
-Version:    0.1
-Release:    2
+Version:    0.2
+Release:    1
 Group:      Qt/Qt
-License:    LICENSE
-URL:        https://github.com/LouJo/SailConnect4
+License:    GPLv3
+URL:        http://legolas.vefblog.net/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-sailconnect4.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9

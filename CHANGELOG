@@ -1,0 +1,13 @@
+Version 0.2.1
+-------------
+
+- Cover is a board object instead of image grabbed: no more memory leaks, and more fun !
+
+- Support for Tablet
+
+- Background can be transparent (configure options) ; still blue by default
+
+- Apropos page added
+
+- License updated to GPLv3
+
