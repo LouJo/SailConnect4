@@ -23,6 +23,26 @@
         <source>Date</source>
         <translation>Date</translation>
     </message>
+    <message>
+        <source>About</source>
+        <translation>A propos</translation>
+    </message>
+    <message>
+        <source>Connect4 game for Sailfish OS with strong and configurable IA</source>
+        <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
+    </message>
+    <message>
+        <source>Copyright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>Licence</translation>
+    </message>
+    <message>
+        <source>Links</source>
+        <translation>Liens</translation>
+    </message>
 </context>
 <context>
     <name>Configure</name>
@@ -150,6 +170,10 @@
     <message>
         <source>Stop this game</source>
         <translation>Arrêter le jeu en cours</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>A propos</translation>
     </message>
 </context>
 </TS>

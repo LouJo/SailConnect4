@@ -28,6 +28,31 @@
         <source>Date</source>
         <translation>Fecha</translation>
     </message>
+    <message>
+        <location filename="../qml/sailfish/Apropos.qml" line="14"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Apropos.qml" line="34"/>
+        <source>Connect4 game for Sailfish OS with strong and configurable IA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Apropos.qml" line="45"/>
+        <source>Copyright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Apropos.qml" line="61"/>
+        <source>licence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Apropos.qml" line="66"/>
+        <source>Links</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Configure</name>
@@ -143,12 +168,12 @@
 <context>
     <name>Sailfish</name>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="54"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="58"/>
         <source>New game</source>
         <translation>Nuevo juego</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="47"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="51"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
@@ -159,16 +184,21 @@
     </message>
     <message>
         <location filename="../qml/sailfish/Sailfish.qml" line="41"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/Sailfish.qml" line="45"/>
         <source>Reset scores</source>
         <translation>Borrar las puntuaciones</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="43"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="47"/>
         <source>Reseting scores</source>
         <translation>Borrar las puntuaciones</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/Sailfish.qml" line="60"/>
+        <location filename="../qml/sailfish/Sailfish.qml" line="64"/>
         <source>Stop this game</source>
         <translation>detener este juego</translation>
     </message>
