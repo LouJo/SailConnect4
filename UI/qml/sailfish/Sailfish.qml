@@ -33,7 +33,7 @@ ApplicationWindow {
 	initialPage: Component { Page {
 		id: page
 
-        allowedOrientations: Orientation.All
+		allowedOrientations: Orientation.All
 
 		SilicaFlickable {
 		anchors.fill: parent
@@ -98,9 +98,9 @@ ApplicationWindow {
 			Game {
 				id: game
 				objectName: "game"
-                width: page.orientation & Orientation.PortraitMask ? parent.width : parent.width / 2
+				width: page.orientation & Orientation.PortraitMask ? parent.width : parent.height * 4 / 5
 
-                anchors.horizontalCenter: parent.horizontalCenter
+				anchors.horizontalCenter: parent.horizontalCenter
 				anchors.top: header.bottom
 				anchors.topMargin: header.height / 2
 				height: page.height - header.height * 3
