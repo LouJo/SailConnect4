@@ -7,7 +7,7 @@ import "./configure"
 Dialog {
 	id: configurePage
 
-    allowedOrientations: Orientation.All
+	allowedOrientations: Orientation.All
 
 	signal configChanged()
 

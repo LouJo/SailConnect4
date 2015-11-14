@@ -38,6 +38,10 @@ ApplicationWindow {
 				onClicked: menu.exit()
 			}
 			MenuItem {
+				text: qsTr("About")
+				onClicked: pageStack.push(Qt.resolvedUrl("Apropos.qml"))
+			}
+			MenuItem {
 				text: qsTr("Reset scores")
 				onClicked: {
 					remorse.execute(qsTr("Reseting scores"), function() { menu.resetScores() })

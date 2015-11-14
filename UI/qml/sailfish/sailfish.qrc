@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/sailfish/">
 <file>Sailfish.qml</file>
+<file>Apropos.qml</file>
 <file>ConfigurePage.qml</file>
 <file>CoverPage.qml</file>
 <file>configure/ControlPlayerSailfish.qml</file>
