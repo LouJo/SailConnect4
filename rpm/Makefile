@@ -16,8 +16,8 @@ BUILD_DIR_LOCAL = $(HOME)/merBuild/sailconnect4
 BUILD_DIR_ENGINE = $(HOME_ENGINE)/merBuild/sailconnect4
 
 SOURCE_DIR_LOCAL = $(PWD)/..
-#SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
-SOURCE_DIR_ENGINE = /home/src1/Connect4
+SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
+#SOURCE_DIR_ENGINE = /home/src1/Connect4
 
 PRO_FILE = harbour-sailconnect4.pro
 
