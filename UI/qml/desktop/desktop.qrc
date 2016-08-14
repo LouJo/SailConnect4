@@ -1,16 +1,17 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/">
-<file>main/Main.qml</file>
+<file>Main.qml</file>
+<file>qmldir</file>
 <file>apropos/Apropos.qml</file>
 <file>apropos/qmldir</file>
-<file>config/qmldir</file>
-<file>config/ControlsPlayer.qml</file>
-<file>config/Configure.qml</file>
-<file>config/ConfigureWindow.qml</file>
+<file>../config/qmldir</file>
+<file>configure/ControlsPlayer.qml</file>
+<file>configure/Configure.qml</file>
+<file>configure/ConfigureWindow.qml</file>
 <file>menu/qmldir</file>
 <file>menu/ButtonGeneric.qml</file>
 <file>menu/ButtonMenu.qml</file>
 <file>menu/Menu.qml</file>
-<file alias="main/Controller.js">main/noController.js</file>
+<file alias="main/Controller.js">../main/noController.js</file>
 </qresource>
 </RCC>

@@ -14,7 +14,7 @@ SOURCES += \
 
 RESOURCES += \
 	UI/qml/qml.qrc \
-	UI/qml/desktop.qrc \
+	UI/qml/desktop/desktop.qrc \
 	UI/icons/icons.qrc \
 	UI/i18n/translations.qrc
 
@@ -37,8 +37,10 @@ TRANSLATIONS += \
 
 lupdate_only {
 SOURCES = \
-		UI/qml/menu/*.qml \
-		UI/qml/apropos/*.qml \
+		UI/qml/desktop/menu/*.qml \
+		UI/qml/desktop/apropos/*.qml \
+		UI/qml/desktop/configure/*.qml \
+		UI/qml/desktop/*.qml \
 		UI/qml/board/*.qml \
 		UI/qml/config/*.qml \
 		UI/qml/sailfish/*.qml \

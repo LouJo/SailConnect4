@@ -19,6 +19,7 @@ import QtQuick 2.0
 
 import "."
 import ".."
+import "../main"
 
 Rectangle {
 	id: menu
@@ -48,7 +49,7 @@ Rectangle {
 		property string buttonText: qsTr("Configuration")
 
 		onActivated: {
-			var conf = Qt.createComponent("../config/ConfigureWindow.qml")
+			var conf = Qt.createComponent("../configure/ConfigureWindow.qml")
 			var win = conf.createObject(menu)
 			win.configChanged.connect(menu.configChanged)
 			win.resetScores.connect(menu.resetScores)

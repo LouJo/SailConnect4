@@ -18,6 +18,7 @@
 import QtQuick 2.0
 
 import "."
+import "../main"
 
 ButtonGeneric {
 	x: parent.onR ? parent.width / 2 - width / 2 : (parent.width - width * parent.nbButton) / (parent.nbButton + 1) * (idx + 1) + width * idx
