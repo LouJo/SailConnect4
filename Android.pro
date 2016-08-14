@@ -1,6 +1,6 @@
-QT += core qml quick gui concurrent
+QT += core qml quick gui concurrent svg
 
-TARGET = Android
+TARGET = Connect4
 
 CONFIG += c++11
 
@@ -51,3 +51,14 @@ FORMS += Android/mainwindow.ui
 
 CONFIG += mobility
 MOBILITY =
+
+DISTFILES += \
+    Android/AndroidManifest.xml \
+    Android/gradle/wrapper/gradle-wrapper.jar \
+    Android/gradlew \
+    Android/res/values/libs.xml \
+    Android/build.gradle \
+    Android/gradle/wrapper/gradle-wrapper.properties \
+    Android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
