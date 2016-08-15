@@ -37,7 +37,7 @@ UI::UI(int &argc, char* argv[])
 
 	view = new QQuickView();
 	view->setResizeMode(view->SizeRootObjectToView);
-	view->setSource(QUrl("qrc:///qml/Main.qml"));
+	view->setSource(QUrl("qrc:///qml/platform/Main.qml"));
 
 	main = view->rootObject();
 	PostInit();

@@ -20,6 +20,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 
 import "."
+import "../../config"
 
 ApplicationWindow {
 	id: mainWindow

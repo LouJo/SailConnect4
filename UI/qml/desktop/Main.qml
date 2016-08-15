@@ -17,11 +17,11 @@
 
 import QtQuick 2.0
 
-import "main/Controller.js" as Controller
+import "../main/Controller.js" as Controller
 
-import "main"
-import "board"
-import "config"
+import "../main"
+import "../board"
+import "../config"
 import "menu"
 
 Item {

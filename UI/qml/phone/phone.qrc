@@ -1,7 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/qml/phone">
+<qresource prefix="/qml/platform">
 <file>Main.qml</file>
 <file>Header.qml</file>
-<file alias="main/Controller.js">../main/noController.js</file>
+<file>qmldir</file>
 </qresource>
 </RCC>

@@ -1,5 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/qml/">
+<qresource prefix="/qml/platform">
 <file>Main.qml</file>
 <file>qmldir</file>
 <file>apropos/Apropos.qml</file>
@@ -12,6 +12,5 @@
 <file>menu/ButtonGeneric.qml</file>
 <file>menu/ButtonMenu.qml</file>
 <file>menu/Menu.qml</file>
-<file alias="main/Controller.js">../main/noController.js</file>
 </qresource>
 </RCC>

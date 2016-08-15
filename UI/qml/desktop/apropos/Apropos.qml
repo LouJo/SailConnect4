@@ -36,7 +36,7 @@ ApplicationWindow {
 		spacing: 10
 
 		Image {
-			source: "../../icons/icon_100.png" 
+			source: "../../../icons/icon_100.png"
 
 			MouseArea {
 				anchors.fill: parent

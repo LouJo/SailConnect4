@@ -19,7 +19,7 @@ import QtQuick 2.0
 
 import "."
 import ".."
-import "../main"
+import "../../main"
 
 Rectangle {
 	id: menu
