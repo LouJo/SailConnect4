@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons/menu">
+<file>menu.svg</file>
+<file>renew.svg</file>
+</qresource>
+</RCC>

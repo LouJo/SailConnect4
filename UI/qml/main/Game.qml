@@ -53,7 +53,7 @@ Rectangle {
 		id: info
 		x: Style.board_margin
 		width: board.width
-		height: parent.height - board.height - extra_margin
+		height: parent.height - board.height - extra_margin - Style.board_margin
 		anchors.top: board.bottom
 		playerPlaying: game.canPlay ? game.player : 0
 	}

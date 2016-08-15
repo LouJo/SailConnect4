@@ -48,4 +48,7 @@ QtObject {
 	property int button_reset_interval: 200
 
 	property double lineAlignedWidth: 2
+  
+	// phone menu
+	property int menu_font_size: 20
 }

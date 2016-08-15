@@ -9,6 +9,9 @@ sailfish {
   VPATH += Sailfish
   CONFIG += sailfishapp_no_deploy_qml sailfishapp sailfishapp_i18n
 }
+android {
+  message("Build for Android")
+}
 else {
   message("Build for desktop")
   TARGET = Connect4
@@ -50,6 +53,19 @@ sailfish {
 
   RESOURCES += \
 	  UI/qml/sailfish/sailfish.qrc
+}
+android {
+  SOURCES += \
+	  Controller/src/main.cpp
+
+  RESOURCES += \
+	  UI/icons/menu/menu.qrc \
+	  UI/qml/phone/phone.qrc
+
+  TRANSLATIONS += \
+	  UI/i18n/Connect4_fr.ts \
+	  UI/i18n/Connect4_es.ts \
+	  UI/i18n/Connect4_de.ts
 }
 else {
   SOURCES += \
