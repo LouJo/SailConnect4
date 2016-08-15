@@ -110,3 +110,7 @@ android {
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
 }
+
+DISTFILES += \
+    Android/appTheme.xml \
+    Android/splash.xml

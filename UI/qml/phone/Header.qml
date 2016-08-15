@@ -20,7 +20,10 @@ import QtQuick 2.0
 import "../config"
 
 Rectangle {
-	color: "grey"
+	id: menu
+	color: Style.menu_bg_color
+
+	signal newGame()
 
 	Text {
 		id: header
@@ -29,12 +32,14 @@ Rectangle {
 		anchors.verticalCenter: parent.verticalCenter
 		anchors.left: parent.left
 		anchors.leftMargin: 10
-		font.pixelSize: Style.menu_font_size
+		font.pixelSize: parent.height * 0.5
+		color: Style.menu_font_color
 	}
 
 	Image {
 		id: menu_icon
 		height: parent.height * 0.9
+		width: height
 		source: "../../icons/menu/menu.svg"
 		anchors.right: parent.right
 		anchors.rightMargin: (parent.height - height) / 2
@@ -47,7 +52,14 @@ Rectangle {
 		width: height
 		source: "../../icons/menu/renew.svg"
 		anchors.right: menu_icon.left
-		anchors.rightMargin: height * 0.2
+		anchors.rightMargin: height * 0.4
 		anchors.verticalCenter: parent.verticalCenter
+
+		MouseArea {
+			anchors.fill: parent
+			onClicked: {
+				menu.newGame()
+			}
+		}
 	}
 }

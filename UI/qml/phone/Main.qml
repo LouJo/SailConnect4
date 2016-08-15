@@ -33,9 +33,10 @@ Item {
 	// adaptative style
 
 	Header {
-		id: header
+		id: menu
+		objectName: "menu"
 		width: parent.width
-		height: 40
+		height: Math.min(parent.width, parent.height) * 0.15
 	}
 
 	Game {
@@ -43,13 +44,13 @@ Item {
 		objectName: "game"
 		x: 0
 		y: 0
-		width:  Math.min(parent.width, height * 4 / 5)
-		height: Math.min(Math.max(parent.height - header.height * 3, 
-										          parent.height * 0.7),
-		                 parent.width * 1.3)
-		anchors.top: header.bottom
+		width:  Math.min(parent.width, height * 0.9)
+		height: Math.min(Math.max(parent.height - menu.height * 3, 
+										          parent.height * 0.8),
+		                 parent.width * 1.2)
+		anchors.top: menu.bottom
 		anchors.horizontalCenter: parent.horizontalCenter
-		anchors.topMargin: (parent.height - height - header.height) * 0.3
+		anchors.topMargin: (parent.height - height - menu.height) * 0.3
 	}
 
 	Component.onCompleted: {
@@ -57,6 +58,7 @@ Item {
 
 		if (Controller.isQmlScene()) {
 			game.playCol.connect(Controller.playCol)
+			menu.newGame.connect(Controller.new_game)
 
 			Controller.begin()
 		}
