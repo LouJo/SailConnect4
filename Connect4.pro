@@ -1,7 +1,19 @@
-QT += qml quick gui concurrent
-TARGET = Connect4
+
+QT += core qml quick gui concurrent svg
 
 CONFIG += c++11
+
+sailfish {
+  message("Build for Sailfish OS")
+  TARGET = harbour-sailconnect4
+  VPATH += Sailfish
+  CONFIG += sailfishapp_no_deploy_qml sailfishapp sailfishapp_i18n
+}
+else {
+  message("Build for desktop")
+  TARGET = Connect4
+}
+
 
 DEFINES += TARGET=\""$(TARGET")\"
 
@@ -9,12 +21,10 @@ SOURCES += \
 	UI/src/UI.cpp \
 	Controller/src/Controller.cpp \
 	Game/src/Game.cpp \
-	Game/src/Minimax.cpp \
-	Controller/src/main.cpp
+	Game/src/Minimax.cpp
 
 RESOURCES += \
 	UI/qml/qml.qrc \
-	UI/qml/desktop/desktop.qrc \
 	UI/icons/icons.qrc \
 	UI/i18n/translations.qrc
 
@@ -30,13 +40,32 @@ HEADERS += \
 	Game/src/Game.h \
 	Game/src/Minimax.h
 
-TRANSLATIONS += \
-	UI/i18n/Connect4_fr.ts \
-	UI/i18n/Connect4_es.ts \
-	UI/i18n/Connect4_de.ts
+
+# Platform dependent sources
+
+sailfish {
+  SOURCES += \
+	  UI/src/UISailfish.cpp \
+	  Controller/src/sailfish.cpp
+
+  RESOURCES += \
+	  UI/qml/sailfish/sailfish.qrc
+}
+else {
+  SOURCES += \
+	  Controller/src/main.cpp
+
+  RESOURCES += \
+	  UI/qml/desktop/desktop.qrc
+
+  TRANSLATIONS += \
+	  UI/i18n/Connect4_fr.ts \
+	  UI/i18n/Connect4_es.ts \
+	  UI/i18n/Connect4_de.ts
+}
 
 lupdate_only {
-SOURCES = \
+  SOURCES = \
 		UI/qml/desktop/menu/*.qml \
 		UI/qml/desktop/apropos/*.qml \
 		UI/qml/desktop/configure/*.qml \
@@ -46,4 +75,22 @@ SOURCES = \
 		UI/qml/sailfish/*.qml \
 		UI/qml/sailfish/configure/*.qml \
 		UI/qml/*.qml \
+}
+
+android {
+  FORMS += Android/mainwindow.ui
+
+  CONFIG += mobility
+  MOBILITY =
+
+  DISTFILES += \
+    Android/AndroidManifest.xml \
+    Android/gradle/wrapper/gradle-wrapper.jar \
+    Android/gradlew \
+    Android/res/values/libs.xml \
+    Android/build.gradle \
+    Android/gradle/wrapper/gradle-wrapper.properties \
+    Android/gradlew.bat
+
+  ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
 }

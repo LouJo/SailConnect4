@@ -15,11 +15,11 @@ HOME_ENGINE = /home/mersdk/share
 BUILD_DIR_LOCAL = $(HOME)/merBuild/sailconnect4
 BUILD_DIR_ENGINE = $(HOME_ENGINE)/merBuild/sailconnect4
 
-SOURCE_DIR_LOCAL = $(PWD)/..
+SOURCE_DIR_LOCAL = $(PWD)
 SOURCE_DIR_ENGINE = $(subst $(HOME),$(HOME_ENGINE),$(SOURCE_DIR_LOCAL))
 #SOURCE_DIR_ENGINE = /home/src1/Connect4
 
-PRO_FILE = harbour-sailconnect4.pro
+PRO_FILE = ../Connect4.pro
 
 I486_TARGET = SailfishOS-i486
 JOLLA_TARGET = SailfishOS-armv7hl
@@ -49,7 +49,7 @@ $(BUILD_DIR_LOCAL_I486):
 	mkdir -p $@
 
 $(BUILD_DIR_LOCAL_I486)/Makefile: $(BUILD_DIR_LOCAL_I486)
-	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_I486) && $(MB2) qmake $(SOURCE_DIR_ENGINE)/$(PRO_FILE)"
+	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_I486) && $(MB2) qmake CONFIG+=sailfish $(SOURCE_DIR_ENGINE)/$(PRO_FILE)"
 
 rpm-i486: $(BUILD_DIR_LOCAL_I486)/Makefile
 	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_I486) && $(MB2) rpm"
@@ -62,7 +62,7 @@ $(BUILD_DIR_LOCAL_JOLLA):
 	mkdir -p $@
 
 $(BUILD_DIR_LOCAL_JOLLA)/Makefile: $(BUILD_DIR_LOCAL_JOLLA)
-	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_JOLLA) && $(MB2) -t $(JOLLA_TARGET) qmake $(SOURCE_DIR_ENGINE)/$(PRO_FILE)"
+	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_JOLLA) && $(MB2) -t $(JOLLA_TARGET) qmake CONFIG+=sailfish $(SOURCE_DIR_ENGINE)/$(PRO_FILE)"
 
 rpm-jolla: $(BUILD_DIR_LOCAL_JOLLA)/Makefile
 	$(SSH_ENGINE) "cd $(BUILD_DIR_ENGINE_JOLLA) && $(MB2) -t $(JOLLA_TARGET) rpm"
