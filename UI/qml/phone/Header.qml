@@ -20,20 +20,20 @@ import QtQuick 2.0
 import "../config"
 
 Rectangle {
-	id: menu
-	color: Style.menu_bg_color
+	id: header
+	color: Style.header_bg_color
 
 	signal newGame()
+	signal switchMenu()
 
 	Text {
-		id: header
 		text: DefaultConfig.programTitle
 		width: parent.width
 		anchors.verticalCenter: parent.verticalCenter
 		anchors.left: parent.left
 		anchors.leftMargin: 10
 		font.pixelSize: parent.height * 0.5
-		color: Style.menu_font_color
+		color: Style.header_font_color
 	}
 
 	Image {
@@ -44,6 +44,13 @@ Rectangle {
 		anchors.right: parent.right
 		anchors.rightMargin: (parent.height - height) / 2
 		anchors.verticalCenter: parent.verticalCenter
+
+		MouseArea {
+			anchors.fill: parent
+			onClicked: {
+				header.switchMenu()
+			}
+		}
 	}
 
 	Image {
@@ -58,7 +65,7 @@ Rectangle {
 		MouseArea {
 			anchors.fill: parent
 			onClicked: {
-				menu.newGame()
+				header.newGame()
 			}
 		}
 	}

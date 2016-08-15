@@ -29,6 +29,7 @@ Rectangle {
 	property alias ended: board.ended
 
 	property bool canPlay: false
+	property bool touchActive: true // false when menu over board
 	property int player: 1
 	property double extra_margin: 0
 
@@ -42,7 +43,7 @@ Rectangle {
 		y: Style.board_margin + extra_margin
 		width: parent.width - Style.board_margin * 2
 		height: parent.width * Config.rows / Config.columns
-		canPlay: game.canPlay
+		canPlay: game.canPlay && game.touchActive
 
 		Component.onCompleted: {
 			game.grabOk(toGrab)

@@ -2,6 +2,8 @@
 <qresource prefix="/qml/platform">
 <file>Main.qml</file>
 <file>Header.qml</file>
+<file>menu/Menu.qml</file>
+<file>menu/MenuItem.qml</file>
 <file>qmldir</file>
 </qresource>
 </RCC>

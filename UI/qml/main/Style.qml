@@ -50,6 +50,8 @@ QtObject {
 	property double lineAlignedWidth: 2
   
 	// phone menu
+	property color header_bg_color: "#AAAAAA"
+	property color header_font_color: "#333333"
 	property color menu_bg_color: "#AAAAAA"
 	property color menu_font_color: "#333333"
 }

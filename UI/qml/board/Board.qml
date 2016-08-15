@@ -251,9 +251,11 @@ Rectangle {
 
 	MouseArea {
 		anchors.fill: parent
+		propagateComposedEvents: !board.canPlay
 		onClicked: {
 			if (!board.canPlay) {
 				console.log("Cannot play for the moment")
+				mouse.accepted = false
 				return
 			}
 			//console.log(mouse.x + " " + mouse.y + " " + ((mouse.x / board.cellLength) | 0))
