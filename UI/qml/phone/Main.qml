@@ -16,6 +16,7 @@
  */
 
 import QtQuick 2.0
+//import QtQuick.Controls 1.4 -> StackView
 
 import "../main/Controller.js" as Controller
 
@@ -24,7 +25,7 @@ import "../board"
 import "../config"
 import "menu"
 
-Item {
+StackView {
 	id: main
 	objectName: "main"
 
