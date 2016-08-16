@@ -17,11 +17,14 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import QtQuick.Controls.Styles 1.4
+
+import ".."
 
 Column {
 	id: controls
 
-	spacing: 10
+	spacing: 18
 
 	signal submit()
 	signal nameEdited(string new_name)
@@ -31,14 +34,28 @@ Column {
 	property string title
 	property string name
 
+	Item {
+		height: 6
+		width: parent.width
+	}
+
+  Rectangle {
+    width: parent.width
+    height: 1
+    color: Style.conf_font_color
+  }
+
 	Text {
 		text: parent.title
+    color: Style.conf_font_color
+		font.bold: true
 	}
 
 	Row {
 		Label {
 			text: qsTr("Name") + ": "
 			anchors.verticalCenter: parent.verticalCenter
+      color: Style.conf_font_color
 		}
 		TextField {
 			anchors.verticalCenter: parent.verticalCenter
@@ -50,17 +67,20 @@ Column {
 
 	Row {
 		ExclusiveGroup { id: player }
+		spacing: 10
 		RadioButton {
 			id: human
 			text: qsTr("Human")
 			checked: controls.type == 0
 			exclusiveGroup: player
+			style: radio_style
 		}
 		RadioButton {
 			id: ia
 			text: qsTr("IA force") + ":"
 			checked: controls.type == 1
 			exclusiveGroup: player
+			style: radio_style
 		}
 	}
 
@@ -83,4 +103,30 @@ Column {
 	function getType() {
 		return human.checked ? 0 : 1
 	}
+
+  Component {
+    id: radio_style
+
+    RadioButtonStyle {
+        label: Text {
+          color: Style.conf_font_color
+          text: control.text
+        }
+        indicator: Rectangle {
+          width: 14
+          height: width
+          radius: width * 0.5
+
+          Rectangle {
+            anchors.fill: parent
+            visible: control.checked
+            anchors.margins: 3
+            color: Style.conf_button_inside
+            radius: width * 0.5
+          }
+        }
+				spacing: 4
+     }
+   }
+
 }

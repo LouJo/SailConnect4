@@ -19,18 +19,29 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 import "."
+import ".."
 import "../../config"
 
-Item {
+Rectangle {
 	width: 400
 	height: 640
 
+  color: Style.conf_bg_color
+
 	signal configChanged()
+
+  ConfigureHeader {
+    id: header
+    width: parent.width
+		height: Math.min(parent.width, parent.height) * 0.15
+  }
 
 	Column {
 		spacing: 15
 		
-		anchors.fill: parent
+		anchors.top: header.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
 		anchors.topMargin: 10
 		anchors.leftMargin: 10
 		anchors.rightMargin: 10
@@ -41,6 +52,8 @@ Item {
 				name: Config.player1_name
 				force: Config.player1_force
 				type: Config.player1_type
+
+        width: parent.width
 	
 				onNameEdited: Config.player1_name = new_name
 				onSubmit: {
@@ -55,6 +68,8 @@ Item {
 				name: Config.player2_name
 				force: Config.player2_force
 				type: Config.player2_type
+
+        width: parent.width
 	
 				onNameEdited: Config.player2_name = new_name
 				onSubmit: {
@@ -62,14 +77,21 @@ Item {
 					Config.player2_type = getType()
 				}
 		}
+	}
 
-		Button {
-			text: qsTr("Submit")
-			onClicked: {
-				p1.submitAll()
-				p2.submitAll()
-				configChanged()
-			}
-		}
+	Component.onCompleted: {
+		header.accept.connect(accept)
+		header.cancel.connect(exit)
+	}
+
+	function accept() {
+		p1.submitAll()
+		p2.submitAll()
+		configChanged()
+		exit()
+  }
+
+	function exit() {
+		stackView.pop()
 	}
 }
