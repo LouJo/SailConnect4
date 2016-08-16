@@ -19,35 +19,50 @@ import QtQuick 2.0
 
 import ".."
 
+/**
+ * Header button can be a text or icon (but not both)
+ * It is clickable
+ */
+
 Rectangle {
-	property string title
+	property string text
+	property string icon
 
 	signal triggered()
 
+	height: parent.height
 	property bool activated: false
+	property bool timer_deactivate: true // unset if client deactivate button
 
-	width: parent.width
-	height: 50
-	color: activated ? Style.menu_bg_color_activated : Style.menu_bg_color
+	color: activated ? Style.header_bg_color_activated : Style.header_bg_color
+
+	Image {
+		visible: icon
+		source: icon
+		height: parent.height
+		width: height
+	}
 
 	Text {
-		text: parent.title
-		color: Style.menu_font_color
-		font.pixelSize: parent.height * 0.35
-
+		visible: text
+		text: parent.text
 		anchors.verticalCenter: parent.verticalCenter
-		anchors.left: parent.left
-		anchors.leftMargin: 10
-		anchors.right: parent.right
-		anchors.rightMargin: 10
+		anchors.horizontalCenter: parent.horizontalCenter
+
+		font.pixelSize: parent.height * 0.4
+		color: Style.header_font_color
 	}
 
 	MouseArea {
 		anchors.fill: parent
 		onClicked: {
-			activated = true
-			parent.triggered()
-			timer.start()
+			if (timer_deactivate)
+				activated = true
+
+			triggered()
+
+			if (timer_deactivate)
+				timer.start()
 		}
 	}
 

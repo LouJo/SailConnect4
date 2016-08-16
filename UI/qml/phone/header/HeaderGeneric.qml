@@ -20,29 +20,11 @@ import QtQuick 2.0
 import ".."
 
 Rectangle {
-	property string text
+	color: Style.header_bg_color
 
-	signal triggered()
+	anchors.top: parent.top
+	anchors.left: parent.left
 
-	height: parent.height
-	property bool activated: false
-
-	color: activated ? Style.header_bg_color_activated : Style.header_bg_color
-
-	Text {
-		text: parent.text
-		anchors.verticalCenter: parent.verticalCenter
-		anchors.horizontalCenter: parent.horizontalCenter
-
-		font.pixelSize: parent.height * 0.4
-		color: Style.header_font_color
-	}
-
-	MouseArea {
-		anchors.fill: parent
-		onClicked: {
-			activated = true
-			triggered()
-		}
-	}
+	width: parent.width
+	height: Math.min(parent.width, parent.height) * 0.15
 }

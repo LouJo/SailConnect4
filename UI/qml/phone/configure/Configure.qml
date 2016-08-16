@@ -29,11 +29,10 @@ Rectangle {
   color: Style.conf_bg_color
 
 	signal configChanged()
+	signal exit()
 
   ConfigureHeader {
     id: header
-    width: parent.width
-		height: Math.min(parent.width, parent.height) * 0.15
   }
 
 	Column {
@@ -90,8 +89,4 @@ Rectangle {
 		configChanged()
 		exit()
   }
-
-	function exit() {
-		stackView.pop()
-	}
 }

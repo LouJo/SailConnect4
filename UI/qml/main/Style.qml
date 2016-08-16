@@ -53,8 +53,11 @@ QtObject {
 	property color header_bg_color: "#AAAAAA"
 	property color header_bg_color_activated: "#999999"
 	property color header_font_color: "#333333"
+
 	property color menu_bg_color: "#AAAAAA"
 	property color menu_font_color: "#333333"
+	property color menu_bg_color_activated: "#999999"
+	property int menu_activated_ms: 500
 
 	// phone configure
 	property color conf_font_color: "#dddddd"

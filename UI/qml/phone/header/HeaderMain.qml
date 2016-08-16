@@ -1,4 +1,4 @@
-/* Copyright 2015 (C) Louis-Joseph Fournier 
+/* Copyright 2015 (C) Louis-Joseph Fournier
  * louisjoseph.fournier@gmail.com
  *
  * This file is part of SailConnect4.
@@ -17,14 +17,16 @@
 
 import QtQuick 2.0
 
-import "../config"
+import "../../config"
+import "."
 
-Rectangle {
+HeaderGeneric {
 	id: header
-	color: Style.header_bg_color
 
 	signal newGame()
 	signal switchMenu()
+
+	property bool menuVisible: false
 
 	Text {
 		text: DefaultConfig.programTitle
@@ -36,37 +38,31 @@ Rectangle {
 		color: Style.header_font_color
 	}
 
-	Image {
+	HeaderButton {
 		id: menu_icon
 		height: parent.height * 0.9
 		width: height
-		source: "../../icons/menu/menu.svg"
+		icon: "../../../icons/menu/menu.svg"
 		anchors.right: parent.right
 		anchors.rightMargin: (parent.height - height) / 2
 		anchors.verticalCenter: parent.verticalCenter
 
-		MouseArea {
-			anchors.fill: parent
-			onClicked: {
-				header.switchMenu()
-			}
-		}
+		timer_deactivate: false
+		activated: menuVisible
 	}
 
-	Image {
+	HeaderButton {
 		id: renew_icon
 		height: parent.height * 0.7
 		width: height
-		source: "../../icons/menu/renew.svg"
+		icon: "../../../icons/menu/renew.svg"
 		anchors.right: menu_icon.left
 		anchors.rightMargin: height * 0.4
 		anchors.verticalCenter: parent.verticalCenter
+	}
 
-		MouseArea {
-			anchors.fill: parent
-			onClicked: {
-				header.newGame()
-			}
-		}
+	Component.onCompleted: {
+		menu_icon.triggered.connect(switchMenu)
+		renew_icon.triggered.connect(newGame)
 	}
 }

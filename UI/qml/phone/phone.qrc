@@ -1,9 +1,15 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/platform">
 <file>Main.qml</file>
-<file>Header.qml</file>
+<file>MainPage.qml</file>
+<file>configure/ConfigureHeader.qml</file>
+<file>configure/Configure.qml</file>
+<file>configure/ControlsPlayer.qml</file>
 <file>menu/Menu.qml</file>
 <file>menu/MenuItem.qml</file>
+<file>header/HeaderButton.qml</file>
+<file>header/HeaderGeneric.qml</file>
+<file>header/HeaderMain.qml</file>
 <file>qmldir</file>
 </qresource>
 </RCC>

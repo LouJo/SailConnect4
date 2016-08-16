@@ -19,22 +19,22 @@ import QtQuick 2.0
 
 import "."
 import ".."
+import "../header"
 
-Rectangle {
+HeaderGeneric {
 	id: header
-	color: Style.header_bg_color
 
 	signal accept()
 	signal cancel()
 
-	ConfigureHeaderButton {
+	HeaderButton {
 		id: cancel_button
 		text: qsTr("Cancel")
 		width: parent.width / 2
 		anchors.left: parent.left
 	}
 
-	ConfigureHeaderButton {
+	HeaderButton {
 		id: accept_button
 		text: qsTr("Accept")
 		width: parent.width / 2

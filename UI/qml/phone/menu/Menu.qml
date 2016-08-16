@@ -31,11 +31,14 @@ Rectangle {
 	signal resetScores()
 	signal exit()
 
+	signal launchConfigure()
+
 	Column {
 		anchors.fill: parent
 
 		MenuItem {
 			title: qsTr("Configuration")
+			onTriggered: launchConfigure()
 		}
 
 		MenuItem {

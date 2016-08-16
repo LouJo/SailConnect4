@@ -16,80 +16,47 @@
  */
 
 import QtQuick 2.0
-//import QtQuick.Controls 1.4 -> StackView
+import QtQuick.Controls 1.4
 
-import "../main/Controller.js" as Controller
-
-import "../main"
-import "../board"
+import "."
 import "../config"
-import "menu"
+import "configure"
 
 StackView {
-	id: main
-	objectName: "main"
+	id: stack
+	initialItem: mainPage
 
 	width: 400
 	height: 640
 
-	property bool menuVisible: true
-
 	property var config: Config // for UI.cpp
-	property var board: game.board // for js controller
 
-	// adaptative style
+	property QtObject game
+	property QtObject menu
 
-	Header {
-		id: header
-		objectName: "header"
-		width: parent.width
-		height: Math.min(parent.width, parent.height) * 0.15
-	}
+	Component {
+		id: mainPage
 
-	Game {
-		id: game
-		objectName: "game"
-		x: 0
-		y: 0
-		width:  Math.min(parent.width, height * 0.9)
-		height: Math.min(Math.max(parent.height - header.height * 3, 
-										          parent.height * 0.8),
-		                 parent.width * 1.2)
-		anchors.top: header.bottom
-		anchors.horizontalCenter: parent.horizontalCenter
-		anchors.topMargin: (parent.height - height - header.height) * 0.3
+		MainPage {
+			onLaunchConfigure: stack.launchConfigure()
 
-		touchActive: !parent.menuVisible
-	}
-
-	Menu {
-		id: menu
-
-		anchors.top: header.bottom
-		anchors.bottom: parent.bottom
-		anchors.right: parent.right
-
-		width: Math.max(140, Math.max(header.height * 2, parent.width * 0.1))
-		visible: parent.menuVisible
-	}
-
-	Component.onCompleted: {
-		console.log("qml: ready")
-
-		// C++ will connect to menu for new game slot
-		header.newGame.connect(menu.newGame)
-		header.switchMenu.connect(switchMenu)
-
-		if (Controller.isQmlScene()) {
-			game.playCol.connect(Controller.playCol)
-			menu.newGame.connect(Controller.new_game)
-			menu.exit.connect(Controller.exit)
-
-			Controller.begin()
+			Component.onCompleted: {
+				stack.game = game
+				stack.menu = menu
+			}
 		}
 	}
 
-	function switchMenu() {
-		menuVisible = menuVisible ^ true
+	Component {
+		id: configurePage
+
+		Configure {
+			onExit: stack.pop()
+		}
+	}
+
+	function launchConfigure() {
+		console.log("configure")
+		stack.push({item: configurePage})
 	}
 }
