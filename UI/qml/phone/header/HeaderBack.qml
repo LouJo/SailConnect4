@@ -1,4 +1,4 @@
-/* Copyright 2015 (C) Louis-Joseph Fournier 
+/* Copyright 2015 (C) Louis-Joseph Fournier
  * louisjoseph.fournier@gmail.com
  *
  * This file is part of SailConnect4.
@@ -17,15 +17,25 @@
 
 import QtQuick 2.0
 
-import ".."
-import "../../main"
+import "."
 
-Rectangle {
-	color: Style.header_bg_color
+/**
+ * Header with a back button only
+ */
 
-	anchors.top: parent.top
-	anchors.left: parent.left
+HeaderGeneric {
+	id: header
 
-	width: parent.width
-	height: Math.min(parent.width, parent.height) * 0.12
+	signal close()
+
+	HeaderButton {
+		id: back_button
+		text: qsTr("Back")
+		width: parent.width / 2
+		anchors.left: parent.left
+	}
+
+	Component.onCompleted: {
+		back_button.triggered.connect(close)
+	}
 }

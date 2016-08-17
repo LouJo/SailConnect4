@@ -1,14 +1,10 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/platform">
 <file>Main.qml</file>
-<file>qmldir</file>
 <file>apropos/Apropos.qml</file>
-<file>apropos/qmldir</file>
-<file>../config/qmldir</file>
 <file>configure/ControlsPlayer.qml</file>
 <file>configure/Configure.qml</file>
 <file>configure/ConfigureWindow.qml</file>
-<file>menu/qmldir</file>
 <file>menu/ButtonGeneric.qml</file>
 <file>menu/ButtonMenu.qml</file>
 <file>menu/Menu.qml</file>

@@ -1,0 +1,2 @@
+singleton DefaultText DefaultText.qml
+singleton Style Style.qml

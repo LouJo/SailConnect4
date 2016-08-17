@@ -1,11 +1,12 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/">
 <file>main/Game.qml</file>
+<file>main/DefaultText.qml</file>
 <file>main/Style.qml</file>
+<file>main/qmldir</file>
 <file>config/qmldir</file>
 <file>config/Config.qml</file>
 <file>config/DefaultConfig.qml</file>
-<file>board/qmldir</file>
 <file>board/Infos.qml</file>
 <file>board/InfosPlayer.qml</file>
 <file>board/Board.qml</file>

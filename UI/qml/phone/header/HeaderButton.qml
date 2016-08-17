@@ -17,7 +17,7 @@
 
 import QtQuick 2.0
 
-import ".."
+import "../../main"
 
 /**
  * Header button can be a text or icon (but not both)

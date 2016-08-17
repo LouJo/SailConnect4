@@ -1,6 +1,8 @@
 pragma Singleton
 import QtQuick 2.0
 
+import "."
+
 QtObject {
 	
 	// main
@@ -64,4 +66,7 @@ QtObject {
 	property color conf_bg_color: "#444444"
 	property color conf_button_inside: "blue"
 	property color conf_field_bg_color: "#666666"
+
+	// system font size
+	property var defaultFont: DefaultText.font
 }

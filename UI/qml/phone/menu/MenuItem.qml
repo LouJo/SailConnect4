@@ -18,6 +18,7 @@
 import QtQuick 2.0
 
 import ".."
+import "../../main"
 
 Rectangle {
 	property string title

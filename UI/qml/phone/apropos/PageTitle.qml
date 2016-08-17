@@ -17,15 +17,9 @@
 
 import QtQuick 2.0
 
-import ".."
+import "."
 import "../../main"
 
-Rectangle {
-	color: Style.header_bg_color
-
-	anchors.top: parent.top
-	anchors.left: parent.left
-
-	width: parent.width
-	height: Math.min(parent.width, parent.height) * 0.12
+AText {
+	font.pixelSize: Style.defaultFont.pixelSize * 2
 }
