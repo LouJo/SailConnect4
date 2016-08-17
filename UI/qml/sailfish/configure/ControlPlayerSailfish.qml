@@ -48,12 +48,15 @@ Column {
 
 	Row {
 		Label {
-			text: qsTr("Color: ")
+			id: colorLabel
+			text: "  " + qsTr("Color") + "  "
+			anchors.verticalCenter: parent.verticalCenter
 		}
 		Rectangle {
 			color: userColor	
 			width: height * 2.5
 			height: Theme.fontSizeMedium
+			anchors.verticalCenter: parent.verticalCenter
 
 			MouseArea {
 				anchors.fill: parent
@@ -65,6 +68,11 @@ Column {
 				}
 			}
 		}
+	}
+
+	Item {
+		width: parent.width
+		height: 40
 	}
 
 	function submitAll() {

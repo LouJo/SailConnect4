@@ -26,12 +26,22 @@ Dialog {
 
 	allowedOrientations: Orientation.All
 
-	Column {
-		width: parent.width
+	DialogHeader {
+		id: header
+		anchors.top: parent.top
+	}
 
-		DialogHeader {
-			id: header
-		}
+	Flickable {
+		width: parent.width
+		anchors.top: header.bottom
+		anchors.bottom: parent.bottom
+		contentWidth: width
+		contentHeight: column.height
+
+	Column {
+		id: column
+		width: parent.width
+		anchors.top: parent.top
 
 		PageHeader {
 			title: qsTr("Configuration")
@@ -80,6 +90,7 @@ Dialog {
 			signal submit()
 			onSubmit: Config.board_transparent = checked
 		}
+	}
 	}
 
 	onAccepted: {

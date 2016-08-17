@@ -32,7 +32,7 @@ Column {
 	signal submit()
 	signal nameEdited(string new_name)
 
-	property int force
+	property alias force: sliderForce.value
 	property int type
 	property string title
 	property string name
@@ -104,7 +104,6 @@ Column {
 		opacity: enabled ? 1 : 0.3
 		enabled: ia.checked
 		style: slider_style
-		value: force
 	}
 
 	Row {

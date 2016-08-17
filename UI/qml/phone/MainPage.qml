@@ -87,7 +87,8 @@ Rectangle {
 		anchors.bottom: parent.bottom
 		anchors.right: parent.right
 
-		width: Math.max(140, Math.max(header.height * 2, parent.width * 0.1))
+		width: Math.max(Style.defaultFont.pixelSize * 8,
+		                Math.max(header.height * 2, parent.width * 0.1))
 		visible: parent.menuVisible
 	}
 
