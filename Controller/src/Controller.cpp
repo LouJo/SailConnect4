@@ -336,9 +336,14 @@ bool Controller::LoadConfig()
 
 	int type;
 
+	string sample;
+
 	for (int i = 0; i < 2; i++) {
 		ConfigPlayer *p = &config.player[i];
-		f >> p->name;
+
+		// first getline to get end-line before name
+		getline(f, sample);
+		getline(f, p->name);
 		f >> p->force;
 		f >> type;
 		p->type = (PlayerType_t) type;
