@@ -22,5 +22,5 @@ import "../../main"
 
 AText {
 	font.pixelSize: Style.defaultFont.pixelSize * 1.3
-  color: Style.conf_title_color
+  color: Style.phone_title_color
 }

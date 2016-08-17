@@ -20,8 +20,8 @@ import QtQuick 2.0
 import "../../main"
 
 Text {
-	color: Style.conf_font_color
+	color: Style.phone_font_color
 	anchors.horizontalCenter: parent.horizontalCenter
   horizontalAlignment: Text.AlignHCenter
-  linkColor: Style.conf_link_color
+  linkColor: Style.phone_link_color
 }

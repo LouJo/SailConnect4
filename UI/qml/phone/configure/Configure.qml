@@ -27,7 +27,7 @@ Rectangle {
 	width: 400
 	height: 640
 
-  color: Style.conf_bg_color
+  color: Style.phone_bg_color
 
 	signal exit()
 

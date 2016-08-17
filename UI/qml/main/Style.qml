@@ -29,7 +29,7 @@ QtObject {
 
 	property int timeAnimationRow: 100
 
-	// buttons
+	// desktop buttons
 	property double buttonHeightRelation: 0.3
 	property double buttonWidthMainRelationOnR: 0.6
 	property double buttonWidthMainRelationOnB: 0.8
@@ -51,23 +51,26 @@ QtObject {
 
 	property double lineAlignedWidth: 2
   
-	// phone menu
+	// phone
+	property color phone_font_color: "#dddddd"
+	property color phone_bg_color: "#444444"
+	property color phone_title_color: "#f6e396"
+	property color phone_link_color: "blue"
+
+	// phone header
 	property color header_bg_color: "#AAAAAA"
 	property color header_bg_color_activated: "#999999"
 	property color header_font_color: "#333333"
 
+	// phone menu
 	property color menu_bg_color: "#AAAAAA"
 	property color menu_font_color: "#333333"
 	property color menu_bg_color_activated: "#999999"
 	property int menu_activated_ms: 500
 
-	// phone configure and apropos
-	property color conf_font_color: "#dddddd"
-	property color conf_bg_color: "#444444"
-	property color conf_button_inside: "blue"
+	// phone configure
+	property color conf_button_inside: phone_link_color
 	property color conf_field_bg_color: "#666666"
-  property color conf_title_color: "#f6e396"
-  property color conf_link_color: conf_button_inside
 
 	// system font size
 	property var defaultFont: DefaultText.font

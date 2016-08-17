@@ -25,12 +25,14 @@ import "../board"
 import "menu"
 import "header"
 
-Item {
+Rectangle {
 	id: main
 	objectName: "main"
 
 	width: 400
 	height: 640
+
+	color: Style.phone_bg_color
 
 	signal launchApropos()
 	signal launchConfigure()

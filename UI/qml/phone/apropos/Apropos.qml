@@ -28,7 +28,7 @@ Rectangle {
 
 	signal close()
 
-	color: Style.conf_bg_color
+	color: Style.phone_bg_color
 
 	HeaderBack {
 		id: header

@@ -46,13 +46,13 @@ Column {
   Rectangle {
     width: parent.width
     height: 1
-    color: Style.conf_font_color
+    color: Style.phone_font_color
   }
 
 	Text {
 		id: text_title
 		text: parent.title
-    color: Style.conf_title_color
+    color: Style.phone_title_color
 		font.bold: true
 		property int fontSize: font.pixelSize
 	}
@@ -61,7 +61,7 @@ Column {
 		Label {
 			text: qsTr("Name") + ": "
 			anchors.verticalCenter: parent.verticalCenter
-      color: Style.conf_font_color
+      color: Style.phone_font_color
 		}
 		TextField {
 			anchors.verticalCenter: parent.verticalCenter
@@ -119,7 +119,7 @@ Column {
 
     RadioButtonStyle {
         label: Text {
-          color: Style.conf_font_color
+          color: Style.phone_font_color
           text: control.text
         }
         indicator: Rectangle {
@@ -143,7 +143,7 @@ Column {
 	 	id: text_field_style
 
 		TextFieldStyle {
-			textColor: Style.conf_font_color
+			textColor: Style.phone_font_color
 			background: Rectangle {
 				color: Style.conf_field_bg_color
 				implicitHeight: fontSize * 2
@@ -158,7 +158,7 @@ Column {
 		SliderStyle {
 			handle: Rectangle {
 				anchors.centerIn: parent
-				color: control.enabled ? Style.conf_button_inside : Style.conf_font_color
+				color: control.enabled ? Style.conf_button_inside : Style.phone_font_color
 				implicitWidth: fontSize * 0.8
 				implicitHeight: implicitWidth
 				radius: width * 0.5
