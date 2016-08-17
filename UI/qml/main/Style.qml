@@ -61,11 +61,13 @@ QtObject {
 	property color menu_bg_color_activated: "#999999"
 	property int menu_activated_ms: 500
 
-	// phone configure
+	// phone configure and apropos
 	property color conf_font_color: "#dddddd"
 	property color conf_bg_color: "#444444"
 	property color conf_button_inside: "blue"
 	property color conf_field_bg_color: "#666666"
+  property color conf_title_color: "#f6e396"
+  property color conf_link_color: conf_button_inside
 
 	// system font size
 	property var defaultFont: DefaultText.font

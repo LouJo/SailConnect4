@@ -51,7 +51,7 @@ Column {
 	Text {
 		id: text_title
 		text: parent.title
-    color: Style.conf_font_color
+    color: Style.conf_title_color
 		font.bold: true
 		property int fontSize: font.pixelSize
 	}

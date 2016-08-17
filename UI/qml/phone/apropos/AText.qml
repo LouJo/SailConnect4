@@ -22,4 +22,6 @@ import "../../main"
 Text {
 	color: Style.conf_font_color
 	anchors.horizontalCenter: parent.horizontalCenter
+  horizontalAlignment: Text.AlignHCenter
+  linkColor: Style.conf_link_color
 }

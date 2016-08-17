@@ -31,6 +31,7 @@ Item {
 	width: 400
 	height: 640
 
+	signal launchApropos()
 	signal launchConfigure()
 
 	property bool menuVisible: false
@@ -78,6 +79,7 @@ Item {
 		// C++ will connect to menu for new game slot
 		header.newGame.connect(menu.newGame)
 		header.switchMenu.connect(switchMenu)
+		menu.launchApropos.connect(launchApropos)
 		menu.launchConfigure.connect(launchConfigure)
 
 		if (Controller.isQmlScene()) {

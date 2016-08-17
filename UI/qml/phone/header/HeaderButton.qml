@@ -40,23 +40,31 @@ Rectangle {
 
 	color: activated ? Style.header_bg_color_activated : Style.header_bg_color
 
-	Image {
-		visible: icon
-		source: icon
-		height: icon_h
-		width: icon_w
-		anchors.verticalCenter: parent.verticalCenter
-		anchors.horizontalCenter: parent.horizontalCenter
-	}
-
-	Text {
-		visible: text
-		text: parent.text
-		anchors.verticalCenter: parent.verticalCenter
+	Item {
+		width: text ? icon_id.width + text_id.height + text_id.anchors.leftMargin : icon_id.width
+		height: parent.height
 		anchors.horizontalCenter: parent.horizontalCenter
 
-		font.pixelSize: parent.height * 0.4
-		color: Style.header_font_color
+		Image {
+			id: icon_id
+			visible: icon
+			source: icon
+			height: icon_h
+			width: icon_w
+			anchors.left: parent.left
+			anchors.verticalCenter: parent.verticalCenter
+		}
+
+		Text {
+			id: text_id
+			visible: text
+			text: parent.parent.text
+			anchors.verticalCenter: parent.verticalCenter
+			anchors.left: icon ? icon_id.right : parent.left
+			anchors.leftMargin: icon ? parent.height * 0.1 : 0
+			font.pixelSize: parent.height * 0.4
+			color: Style.header_font_color
+		}
 	}
 
 	MouseArea {

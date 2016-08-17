@@ -31,6 +31,9 @@ HeaderGeneric {
 	HeaderButton {
 		id: back_button
 		text: qsTr("Back")
+    icon: "../../../icons/menu/undo.svg"
+    icon_w: parent.height / 2
+    icon_h: parent.height / 2
 		width: parent.width / 2
 		anchors.left: parent.left
 	}

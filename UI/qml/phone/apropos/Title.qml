@@ -21,5 +21,6 @@ import "."
 import "../../main"
 
 AText {
-	font.pixelSize: Style.defaultFont.pixelSize * 1.5
+	font.pixelSize: Style.defaultFont.pixelSize * 1.3
+  color: Style.conf_title_color
 }

@@ -20,6 +20,7 @@ import QtQuick.Controls 1.4
 
 import "."
 import "../config"
+import "apropos"
 import "configure"
 
 StackView {
@@ -31,6 +32,7 @@ StackView {
 
 	property var config: Config // for UI.cpp
 
+	property QtObject mainPage
 	property QtObject game
 	property QtObject menu
 
@@ -38,11 +40,14 @@ StackView {
 		id: mainPage
 
 		MainPage {
+			id: _mainPage
+			onLaunchApropos: stack.launchApropos()
 			onLaunchConfigure: stack.launchConfigure()
 
 			Component.onCompleted: {
 				stack.game = game
 				stack.menu = menu
+				stack.mainPage = _mainPage
 			}
 		}
 	}
@@ -51,12 +56,30 @@ StackView {
 		id: configurePage
 
 		Configure {
-			onExit: stack.pop()
+			onExit: returnHome()
+		}
+	}
+
+	Component {
+		id: aproposPage
+
+		Apropos {
+			onClose: returnHome()
 		}
 	}
 
 	function launchConfigure() {
 		console.log("configure")
 		stack.push({item: configurePage})
+	}
+
+	function launchApropos() {
+		console.log("A propos")
+		stack.push({item: aproposPage})
+	}
+
+	function returnHome() {
+		stack.pop()
+		stack.mainPage.menuVisible = false
 	}
 }

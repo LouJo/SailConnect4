@@ -30,6 +30,7 @@ Rectangle {
 	signal resetScores()
 	signal exit()
 
+	signal launchApropos()
 	signal launchConfigure()
 
 	Column {
@@ -47,6 +48,7 @@ Rectangle {
 
 		MenuItem {
 			title: qsTr("About")
+			onTriggered: launchApropos()
 		}
 
 		MenuItem {
