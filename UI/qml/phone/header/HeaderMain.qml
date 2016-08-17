@@ -18,6 +18,7 @@
 import QtQuick 2.0
 
 import "../../config"
+import "../../main"
 import "."
 
 HeaderGeneric {

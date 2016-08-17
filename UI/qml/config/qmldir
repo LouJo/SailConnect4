@@ -1,3 +1,2 @@
-singleton Style ../main/Style.qml
 singleton DefaultConfig DefaultConfig.qml
 singleton Config Config.qml

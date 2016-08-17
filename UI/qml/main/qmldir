@@ -1,2 +1,3 @@
 singleton DefaultText DefaultText.qml
 singleton Style Style.qml
+singleton Config ../config/Config.qml

@@ -59,6 +59,7 @@ void UI::PostInit()
 	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
 	QObject::connect(config, SIGNAL(changed()), this, SLOT(SlotConfigChanged()));
 	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
+	QObject::connect(game, SIGNAL(pause(const QVariant&)), this, SLOT(SlotPause(const QVariant&)));
 }
 
 /* Methods callable by game controller */
@@ -173,6 +174,13 @@ void UI::SlotPlayCol(const QVariant &qcol)
 	const int col = qcol.toInt();
 	qDebug() << "ui: play col " << col;
 	controller->PlayAtCol(col);
+}
+
+void UI::SlotPause(const QVariant &pause)
+{
+	const bool p = pause.toBool();
+	qDebug() << "ui: pause game " << p;
+	controller->Pause(p);
 }
 
 void UI::SlotResetScore()

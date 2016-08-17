@@ -16,6 +16,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Dialogs 1.2
 
 import "../main/Controller.js" as Controller
 
@@ -59,6 +60,7 @@ Item {
 		anchors.topMargin: (parent.height - height - header.height) * 0.3
 
 		touchActive: !parent.menuVisible
+		paused: parent.menuVisible || confirm_newgame.visible
 	}
 
 	Menu {
@@ -73,14 +75,22 @@ Item {
 		visible: parent.menuVisible
 	}
 
+	MessageDialog {
+		id: confirm_newgame
+		title: qsTr("New game")
+		text: qsTr("Are you sure to stop current game ?")
+		standardButtons: StandardButton.Ok | StandardButton.Cancel
+	}
+
 	Component.onCompleted: {
 		console.log("qml: ready")
 
 		// C++ will connect to menu for new game slot
-		header.newGame.connect(menu.newGame)
+		header.newGame.connect(newGame)
 		header.switchMenu.connect(switchMenu)
 		menu.launchApropos.connect(launchApropos)
 		menu.launchConfigure.connect(launchConfigure)
+		confirm_newgame.accepted.connect(menu.newGame)
 
 		if (Controller.isQmlScene()) {
 			game.playCol.connect(Controller.playCol)
@@ -93,5 +103,12 @@ Item {
 
 	function switchMenu() {
 		menuVisible = menuVisible ^ true
+	}
+
+	function newGame() {
+		if (game.ended)
+			menu.newGame()
+		else
+			confirm_newgame.visible = true
 	}
 }

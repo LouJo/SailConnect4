@@ -16,8 +16,10 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Dialogs 1.2
 
 import "../../config"
+import "../../main"
 import "."
 
 Rectangle {
@@ -43,7 +45,7 @@ Rectangle {
 
 		MenuItem {
 			title: qsTr("Reset scores")
-			onTriggered: resetScores()
+			onTriggered: confirm_resetScores.visible = true
 		}
 
 		MenuItem {
@@ -55,6 +57,15 @@ Rectangle {
 			title: qsTr("Exit")
 			onTriggered: exit()
 		}
+	}
+
+	MessageDialog {
+		id: confirm_resetScores
+		title: qsTr("Reset scores")
+		text: qsTr("Are you sure to reset scores ?")
+		standardButtons: StandardButton.Ok | StandardButton.Cancel
+
+		onAccepted: resetScores()
 	}
 
 	function switchVisible() {

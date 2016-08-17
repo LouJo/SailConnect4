@@ -32,9 +32,11 @@ Rectangle {
 	property bool touchActive: true // false when menu over board
 	property int player: 1
 	property double extra_margin: 0
+	property bool paused: false
 
 	signal playCol(variant col)
 	signal grabOk(QtObject obj)
+	signal pause(variant p)
 
 	Board {
 		id: board
@@ -66,4 +68,6 @@ Rectangle {
 	// for js controller
 	function play(index, player) { return board.play(index, player) }
 	function reset() { board.reset(); }
+
+	onPausedChanged: pause(paused)
 }

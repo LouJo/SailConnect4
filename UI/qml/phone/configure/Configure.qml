@@ -21,6 +21,7 @@ import QtQuick.Controls 1.0
 import "."
 import ".."
 import "../../config"
+import "../../main"
 
 Rectangle {
 	width: 400

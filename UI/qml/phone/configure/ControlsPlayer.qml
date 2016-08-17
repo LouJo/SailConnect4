@@ -21,6 +21,7 @@ import QtQuick.Controls.Styles 1.4
 
 import ".."
 import "../../config"
+import "../../main"
 
 Column {
 	id: controls

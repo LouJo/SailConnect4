@@ -31,6 +31,7 @@ class UI : public QObject, public UIInterface {
 	void SlotConfigChanged();
 	void SlotNewGame();
 	void SlotPlayCol(const QVariant &qcol);
+	void SlotPause(const QVariant &qcol);
 	void SlotResetScore();
 	void SlotExit();
 

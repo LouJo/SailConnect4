@@ -49,9 +49,3 @@ void UISailfish::Launch()
 	view->showFullScreen();
 //	view->setTitle(config->property("programTitle").toString());
 }
-
-void UISailfish::SlotPause(const QVariant &pause)
-{
-	qDebug() << "ui: SlotPause " << pause;
-	controller->Pause(pause.toBool());
-}
