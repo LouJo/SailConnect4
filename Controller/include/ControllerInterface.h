@@ -35,6 +35,7 @@ class ControllerInterface {
 		std::string name;
 		int force;
 		PlayerType_t type;
+		std::string color;
 	};
 
 	struct Config {

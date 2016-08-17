@@ -18,6 +18,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Dialogs 1.2
 
 import ".."
 import "../../config"
@@ -35,6 +36,7 @@ Column {
 	property int type
 	property string title
 	property string name
+	property color userColor
 
 	property alias fontSize: text_title.fontSize
 
@@ -104,6 +106,34 @@ Column {
 		style: slider_style
 		value: force
 	}
+
+	Row {
+		spacing: Style.defaultFont.pixelSize * 0.5
+
+		Text {
+			text: qsTr("Color") + ": "
+      color: Style.phone_font_color
+		}
+
+		Rectangle {
+			color: userColor
+			width: height * 3
+			height: Style.defaultFont.pixelSize * 1.2
+
+			MouseArea {
+				anchors.fill: parent
+				onClicked: colorDialog.visible = true
+			}
+		}
+	}
+
+	ColorDialog {
+		id: colorDialog
+		title: qsTr("Choose a color")
+		onAccepted: controls.userColor = currentColor
+		visible: false
+	}
+
 
 	function submitAll() {
 		nameField.submit()

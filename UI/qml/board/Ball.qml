@@ -16,19 +16,34 @@
  */
 
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 
-Image {
+import "../config"
+
+Rectangle {
 	property int idx
 	property int row: Math.floor(idx / board.columns)
 	property double posX: (idx % board.columns) * board.cellLength + board.cellMargin
 	property double posY: row * board.cellLength + board.cellMargin
 	property int player: 1
 
+	property color playerColor: 
+			player == 1 ? Config.player1_color : Config.player2_color
+	
+	property color overColor
+
+	color: playerColor
+	radius: width * 0.5
+
 	x: posX
 	y: posY
 	width: board.ballLength
 	height: board.ballLength
 
-	source: player == 1 ? "../../icons/svg/yellow.svg" : "../../icons/svg/red.svg"
-	smooth: true
+	Image {
+		id: piece
+		source: "../../icons/svg/piece.svg"
+		sourceSize: Qt.size(parent.width, parent.height)
+		smooth: true
+	}
 }

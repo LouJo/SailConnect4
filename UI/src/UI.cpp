@@ -101,6 +101,8 @@ void UI::ConfigSet(const ControllerInterface::Config &conf)
 	config->setProperty("player2_force", conf.player[1].force);
 	config->setProperty("player1_type", conf.player[0].type);
 	config->setProperty("player2_type", conf.player[1].type);
+	config->setProperty("player1_color", conf.player[0].color.c_str());
+	config->setProperty("player2_color", conf.player[1].color.c_str());
 	config->setProperty("rows", conf.rows);
 	config->setProperty("columns", conf.columns);
 	config->setProperty("align", conf.align);
@@ -154,6 +156,8 @@ void UI::SlotConfigChanged()
 	conf.player[1].force = config->property("player2_force").toInt();
 	conf.player[0].type = (ControllerInterface::PlayerType_t) config->property("player1_type").toInt();
 	conf.player[1].type = (ControllerInterface::PlayerType_t) config->property("player2_type").toInt();
+	conf.player[0].color = config->property("player1_color").toString().toStdString().c_str();
+	conf.player[1].color = config->property("player2_color").toString().toStdString().c_str();
 
 	conf.rows = config->property("rows").toInt();
 	conf.columns = config->property("columns").toInt();

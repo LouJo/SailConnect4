@@ -22,9 +22,6 @@ QtObject {
 
 	property color color_empty: "#D7D7D7"
 
-	property color color_player1: "#F3B81C"
-	property color color_player2: "#DA2227"
-
 	property double board_margin: 8
 
 	property int timeAnimationRow: 100

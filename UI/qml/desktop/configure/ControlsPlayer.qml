@@ -18,8 +18,10 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
+import QtQuick.Dialogs 1.2
 
 import "../../config"
+import "../../main"
 
 GroupBox {
 	id: controlPlayer
@@ -32,6 +34,8 @@ GroupBox {
 	property alias force: sliderForce.value
 	property int type
 	property string name
+
+	property color userColor
 
 	ColumnLayout {
 		RowLayout {
@@ -69,6 +73,30 @@ GroupBox {
 			opacity: enabled ? 1 : 0.3
 			updateValueWhileDragging: false
 		}
+
+		RowLayout {
+			Text {
+				text: qsTr("Color") + ": "
+			}
+
+			Rectangle {
+				color: userColor
+				width: height * 3
+				height: Style.defaultFont.pixelSize * 1.2
+
+				MouseArea {
+					anchors.fill: parent
+					onClicked: colorDialog.visible = true
+				}
+			}
+		}
+	}
+
+	ColorDialog {
+		id: colorDialog
+		title: qsTr("Choose a color")
+		onAccepted: controlPlayer.userColor = currentColor
+		visible: false
 	}
 
 	function submitAll() {

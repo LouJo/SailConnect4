@@ -22,6 +22,9 @@ QtObject {
 	property int player1_type: DefaultConfig.player1_type
 	property int player2_type: DefaultConfig.player2_type
 
+	property color player1_color: DefaultConfig.player1_color
+	property color player2_color: DefaultConfig.player2_color
+
 	property bool animation: DefaultConfig.animation
 
 	property string program_author: "Louis-Joseph Fournier"

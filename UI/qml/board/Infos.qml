@@ -32,7 +32,7 @@ Rectangle {
 		id: info_player1
 		player_name: Config.player1_name
 		points: Config.player1_points
-		player_color: Style.color_player1
+		player_color: Config.player1_color
 
 		anchors.left: parent.left
 		anchors.top: parent.top
@@ -46,7 +46,7 @@ Rectangle {
 		id: info_player2
 		player_name: Config.player2_name
 		points: Config.player2_points
-		player_color: Style.color_player2
+		player_color: Config.player2_color
 
 		anchors.left: info_player1.right
 		anchors.top: parent.top

@@ -173,7 +173,7 @@ Rectangle {
 
 				function play(player_) {
 					if (played) return false
-					//color = player == 1 ? Style.color_player1 : Style.color_player2
+					//color = player == 1 ? Config.player1_color : Config.player2_color
 					player = player_
 					bounce = true
 					played = true
@@ -216,7 +216,7 @@ Rectangle {
 		property var ball1
 		property var ball2
 
-		property color colorLine: ball1 ? (ball1.player == 1 ? Style.color_player1 : Style.color_player2) : "transparent"
+		property color colorLine: ball1 ? (ball1.player == 1 ? Config.player1_color : Config.player2_color) : "transparent"
 		property bool showed: false
 
 		LocalLine {
@@ -236,7 +236,7 @@ Rectangle {
 			ball1 = balls_repeater.itemAt(i1)
 			ball2 = balls_repeater.itemAt(i2)
 
-			colorLine = ball1.player == 1 ? Style.color_player1 : Style.color_player2
+			colorLine = ball1.player == 1 ? Config.player1_color : Config.player2_color
 			showed = true
 		}
 		function hide() {

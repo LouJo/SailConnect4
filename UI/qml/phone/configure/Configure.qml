@@ -51,6 +51,7 @@ Rectangle {
 				name: Config.player1_name
 				force: Config.player1_force
 				type: Config.player1_type
+				userColor: Config.player1_color
 
         width: parent.width
 	
@@ -58,6 +59,7 @@ Rectangle {
 				onSubmit: {
 					Config.player1_force = force
 					Config.player1_type = getType()
+					Config.player1_color = userColor
 				}
 		}
 	
@@ -67,6 +69,7 @@ Rectangle {
 				name: Config.player2_name
 				force: Config.player2_force
 				type: Config.player2_type
+				userColor: Config.player2_color
 
         width: parent.width
 	
@@ -74,6 +77,7 @@ Rectangle {
 				onSubmit: {
 					Config.player2_force = force
 					Config.player2_type = getType()
+					Config.player2_color = userColor
 				}
 		}
 	}

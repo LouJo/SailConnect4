@@ -45,11 +45,13 @@ Item {
 			name: Config.player1_name
 			force: Config.player1_force
 			type: Config.player1_type
+			userColor: Config.player1_color
 
 			onNameEdited: Config.player1_name = new_name
 			onSubmit: {
 				Config.player1_force = force
 				Config.player1_type = getType()
+				Config.player1_color = userColor
 			}
 		}
 
@@ -59,11 +61,13 @@ Item {
 			name: Config.player2_name
 			force: Config.player2_force
 			type: Config.player2_type
+			userColor: Config.player2_color
 
 			onNameEdited: Config.player2_name = new_name
 			onSubmit: {
 				Config.player2_force = force
 				Config.player2_type = getType()
+				Config.player2_color = userColor
 			}
 		}
 

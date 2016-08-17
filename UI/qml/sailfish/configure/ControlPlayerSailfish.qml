@@ -12,6 +12,7 @@ Column {
 	property alias force: sliderForce.value
 	property int type
 	property string name
+	property color userColor
 
 	width: parent.width
 
@@ -43,6 +44,27 @@ Column {
 
 			opacity: enabled ? 1 : 0.3
 		//	updateValueWhileDragging: false
+	}
+
+	Row {
+		Label {
+			text: qsTr("Color: ")
+		}
+		Rectangle {
+			color: userColor	
+			width: height * 2.5
+			height: Theme.fontSizeMedium
+
+			MouseArea {
+				anchors.fill: parent
+				onClicked: {
+					var dialog = pageStack.push("Sailfish.Silica.ColorPickerDialog")
+					dialog.accepted.connect(function() {
+						controlPlayer.userColor = dialog.color
+          })
+				}
+			}
+		}
 	}
 
 	function submitAll() {

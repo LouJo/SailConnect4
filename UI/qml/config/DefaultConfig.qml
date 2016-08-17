@@ -13,6 +13,9 @@ QtObject {
 	property int player1_force: 3
 	property int player2_force: 1
 
+	property color player1_color: "#C48C09"
+	property color player2_color: "#AE1A22"
+
 	property int typeHuman: 0
 	property int typeIA: 1
 

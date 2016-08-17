@@ -40,10 +40,10 @@ string Controller::scoreFileName = "score.dat";
 string Controller::gameFileName = "game.dat";
 
 ControllerInterface::Config Controller::defaultConfig = {
-	{ { "Bob", 2, ControllerInterface::TypeHuman },
-	  { "Nemo", 1, ControllerInterface::TypeIA } },
+	{ { "Bob", 2, ControllerInterface::TypeHuman, "#C48C09"},
+	  { "Nemo", 1, ControllerInterface::TypeIA, "#AE1A22"} },
 	6, 7, 4,
-	false // not transparent
+	false, // not transparent
 };
 
 Controller::Controller(FactoryInterface *factory)
@@ -353,6 +353,13 @@ bool Controller::LoadConfig()
 	f >> t;
 	// to avoid false detection on old files, 12 = true
 	config.board_transparent = (t == 12);
+
+	for (int i = 0; i < 2; i++) {
+		f >> sample;
+		if (sample == "")
+			break;
+		config.player[i].color = sample;
+	}
 	f.close();
 
 	return true;
@@ -379,6 +386,9 @@ bool Controller::SaveConfig()
 	// to avoid false detection on old files, 12 = true
 	int t = config.board_transparent ? 12 : 0;
 	f << t << endl;
+
+	for (int i = 0; i < 2; i++)
+		f << config.player[i].color << endl;
 
 	f.close();
 	return true;
