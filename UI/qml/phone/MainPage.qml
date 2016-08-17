@@ -63,6 +63,20 @@ Item {
 		paused: parent.menuVisible || confirm_newgame.visible
 	}
 
+	/**
+	 * MouseArea to close menu
+	 */
+	MouseArea {
+		id: menu_exterior
+		enabled: menuVisible
+		onClicked: menuVisible = false
+
+		anchors.top: parent.top
+		anchors.bottom: parent.bottom
+		anchors.left: parent.left
+		anchors.right: menu.left
+	}
+
 	Menu {
 		id: menu
 		objectName: "menu"
