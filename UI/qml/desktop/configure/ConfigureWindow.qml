@@ -32,15 +32,13 @@ ApplicationWindow {
 	minimumWidth: configure.minW + 2 * margin
 	minimumHeight: configure.minH + 2 * margin
 
-	signal configChanged()
 	signal resetScores()
 
 	Configure {
 		id: configure
 	}
 	Component.onCompleted: {
-		configure.configChanged.connect(configChanged)
 		configure.resetScores.connect(resetScores)
+		configure.close.connect(close)
 	}
-	onConfigChanged: close()
 }

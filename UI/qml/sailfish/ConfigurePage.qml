@@ -26,8 +26,6 @@ Dialog {
 
 	allowedOrientations: Orientation.All
 
-	signal configChanged()
-
 	Column {
 		width: parent.width
 
@@ -84,6 +82,6 @@ Dialog {
 		player1.submitAll()
 		player2.submitAll()
 		bgTransparentButton.submit()
-		configChanged()
+		Config.changed()
 	}
 }

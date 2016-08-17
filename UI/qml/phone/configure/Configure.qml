@@ -28,7 +28,6 @@ Rectangle {
 
   color: Style.conf_bg_color
 
-	signal configChanged()
 	signal exit()
 
   ConfigureHeader {
@@ -86,7 +85,7 @@ Rectangle {
 	function accept() {
 		p1.submitAll()
 		p2.submitAll()
-		configChanged()
+		Config.changed()
 		exit()
   }
 }

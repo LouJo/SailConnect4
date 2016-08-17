@@ -40,11 +40,11 @@ HeaderGeneric {
 
 	HeaderButton {
 		id: menu_icon
-		height: parent.height * 0.9
-		width: height
 		icon: "../../../icons/menu/menu.svg"
+		icon_h: parent.height * 0.9
+		width: parent.height
 		anchors.right: parent.right
-		anchors.rightMargin: (parent.height - height) / 2
+		anchors.rightMargin: height * 0.1
 		anchors.verticalCenter: parent.verticalCenter
 
 		timer_deactivate: false
@@ -53,11 +53,11 @@ HeaderGeneric {
 
 	HeaderButton {
 		id: renew_icon
-		height: parent.height * 0.7
-		width: height
 		icon: "../../../icons/menu/renew.svg"
+		icon_h: parent.height * 0.7
+		width: parent.height
 		anchors.right: menu_icon.left
-		anchors.rightMargin: height * 0.4
+		anchors.rightMargin: height * 0.2
 		anchors.verticalCenter: parent.verticalCenter
 	}
 

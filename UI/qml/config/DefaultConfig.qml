@@ -22,4 +22,12 @@ QtObject {
 	property bool animation: true
 
 	property bool board_transparent: false
+
+	property var forceNames: [
+		qsTr("Beginner"),
+		qsTr("Capable"),
+		qsTr("Strong"),
+		qsTr("Expert"),
+		qsTr("Vicious")
+	]
 }

@@ -57,7 +57,7 @@ void UI::PostInit()
 	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
 	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
 	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
-	QObject::connect(menu, SIGNAL(configChanged()), this, SLOT(SlotConfigChanged()));
+	QObject::connect(config, SIGNAL(changed()), this, SLOT(SlotConfigChanged()));
 	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
 }
 

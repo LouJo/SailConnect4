@@ -26,7 +26,6 @@ Rectangle {
 
 	color: Style.menu_bg_color
 
-	signal configChanged()
 	signal newGame()
 	signal resetScores()
 	signal exit()

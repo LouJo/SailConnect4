@@ -45,7 +45,6 @@ ApplicationWindow {
 
 			RemorsePopup { id: remorse }
 
-			signal configChanged()
 			signal resetScores()
 			signal newGame()
 			signal exit()
@@ -68,7 +67,6 @@ ApplicationWindow {
 				text: qsTr("Configuration")
 				onClicked: {
 					var confpage = pageStack.push(Qt.resolvedUrl("ConfigurePage.qml"))
-					confpage.configChanged.connect(menu.configChanged)
 				}
 			}
 			MenuItem {

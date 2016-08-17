@@ -26,5 +26,5 @@ Rectangle {
 	anchors.left: parent.left
 
 	width: parent.width
-	height: Math.min(parent.width, parent.height) * 0.15
+	height: Math.min(parent.width, parent.height) * 0.12
 }

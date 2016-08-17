@@ -25,7 +25,7 @@ Column {
 
 	TextSwitch {
 		id: ia
-		text: qsTr("IA force") + " " + (sliderForce.value+1)
+		text: qsTr("IA") + ": " + DefaultConfig.forceNames[sliderForce.value]
 		checked: controlPlayer.type == 1
 		width: parent.width
 	}

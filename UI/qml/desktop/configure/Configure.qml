@@ -23,8 +23,8 @@ import "."
 import "../../config"
 
 Item {
-	signal configChanged()
 	signal resetScores()
+	signal close()
 
 	property double minW: mainLayout.Layout.minimumWidth
 	property double minH: mainLayout.Layout.minimumHeight
@@ -84,7 +84,8 @@ Item {
 			onClicked: {
 				p1.submitAll()
 				p2.submitAll()
-				configChanged()
+				Config.changed()
+				close()
 			}
 		}
 	}

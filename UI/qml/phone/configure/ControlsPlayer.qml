@@ -20,11 +20,12 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.4
 
 import ".."
+import "../../config"
 
 Column {
 	id: controls
 
-	spacing: 18
+	spacing: fontSize
 
 	signal submit()
 	signal nameEdited(string new_name)
@@ -33,6 +34,8 @@ Column {
 	property int type
 	property string title
 	property string name
+
+	property alias fontSize: text_title.fontSize
 
 	Item {
 		height: 6
@@ -46,9 +49,11 @@ Column {
   }
 
 	Text {
+		id: text_title
 		text: parent.title
     color: Style.conf_font_color
 		font.bold: true
+		property int fontSize: font.pixelSize
 	}
 
 	Row {
@@ -61,6 +66,8 @@ Column {
 			anchors.verticalCenter: parent.verticalCenter
 			id: nameField
 			text: controls.name
+			style: text_field_style
+
 			function submit() { controls.nameEdited(text) }
 		}
 	}
@@ -77,7 +84,7 @@ Column {
 		}
 		RadioButton {
 			id: ia
-			text: qsTr("IA force") + ":"
+			text: qsTr("IA") + ": " + DefaultConfig.forceNames[sliderForce.value]
 			checked: controls.type == 1
 			exclusiveGroup: player
 			style: radio_style
@@ -93,6 +100,8 @@ Column {
 		width: parent.width * 0.9
 		opacity: enabled ? 1 : 0.3
 		enabled: ia.checked
+		style: slider_style
+		value: force
 	}
 
 	function submitAll() {
@@ -113,7 +122,7 @@ Column {
           text: control.text
         }
         indicator: Rectangle {
-          width: 14
+          width: fontSize
           height: width
           radius: width * 0.5
 
@@ -125,8 +134,34 @@ Column {
             radius: width * 0.5
           }
         }
-				spacing: 4
+				spacing: fontSize * 0.6
      }
    }
 
+	Component {
+	 	id: text_field_style
+
+		TextFieldStyle {
+			textColor: Style.conf_font_color
+			background: Rectangle {
+				color: Style.conf_field_bg_color
+				implicitHeight: fontSize * 2
+				implicitWidth: fontSize * 15
+			}
+		}
+	}
+
+	Component {
+		id: slider_style
+
+		SliderStyle {
+			handle: Rectangle {
+				anchors.centerIn: parent
+				color: control.enabled ? Style.conf_button_inside : Style.conf_font_color
+				implicitWidth: fontSize * 0.8
+				implicitHeight: implicitWidth
+				radius: width * 0.5
+			}
+		}
+	}
 }

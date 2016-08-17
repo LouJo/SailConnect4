@@ -32,7 +32,6 @@ Rectangle {
 
 	color: Style.color_menu_bg
 
-	signal configChanged()
 	signal newGame()
 	signal resetScores()
 	signal exit()
@@ -51,7 +50,6 @@ Rectangle {
 		onActivated: {
 			var conf = Qt.createComponent("../configure/ConfigureWindow.qml")
 			var win = conf.createObject(menu)
-			win.configChanged.connect(menu.configChanged)
 			win.resetScores.connect(menu.resetScores)
 			win.show()
 		}

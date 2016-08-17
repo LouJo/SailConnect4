@@ -63,4 +63,5 @@ QtObject {
 	property color conf_font_color: "#dddddd"
 	property color conf_bg_color: "#444444"
 	property color conf_button_inside: "blue"
+	property color conf_field_bg_color: "#666666"
 }

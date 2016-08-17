@@ -19,6 +19,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 
+import "../../config"
+
 GroupBox {
 	id: controlPlayer
 
@@ -51,7 +53,7 @@ GroupBox {
 			}
 			RadioButton {
 				id: ia
-				text: qsTr("IA force") + ":"
+				text: qsTr("IA") + ": " + DefaultConfig.forceNames[sliderForce.value]
 				checked: controlPlayer.type == 1
 				exclusiveGroup: player
 			}

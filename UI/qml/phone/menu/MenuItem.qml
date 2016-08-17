@@ -25,15 +25,24 @@ Rectangle {
 	signal triggered()
 
 	property bool activated: false
+	property alias fontSize: sampleText.fontSize
 
 	width: parent.width
-	height: 50
+	height: fontSize * 2.5
+
+	Text {
+		// get sample font size
+		id: sampleText
+		visible: false
+		property int fontSize: font.pixelSize
+	}
+
 	color: activated ? Style.menu_bg_color_activated : Style.menu_bg_color
 
 	Text {
 		text: parent.title
 		color: Style.menu_font_color
-		font.pixelSize: parent.height * 0.35
+		//font.pixelSize: parent.height * 0.45
 
 		anchors.verticalCenter: parent.verticalCenter
 		anchors.left: parent.left

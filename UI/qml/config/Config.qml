@@ -3,6 +3,8 @@ import QtQuick 2.0
 import "."
 
 QtObject {
+	signal changed()
+
 	property string programTitle: DefaultConfig.programTitle
 	property int rows: DefaultConfig.rows
 	property int columns: DefaultConfig.columns

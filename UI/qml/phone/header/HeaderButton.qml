@@ -28,9 +28,13 @@ Rectangle {
 	property string text
 	property string icon
 
+	property int icon_h: height
+	property int icon_w: icon_h
+
 	signal triggered()
 
 	height: parent.height
+
 	property bool activated: false
 	property bool timer_deactivate: true // unset if client deactivate button
 
@@ -39,8 +43,10 @@ Rectangle {
 	Image {
 		visible: icon
 		source: icon
-		height: parent.height
-		width: height
+		height: icon_h
+		width: icon_w
+		anchors.verticalCenter: parent.verticalCenter
+		anchors.horizontalCenter: parent.horizontalCenter
 	}
 
 	Text {
