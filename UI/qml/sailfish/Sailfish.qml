@@ -96,6 +96,8 @@ ApplicationWindow {
 			Game {
 				id: game
 				objectName: "game"
+				paused: !(Qt.application.active && status == PageStatus.Active)
+
 				width: page.orientation & Orientation.PortraitMask ? parent.width : parent.height * 4 / 5
 
 				anchors.horizontalCenter: parent.horizontalCenter

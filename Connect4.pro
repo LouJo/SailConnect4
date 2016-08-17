@@ -9,7 +9,7 @@ sailfish {
   VPATH += Sailfish
   CONFIG += sailfishapp_no_deploy_qml sailfishapp sailfishapp_i18n
 }
-android {
+else: android {
   message("Build for Android")
 }
 else {
@@ -54,7 +54,7 @@ sailfish {
   RESOURCES += \
 	  UI/qml/sailfish/sailfish.qrc
 }
-android | linux {
+else: android {
   SOURCES += \
 	  Controller/src/main.cpp
 
@@ -101,6 +101,8 @@ android {
 
   DISTFILES += \
     Android/AndroidManifest.xml \
+    Android/appTheme.xml \
+    Android/splash.xml \
     Android/gradle/wrapper/gradle-wrapper.jar \
     Android/gradlew \
     Android/res/values/libs.xml \
@@ -110,7 +112,3 @@ android {
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
 }
-
-DISTFILES += \
-    Android/appTheme.xml \
-    Android/splash.xml
