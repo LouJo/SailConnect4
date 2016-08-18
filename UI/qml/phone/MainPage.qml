@@ -37,7 +37,7 @@ Rectangle {
 	signal launchApropos()
 	signal launchConfigure()
 
-	property bool menuVisible: false
+	property bool menuVisible: true
 
 	property var board: game.board // for js controller
 
@@ -82,13 +82,6 @@ Rectangle {
 	Menu {
 		id: menu
 		objectName: "menu"
-
-		anchors.top: header.bottom
-		anchors.bottom: parent.bottom
-		anchors.right: parent.right
-
-		width: Math.max(Style.defaultFont.pixelSize * 8,
-		                Math.max(header.height * 2, parent.width * 0.1))
 		visible: parent.menuVisible
 	}
 

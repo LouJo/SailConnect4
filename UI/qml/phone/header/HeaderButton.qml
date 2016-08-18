@@ -33,7 +33,7 @@ Rectangle {
 
 	signal triggered()
 
-	height: parent.height
+	height: parent.height - 1
 
 	property bool activated: false
 	property bool timer_deactivate: true // unset if client deactivate button

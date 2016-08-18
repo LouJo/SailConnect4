@@ -25,7 +25,13 @@ Rectangle {
 
 	anchors.top: parent.top
 	anchors.left: parent.left
+	anchors.right: parent.right
+	anchors.topMargin: -1
+	anchors.leftMargin: -1
+	anchors.rightMargin: -1
 
-	width: parent.width
 	height: Math.min(parent.width, parent.height) * 0.12
+
+	border.color: Style.header_border_color
+	border.width: 1
 }

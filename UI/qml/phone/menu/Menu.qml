@@ -22,11 +22,9 @@ import "../../config"
 import "../../main"
 import "."
 
-Rectangle {
+Item {
 	id: menu
 	visible: true
-
-	color: Style.menu_bg_color
 
 	signal newGame()
 	signal resetScores()
@@ -35,8 +33,32 @@ Rectangle {
 	signal launchApropos()
 	signal launchConfigure()
 
+	width: Style.defaultFont.pixelSize * 8
+	anchors.top: header.bottom
+	anchors.right: parent.right
+	anchors.topMargin: 4
+	anchors.rightMargin: 2
+
+	Rectangle {
+		// background
+		color: Style.menu_bg_color
+		border.width: 1
+		border.color: Style.menu_border_color
+		width: parent.width
+		height: column.height + 2
+		anchors.top: parent.top
+		anchors.left: parent.left
+	}
+
 	Column {
-		anchors.fill: parent
+		id: column
+
+		anchors.left: parent.left
+		anchors.right: parent.right
+		anchors.top: parent.top
+		anchors.topMargin: 1
+		anchors.leftMargin: 1
+		anchors.rightMargin: 1
 
 		MenuItem {
 			title: qsTr("Configuration")
