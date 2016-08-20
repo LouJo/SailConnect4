@@ -24,7 +24,8 @@ import "."
 
 Item {
 	id: menu
-	visible: true
+
+	property bool displayed: false
 
 	signal newGame()
 	signal resetScores()
@@ -33,14 +34,18 @@ Item {
 	signal launchApropos()
 	signal launchConfigure()
 
-	width: Style.defaultFont.pixelSize * 8
+	property int wantedWidth: Style.defaultFont.pixelSize * 8
+	width: displayed ? wantedWidth : 0
+
 	anchors.top: header.bottom
 	anchors.right: parent.right
 	anchors.topMargin: 4
 	anchors.rightMargin: 2
+	visible: width > 0
 
 	Rectangle {
 		// background
+		id: bg
 		color: Style.menu_bg_color
 		border.width: 1
 		border.color: Style.menu_border_color
@@ -78,6 +83,12 @@ Item {
 		MenuItem {
 			title: qsTr("Exit")
 			onTriggered: exit()
+		}
+	}
+
+	Behavior on width {
+		NumberAnimation {
+			duration: 100
 		}
 	}
 

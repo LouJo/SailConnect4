@@ -37,7 +37,7 @@ Rectangle {
 	signal launchApropos()
 	signal launchConfigure()
 
-	property bool menuVisible: true
+	property bool menuVisible: false
 
 	property var board: game.board // for js controller
 
@@ -82,7 +82,7 @@ Rectangle {
 	Menu {
 		id: menu
 		objectName: "menu"
-		visible: parent.menuVisible
+		displayed: parent.menuVisible
 	}
 
 	MessageDialog {
