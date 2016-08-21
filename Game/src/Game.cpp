@@ -37,6 +37,9 @@
 
 #define NB_ELT(a) (sizeof(a)/sizeof(*a))
 
+#define IDEN_VERSION "v1"
+#define IDEN_SEPARATOR "|"
+
 using namespace std;
 
 /* Score factors ranges for every IA force.
@@ -195,6 +198,18 @@ double Game::Scoring::operator() ()
 {
 	score = min(1, max(0, score));
 	return score;
+}
+
+std::string Game::Scoring::Identifier()
+{
+	std::string ret;
+	ret = std::to_string(factors.factors[SCORE_ALIGN_PLAYER]);
+	ret += IDEN_SEPARATOR + std::to_string(factors.factors[SCORE_ALIGN_OTHER]);
+	ret += IDEN_SEPARATOR + std::to_string(factors.factorAlignedMore);
+	for (int i = 0; i < ScoreFactors::maxNbAligned; i++)
+		ret += IDEN_SEPARATOR + std::to_string(factors.maxAligned[i]);
+
+	return ret;
 }
 
 /* Game state */
@@ -553,6 +568,11 @@ void Game::GameState::SetScoringRange(int player, ScoreFactorsRange *range)
 	scoring[player].SetStrategie();
 }
 
+std::string Game::GameState::GetIdentifier(int player)
+{
+	return scoring[player].Identifier();
+}
+
 int Game::GameState::NextPlayer(int player)
 {
 	return (player + 1) % boardDesc->nbPlayer;
@@ -701,10 +721,22 @@ void Game::SetIAForce(int force, int player)
 
 	gameState->SetScoringRange(player, &scoreFactorRangesForce[min((unsigned int) force, NB_ELT(scoreFactorRangesForce))]);
 
-	cerr << "game: set IA force " << iaForce[player] << " for player " << player << endl;
+	cerr << "game: set IA force " << iaForce[player] << " for player " << player
+	//     << " identifier " << GetIAIdentifier(player)
+	     << endl;
 }
 
 void Game::SetPlayer(int player)
 {
 	currentPlayer = player;
+}
+
+std::string Game::GetIAIdentifier(int player)
+{
+	std::string ret;
+	ret = IDEN_VERSION;
+	ret += IDEN_SEPARATOR + gameState->GetIdentifier(player);
+	ret += IDEN_SEPARATOR + std::to_string(iaForceConfig[iaForce[player]].maxDepth);
+	ret += IDEN_SEPARATOR + std::to_string(iaForceConfig[iaForce[player]].maxNodes);
+	return ret;
 }

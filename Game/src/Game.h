@@ -84,6 +84,8 @@ class Game : public GameInterface {
 		void SetAligned(const ScoreFactor_t factorId, int *nbAligned, int align);
 		void SetRandom();
 		double operator() ();
+		/// identify the scoring factors in a string 
+		std::string Identifier();
 
 		private:
 		double score;
@@ -184,6 +186,7 @@ class Game : public GameInterface {
 		bool IsEnded();
 		int BestPlay(int player);
 		void SetScoringRange(int player, ScoreFactorsRange *range);
+		std::string GetIdentifier(int player);
 
 		void DebugNbAligned();
 
@@ -221,6 +224,7 @@ class Game : public GameInterface {
 	bool PlayPossibleAtCol(int col, int &index);
 	void SetIAForce(int force, int player);
 	void SetPlayer(int player);
+	std::string GetIAIdentifier(int player);
 };
 
 

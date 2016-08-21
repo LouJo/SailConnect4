@@ -22,6 +22,8 @@
  *
 */
 
+#include <string>
+
 #include "../../Controller/include/ControllerInterface.h"
 
 class GameInterface {
@@ -44,6 +46,8 @@ class GameInterface {
 	virtual void SetIAForce(int force, int player) = 0;
 	// set next player (not needed after played, only for beginning)
 	virtual void SetPlayer(int player) = 0;
+	// get identifier string for IA
+	virtual std::string GetIAIdentifier(int player) = 0;
 };
 
 

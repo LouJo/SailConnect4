@@ -30,6 +30,7 @@ class Controller : public ControllerInterface {
 	static std::string configFileName;
 	static std::string scoreFileName;
 	static std::string gameFileName;
+	static std::string logFileName;
 	static Config defaultConfig;
 
 	protected:
@@ -43,7 +44,7 @@ class Controller : public ControllerInterface {
 	int score[2];
 	bool ended;
 	Config config, configToChange;
-	std::string configFilePath, scoreFilePath, gameFilePath;
+	std::string configFilePath, scoreFilePath, gameFilePath, logFilePath;
 	std::vector<int> played;
 
 	private:
@@ -60,6 +61,7 @@ class Controller : public ControllerInterface {
 	bool SaveScore();
 	bool LoadGame();
 	bool SaveGame();
+	bool LogGame(int winner);
 
 	protected:
 	virtual void IAPlay();

@@ -35,9 +35,12 @@ using namespace std;
 #define name(x) name_(x)
 #define NAME name(TARGET)
 
+#define CSV_SEP ";"
+
 string Controller::configFileName = "config.dat";
 string Controller::scoreFileName = "score.dat";
 string Controller::gameFileName = "game.dat";
+string Controller::logFileName = "log.csv";
 
 ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman, "#C48C09"},
@@ -73,6 +76,7 @@ void Controller::Init(FactoryInterface *factory)
 		configFilePath = path + "/" + configFileName;
 		scoreFilePath = path + "/" + scoreFileName;
 		gameFilePath = path + "/" + gameFileName;
+		logFilePath = path + "/" + logFileName;
 	}
 
 	config = defaultConfig;
@@ -283,8 +287,13 @@ void Controller::PlayAtIndex(int index)
 	played.push_back(index);
 
 	if (game->IsEnded(winner, caseAligned)) {
-		if (winner != -1) Win(winner, caseAligned);
-		else ended = true;
+		if (winner != -1) {
+			Win(winner, caseAligned);
+			LogGame(winner);
+		} else {
+			ended = true;
+			LogGame(2);
+		}
 
 		// loop play when 2 IA
 //		if (config.player[0].type == TypeIA && config.player[1].type == TypeIA) NewGame();
@@ -464,6 +473,31 @@ bool Controller::SaveGame()
 
 	f << played.size() << endl;
 	for (auto idx : played) f << idx << endl;
+
+	f.close();
+	return true;
+}
+
+bool Controller::LogGame(int winner)
+{
+	if (logFilePath == "") return false;
+	ofstream f(logFilePath, ios::app);
+	if (!f.is_open()) return false;
+
+	for (int p = 0; p < 2; p++) {
+		ConfigPlayer *cp = &config.player[p];
+		f << cp->name << CSV_SEP;
+		f << cp->type << CSV_SEP;
+		if (cp->type == TypeIA) {
+			f << cp->force << CSV_SEP;
+			f << game->GetIAIdentifier(p) << CSV_SEP;
+		} else {
+			f << CSV_SEP << CSV_SEP;
+		}
+	}
+	// here, 2 means equal
+	f << winner;
+	f << std::endl;
 
 	f.close();
 	return true;
