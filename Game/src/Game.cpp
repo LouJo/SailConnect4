@@ -24,6 +24,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sstream>
+#include <string>
 
 #include "Game.h"
 
@@ -200,14 +202,21 @@ double Game::Scoring::operator() ()
 	return score;
 }
 
+template<typename T> std::string to_str(const T& n)
+{
+	std::ostringstream s;
+	s << n;
+	return s.str();
+}
+
 std::string Game::Scoring::Identifier()
 {
 	std::string ret;
-	ret = std::to_string(factors.factors[SCORE_ALIGN_PLAYER]);
-	ret += IDEN_SEPARATOR + std::to_string(factors.factors[SCORE_ALIGN_OTHER]);
-	ret += IDEN_SEPARATOR + std::to_string(factors.factorAlignedMore);
+	ret = to_str(factors.factors[SCORE_ALIGN_PLAYER]);
+	ret += IDEN_SEPARATOR + to_str(factors.factors[SCORE_ALIGN_OTHER]);
+	ret += IDEN_SEPARATOR + to_str(factors.factorAlignedMore);
 	for (int i = 0; i < ScoreFactors::maxNbAligned; i++)
-		ret += IDEN_SEPARATOR + std::to_string(factors.maxAligned[i]);
+		ret += IDEN_SEPARATOR + to_str(factors.maxAligned[i]);
 
 	return ret;
 }
@@ -736,7 +745,7 @@ std::string Game::GetIAIdentifier(int player)
 	std::string ret;
 	ret = IDEN_VERSION;
 	ret += IDEN_SEPARATOR + gameState->GetIdentifier(player);
-	ret += IDEN_SEPARATOR + std::to_string(iaForceConfig[iaForce[player]].maxDepth);
-	ret += IDEN_SEPARATOR + std::to_string(iaForceConfig[iaForce[player]].maxNodes);
+	ret += IDEN_SEPARATOR + to_str(iaForceConfig[iaForce[player]].maxDepth);
+	ret += IDEN_SEPARATOR + to_str(iaForceConfig[iaForce[player]].maxNodes);
 	return ret;
 }
