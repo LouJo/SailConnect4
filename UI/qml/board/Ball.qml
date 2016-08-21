@@ -21,24 +21,35 @@ import QtGraphicalEffects 1.0
 import "../config"
 
 Rectangle {
+	id: ball
 	property int idx
-	property int row: Math.floor(idx / board.columns)
-	property double posX: (idx % board.columns) * board.cellLength + board.cellMargin
-	property double posY: row * board.cellLength + board.cellMargin
+	property int row
+	property double posX
+	property double posY
+
 	property int player: 1
 
 	property color playerColor: 
 			player == 1 ? Config.player1_color : Config.player2_color
 	
 	property color overColor
+	property real angle: 0
+	property int axeX: 0
+	property int axeY: 0
 
 	color: playerColor
-	radius: width * 0.5
+	radius: height
 
-	x: posX
+	x: posX + (board.ballLength - width) / 2
 	y: posY
 	width: board.ballLength
 	height: board.ballLength
+
+  transform: Rotation {
+		origin { x: width / 2; y: width / 2 }
+		axis { x: axeX; y: axeY; z: 0 }
+		angle: ball.angle
+  }
 
 	Image {
 		id: piece

@@ -126,20 +126,32 @@ Rectangle {
 
 		signal updated()
 
+		property real angle: 0
+		property real scaledWidth: Math.cos(angle)
+
 		Repeater {
 			model: board.nbCells
 			id: balls_repeater
 
 			Ball {
+				id: ball
 				idx: index
-				property bool played: false 
 
+				row: Math.floor(idx / board.columns)
+				posX: (idx % board.columns) * board.cellLength + board.cellMargin
+				posY: row * board.cellLength + board.cellMargin
+
+				property bool played: false
 				property int timeAnimationDefault: board.timeAnimationRow * (row + 1)
 				property int timeAnimation: timeAnimationDefault
 				property bool bounce: true
 				property bool placed: played && !yAnimation.running
 				property bool parked: !played && !yAnimation.running
+				property bool aligned: false
 
+				angle: aligned ? balls.angle : 0
+				axeX: lineAligned.axeX
+				axeY: lineAligned.axeY
 				y: played ? posY : -board.ballLength
 
 				//color: "transparent"
@@ -171,6 +183,7 @@ Rectangle {
 					}
 				}
 
+
 				function play(player_) {
 					if (played) return false
 					//color = player == 1 ? Config.player1_color : Config.player2_color
@@ -186,14 +199,29 @@ Rectangle {
 				function reset() {
 					bounce = false
 					played = false
+					aligned = false
 					timeAnimation = timeAnimationDefault
 				}
 			}
 		}
 
+		NumberAnimation {
+			id: rotate
+
+			running: board.ended && lineAligned.showed
+			loops: Animation.Infinite
+			target: balls
+			property: "angle"
+			from: 0
+			to: 180
+			duration: 500
+		}
+
 		function reset() {
 			for (var i = 0; i < board.nbCells; i++) 
 				balls_repeater.itemAt(i).reset()
+
+			angle = 0
 		}
 
 		function play(idx, player) {
@@ -219,6 +247,9 @@ Rectangle {
 		property color colorLine: ball1 ? (ball1.player == 1 ? Config.player1_color : Config.player2_color) : "transparent"
 		property bool showed: false
 
+		property int axeX: 0
+		property int axeY: 0
+
 		LocalLine {
 			x1: parent.item1 ? parent.item1.x + board.ballRadius : 0
 			y1: parent.item1 ? parent.item1.y + board.ballRadius : 0
@@ -230,6 +261,12 @@ Rectangle {
 
 		visible: showed && ball1.placed && ball2.placed && board.ballPlaying.placed
 
+		function sign(a) {
+			if (a < 0) return -1
+			else if (a > 0) return 1
+			else return 0
+		}
+
 		function show(i1, i2) {
 			item1 = grid_repeater.itemAt(i1)
 			item2 = grid_repeater.itemAt(i2)
@@ -238,6 +275,18 @@ Rectangle {
 
 			colorLine = ball1.player == 1 ? Config.player1_color : Config.player2_color
 			showed = true
+
+			// axe for rotation
+			axeX = sign(ball2.posX - ball1.posX)
+			axeY = sign(ball2.posY - ball1.posY)
+
+			// place aligned flag
+			var idx = i1;
+			var delta = (i2 - i1) / (Config.align - 1)
+			for (var i = 0; i < Config.align; i++) {
+				balls_repeater.itemAt(idx).aligned = true;
+				idx += delta;
+			}
 		}
 		function hide() {
 			showed = false
