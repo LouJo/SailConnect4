@@ -127,7 +127,6 @@ Rectangle {
 		signal updated()
 
 		property real angle: 0
-		property real scaledWidth: Math.cos(angle)
 
 		Repeater {
 			model: board.nbCells
@@ -208,7 +207,8 @@ Rectangle {
 		NumberAnimation {
 			id: rotate
 
-			running: board.ended && lineAligned.showed
+			running: board.ended && lineAligned.visible &&
+			         Qt.application.state == Qt.ApplicationActive
 			loops: Animation.Infinite
 			target: balls
 			property: "angle"
