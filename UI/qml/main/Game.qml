@@ -59,6 +59,7 @@ Rectangle {
 		height: parent.height - board.height - extra_margin - Style.board_margin
 		anchors.top: board.bottom
 		playerPlaying: game.canPlay ? game.player : 0
+		iaPlaying: (playerPlaying == 0 && !ended) ? game.player : 0
 	}
 
 	Component.onCompleted: {

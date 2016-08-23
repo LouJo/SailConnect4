@@ -18,12 +18,17 @@
 import QtQuick 2.0
 
 Item {
+	id: info
+
 	property string player_name
 	property int points
 	property color player_color
-	property bool playing
+	property bool playing: false
+	property bool iaPlaying: false
+
 
 	Text {
+		id: name
 		width: parent.width; height: parent.height / 2
 		anchors.top: parent.top
 		text: parent.player_name
@@ -33,6 +38,13 @@ Item {
 		verticalAlignment: Text.AlignVCenter
 
 		font.underline: playing
+		property real angle: 0
+
+		transform: Rotation {
+			origin { x: name.width / 2; y: name.height / 2 }
+			axis { x: 1; y: 0; z: 0 }
+			angle: name.angle
+		}
 	}
 
 	Text {
@@ -42,5 +54,21 @@ Item {
 		font.pixelSize: width / 8 + 1
 		x: 0; y: parent.height / 2
 		text: parent.points
+	}
+
+	SequentialAnimation {
+		running: iaPlaying
+
+		NumberAnimation {
+			target: name
+			property: "angle"
+			from: 0
+			to: 360
+			duration: 800
+		}
+
+		onRunningChanged: {
+			if (!running) name.angle = 0
+		}
 	}
 }

@@ -27,6 +27,7 @@ Rectangle {
 	color: Config.board_transparent ? "transparent" : Style.color_info_bg
 
 	property int playerPlaying: 0
+	property int iaPlaying: 0
 
 	InfosPlayer {
 		id: info_player1
@@ -40,6 +41,7 @@ Rectangle {
 		height: parent.height
 
 		playing: parent.playerPlaying == 1
+		iaPlaying: parent.iaPlaying == 1
 	}
 
 	InfosPlayer {
@@ -54,5 +56,6 @@ Rectangle {
 		height: parent.height
 
 		playing: parent.playerPlaying == 2
+		iaPlaying: parent.iaPlaying == 2
 	}
 }
