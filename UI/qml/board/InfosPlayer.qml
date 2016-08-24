@@ -57,7 +57,7 @@ Item {
 	}
 
 	SequentialAnimation {
-		running: iaPlaying
+		running: iaPlaying && Qt.application.state == Qt.ApplicationActive
 
 		NumberAnimation {
 			target: name
