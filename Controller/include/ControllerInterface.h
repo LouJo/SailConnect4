@@ -20,6 +20,7 @@
 
 /* Generic interface for Controller */
 
+#include <vector>
 #include <string>
 
 class ControllerNull;
@@ -44,6 +45,18 @@ class ControllerInterface {
 		bool board_transparent;
 	};
 
+  // type for games statistics
+  struct PodiumPlayer {
+    std::string name;
+    PlayerType_t type;
+    int force;
+    int winNb;
+  };
+  struct Podium {
+    PodiumPlayer players[2];
+    int gamesNb;
+  };
+
 	virtual void Start() = 0;
 
 	// methods for UI calls
@@ -55,6 +68,7 @@ class ControllerInterface {
 	virtual void ResetScores() = 0;
 	virtual void Loop() = 0;
 	virtual void Pause(bool pause) = 0;
+  virtual std::vector<Podium> GameStats() = 0;
 
 	// null controller
 
@@ -74,5 +88,9 @@ class ControllerNull : public ControllerInterface {
 	virtual void Start() {}
 	virtual void Loop() {}
 	virtual void Pause(bool pause __attribute__((unused))) {}
+  virtual std::vector<Podium> GameStats() {
+    std::vector<Podium> ret;
+    return ret;
+  }
 };
 #endif

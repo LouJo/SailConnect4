@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include <QDebug>
 #include <QStandardPaths>
@@ -35,7 +36,7 @@ using namespace std;
 #define name(x) name_(x)
 #define NAME name(TARGET)
 
-#define CSV_SEP ";"
+static const char csv_sep = ';';
 
 string Controller::configFileName = "config.dat";
 string Controller::scoreFileName = "score.dat";
@@ -478,6 +479,16 @@ bool Controller::SaveGame()
 	return true;
 }
 
+// replace chars in a string
+static std::string replace(const std::string& src, char from, char to)
+{
+  std::string rep = src;
+  for (char &c : rep)
+    if (c == from)
+      c = to;
+  return rep;
+}
+
 bool Controller::LogGame(int winner)
 {
 	if (logFilePath == "") return false;
@@ -486,13 +497,13 @@ bool Controller::LogGame(int winner)
 
 	for (int p = 0; p < 2; p++) {
 		ConfigPlayer *cp = &config.player[p];
-		f << cp->name << CSV_SEP;
-		f << cp->type << CSV_SEP;
+		f << replace(cp->name, csv_sep, ' ') << csv_sep;
+		f << cp->type << csv_sep;
 		if (cp->type == TypeIA) {
-			f << cp->force << CSV_SEP;
-			f << game->GetIAIdentifier(p) << CSV_SEP;
+			f << cp->force << csv_sep;
+			f << game->GetIAIdentifier(p) << csv_sep;
 		} else {
-			f << CSV_SEP << CSV_SEP;
+			f << csv_sep << csv_sep;
 		}
 	}
 	// here, 2 means equal
@@ -502,6 +513,89 @@ bool Controller::LogGame(int winner)
 	f.close();
 	return true;
 }
+
+// split a string
+static std::vector<std::string> split(std::string line, char delim)
+{
+  std::vector<std::string> rep;
+  std::string word;
+  std::stringstream ss(line);
+
+  while (getline(ss, word, delim))
+    rep.push_back(word);
+
+  return rep;
+}
+
+bool samePlayer(
+    const Controller::PodiumPlayer& a, const Controller::PodiumPlayer& b)
+{
+  if (a.type != b.type)
+    return false;
+  else if (a.type == Controller::TypeHuman && a.name == b.name)
+    return true;
+  else if (a.type == Controller::TypeIA && a.force == b.force)
+    return true;
+  else
+    return false;
+}
+
+void array2player(std::vector<std::string>::const_iterator it,
+    Controller::PodiumPlayer& ret)
+{
+  ret.name = *it;
+  ret.type = static_cast<Controller::PlayerType_t>(stoi(*(it + 1)));
+  ret.force = ret.type == Controller::TypeIA ? stoi(*(it + 2)) : 0;
+}
+
+std::vector<Controller::Podium> Controller::GameStats()
+{
+  std::vector<Podium> stats;
+  std::vector<string> cols;
+  std::string line;
+  Podium current;
+  bool found;
+  int i, j;
+
+  ifstream f(logFilePath, ios::in);
+  if (!f.is_open())
+    return stats;
+
+  while ( std::getline(f, line)) {
+    cols = split(line, csv_sep);
+
+    int winner = stoi(cols[8]);
+    array2player(cols.begin(), current.players[0]);
+    array2player(cols.begin() + 4, current.players[1]);
+
+    for (i = 0; i < 2; i++)
+      current.players[i].winNb = winner == (i + 1) ? 1 : 0;
+
+    found = false;
+
+    for (auto& podium : stats) {
+      for (i = 0; i < 2; i++) {
+        if (samePlayer(podium.players[i], current.players[i])) {
+          podium.gamesNb++;
+          found = true;
+          for (j = 0; j < 2; j++)
+            podium.players[j].winNb += current.players[j].winNb;
+          break;
+        }
+      }
+      if (found)
+        break;
+    }
+    if (!found) {
+      current.gamesNb = 1;
+      stats.push_back(current);
+    }
+  }
+
+  f.close();
+  return stats;
+}
+
 
 /* IA play concurrent
  * in another thread

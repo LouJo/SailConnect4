@@ -85,6 +85,8 @@ class Controller : public ControllerInterface {
 	void ResetScores();
 	void Loop();
 	void Pause(bool pause);
+
+  std::vector<Podium> GameStats();
 };
 
 #include <QtConcurrent>
