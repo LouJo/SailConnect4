@@ -22,6 +22,7 @@ import "../main/Controller.js" as Controller
 import "../main"
 import "../board"
 import "../config"
+import "../stats"
 import "menu"
 
 Item {
@@ -33,6 +34,8 @@ Item {
 
 	property var config: Config // for UI.cpp
 	property var board: game.board // for js controller
+
+	signal getStats(QtObject obj)
 
 	// adaptative style
 	property int board_width: Math.min(width, height * (1 - Style.infos_height) * Config.columns / Config.rows)
@@ -72,4 +75,16 @@ Item {
 			Controller.begin()
 		}
 	}
+
+/*
+	Stats {
+		id: stats
+	}
+	Timer {
+		repeat: true
+		interval: 1000
+		running: true
+		onTriggered: { main.getStats(stats) }
+	}
+	*/
 }

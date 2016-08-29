@@ -33,6 +33,7 @@ class UI : public QObject, public UIInterface {
 	void SlotPlayCol(const QVariant &qcol);
 	void SlotPause(const QVariant &qcol);
 	void SlotResetScore();
+	void SlotGetStats(QObject* obj);
 	void SlotExit();
 
 	protected:

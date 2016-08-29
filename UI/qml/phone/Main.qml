@@ -36,6 +36,8 @@ StackView {
 	property QtObject game
 	property QtObject menu
 
+	signal getStats(var obj)
+
 	Component {
 		id: mainPage
 

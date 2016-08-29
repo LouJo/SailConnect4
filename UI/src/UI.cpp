@@ -57,6 +57,7 @@ void UI::PostInit()
 	QObject::connect(menu, SIGNAL(exit()), this, SLOT(SlotExit()));
 	QObject::connect(menu, SIGNAL(newGame()), this, SLOT(SlotNewGame()));
 	QObject::connect(menu, SIGNAL(resetScores()), this, SLOT(SlotResetScore()));
+	QObject::connect(main, SIGNAL(getStats(QObject*)), this, SLOT(SlotGetStats(QObject*)));
 	QObject::connect(config, SIGNAL(changed()), this, SLOT(SlotConfigChanged()));
 	QObject::connect(game, SIGNAL(playCol(const QVariant&)), this, SLOT(SlotPlayCol(const QVariant&)));
 	QObject::connect(game, SIGNAL(pause(const QVariant&)), this, SLOT(SlotPause(const QVariant&)));
@@ -191,6 +192,43 @@ void UI::SlotResetScore()
 {
 	qDebug() << "ui: reset scores";
 	controller->ResetScores();
+}
+
+void UI::SlotGetStats(QObject* obj)
+{
+	std::vector<ControllerInterface::Podium> stats;
+	QVariantList ret;
+
+	qDebug() << "ui: get stats";
+	if (!obj) goto err;
+
+	stats = controller->GameStats();
+
+	for (auto& pod : stats) {
+		QVariantMap map;
+		QVariantList players;
+
+		for (int p = 0; p < 2; p++) {
+			QVariantMap player;
+			ControllerInterface::PodiumPlayer* pl = &pod.players[p];
+			player.insert("name", QString(pl->name.c_str()));
+			player.insert("type", static_cast<int>(pl->type));
+			player.insert("force", pl->force);
+			player.insert("winNb", pl->winNb);
+			players << player;
+		}
+
+		map.insert("players", players);
+		map.insert("gamesNb", pod.gamesNb);
+		ret << map;
+	}
+	QMetaObject::invokeMethod(
+		obj, "setStats", Q_ARG(QVariant, ret));
+
+	return;
+err:
+	qDebug() << "ui: getStats failed";
+
 }
 
 void UI::SlotExit()

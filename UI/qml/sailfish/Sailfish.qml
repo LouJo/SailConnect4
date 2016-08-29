@@ -26,9 +26,10 @@ ApplicationWindow {
 	id: app
 
 	property var config: Config // for UISailfish.cpp
-   property QtObject boardToGrab
+	property QtObject boardToGrab
+	signal getStats(var obj)
 
-   allowedOrientations: (Screen.sizeCategory > Screen.Medium) ? Orientation.All : Orientation.Portrait
+	allowedOrientations: (Screen.sizeCategory > Screen.Medium) ? Orientation.All : Orientation.Portrait
 
 	initialPage: Component { Page {
 		id: page
@@ -82,7 +83,7 @@ ApplicationWindow {
 			}
 		}
 		Item {
-         width: page.width
+			width: page.width
 			height: page.height
          //spacing: Theme.paddingLarge
 
