@@ -3,6 +3,7 @@
 <file>Sailfish.qml</file>
 <file>Apropos.qml</file>
 <file>ConfigurePage.qml</file>
+<file>StatsPage.qml</file>
 <file>CoverPage.qml</file>
 <file>configure/ControlPlayerSailfish.qml</file>
 </qresource>

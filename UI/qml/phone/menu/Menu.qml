@@ -33,6 +33,7 @@ Item {
 
 	signal launchApropos()
 	signal launchConfigure()
+	signal launchStats()
 
 	property int wantedWidth: Style.defaultFont.pixelSize * 8
 	width: displayed ? wantedWidth : 0
@@ -73,6 +74,11 @@ Item {
 		MenuItem {
 			title: qsTr("Reset scores")
 			onTriggered: confirm_resetScores.visible = true
+		}
+
+		MenuItem {
+			title: qsTr("Stats")
+			onTriggered: launchStats()
 		}
 
 		MenuItem {

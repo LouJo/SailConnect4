@@ -35,17 +35,18 @@ Rectangle {
 	signal newGame()
 	signal resetScores()
 	signal exit()
+	signal getStats(QtObject obj)
 
 	ButtonMenu {
-		property int idx: 0
-		property string buttonText: qsTr("New game")
+		idx: 0
+		buttonText: qsTr("New game")
 
 		onActivated: newGame()
 	}
 
 	ButtonMenu {
-		property int idx: 1
-		property string buttonText: qsTr("Configuration")
+		idx: 1
+		buttonText: qsTr("Configuration")
 
 		onActivated: {
 			var conf = Qt.createComponent("../configure/ConfigureWindow.qml")
@@ -56,8 +57,19 @@ Rectangle {
 	}
 
 	ButtonMenu {
-		property int idx: 2
-		property string buttonText: qsTr("Apropos")
+		idx: 2
+		buttonText: qsTr("Stats")
+		onActivated: {
+			var stats = Qt.createComponent("../StatsPage.qml")
+			var win = stats.createObject(stats)
+			menu.getStats(win)
+			win.show()
+		}
+	}
+
+	ButtonMenu {
+		idx: 3
+		buttonText: qsTr("Apropos")
 
 		onActivated: {
 			var apropos = Qt.createComponent("../apropos/Apropos.qml")
@@ -67,8 +79,8 @@ Rectangle {
 	}
 
 	ButtonMenu {
-		property int idx: 3
-		property string buttonText: qsTr("Exit")
+		idx: 4
+		buttonText: qsTr("Exit")
 
 		onActivated: exit()
 	}

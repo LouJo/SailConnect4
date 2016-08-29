@@ -36,7 +36,7 @@ StackView {
 	property QtObject game
 	property QtObject menu
 
-	signal getStats(var obj)
+	signal getStats(QtObject obj)
 
 	Component {
 		id: mainPage
@@ -45,6 +45,7 @@ StackView {
 			id: _mainPage
 			onLaunchApropos: stack.launchApropos()
 			onLaunchConfigure: stack.launchConfigure()
+			onLaunchStats: stack.launchStats()
 
 			Component.onCompleted: {
 				stack.game = game
@@ -59,6 +60,19 @@ StackView {
 
 		Configure {
 			onExit: returnHome()
+		}
+	}
+
+	Component {
+		id: statsPage
+
+		StatsPage {
+			id: stats
+			onClose: returnHome()
+
+			Component.onCompleted: {
+				stack.getStats(stats)
+			}
 		}
 	}
 
@@ -78,6 +92,11 @@ StackView {
 	function launchApropos() {
 		console.log("A propos")
 		stack.push({item: aproposPage})
+	}
+
+	function launchStats() {
+		console.log("Stats")
+		stack.push({item: statsPage})
 	}
 
 	function returnHome() {

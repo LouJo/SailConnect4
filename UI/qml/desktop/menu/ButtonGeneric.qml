@@ -31,6 +31,7 @@ Rectangle {
 
 	property color color1: Style.color1_button
 	property color color2: Style.color2_button
+	property string buttonText
 
 	signal activated()
 

@@ -27,7 +27,7 @@ ApplicationWindow {
 
 	property var config: Config // for UISailfish.cpp
 	property QtObject boardToGrab
-	signal getStats(var obj)
+	signal getStats(QtObject obj)
 
 	allowedOrientations: (Screen.sizeCategory > Screen.Medium) ? Orientation.All : Orientation.Portrait
 
@@ -62,6 +62,13 @@ ApplicationWindow {
 				text: qsTr("Reset scores")
 				onClicked: {
 					remorse.execute(qsTr("Reseting scores"), function() { menu.resetScores() })
+				}
+			}
+			MenuItem {
+				text: qsTr("Stats")
+				onClicked: {
+					var statspage = pageStack.push(Qt.resolvedUrl("StatsPage.qml"))
+					app.getStats(statspage)
 				}
 			}
 			MenuItem {

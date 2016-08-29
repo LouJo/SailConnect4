@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/qml/platform">
 <file>Main.qml</file>
+<file>StatsPage.qml</file>
 <file>apropos/Apropos.qml</file>
 <file>configure/ControlsPlayer.qml</file>
 <file>configure/Configure.qml</file>

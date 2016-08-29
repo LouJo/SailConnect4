@@ -1,4 +1,4 @@
-/* Copyright 2015 (C) Louis-Joseph Fournier 
+/* Copyright 2015 (C) Louis-Joseph Fournier
  * louisjoseph.fournier@gmail.com
  *
  * This file is part of SailConnect4.
@@ -16,12 +16,17 @@
  */
 
 import QtQuick 2.0
+import Sailfish.Silica 1.0
 
-import "."
+import "../stats"
 
-ButtonGeneric {
-	property int idx
+Page {
+	id: page
+	allowedOrientations: Orientation.All
 
-	x: parent.onR ? parent.width / 2 - width / 2 : (parent.width - width * parent.nbButton) / (parent.nbButton + 1) * (idx + 1) + width * idx
-	y: parent.onR ? Math.min((parent.height - height * parent.nbButton) / (parent.nbButton + 1), height /  2) * (idx + 1) + height * idx : height / 2
+	function setStats(obj) { stats.setStats(obj) }
+
+	Stats {
+		id: stats
+	}
 }

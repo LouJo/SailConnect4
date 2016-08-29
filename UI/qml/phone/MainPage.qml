@@ -36,6 +36,7 @@ Rectangle {
 
 	signal launchApropos()
 	signal launchConfigure()
+	signal launchStats()
 
 	property bool menuVisible: false
 
@@ -100,6 +101,7 @@ Rectangle {
 		header.switchMenu.connect(switchMenu)
 		menu.launchApropos.connect(launchApropos)
 		menu.launchConfigure.connect(launchConfigure)
+		menu.launchStats.connect(launchStats)
 		confirm_newgame.accepted.connect(menu.newGame)
 
 		if (Controller.isQmlScene()) {

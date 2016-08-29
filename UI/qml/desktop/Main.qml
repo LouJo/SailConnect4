@@ -66,6 +66,7 @@ Item {
 
 	Component.onCompleted: {
 		console.log("qml: ready")
+		menu.getStats.connect(main.getStats)
 
 		if (Controller.isQmlScene()) {
 			game.playCol.connect(Controller.playCol)

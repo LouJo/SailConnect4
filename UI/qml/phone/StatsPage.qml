@@ -17,11 +17,27 @@
 
 import QtQuick 2.0
 
-import "."
+import "header"
+import "../main"
+import "../stats"
 
-ButtonGeneric {
-	property int idx
+Rectangle {
+	implicitWidth: 400
+	implicitHeight: 640
+	color: Style.phone_bg_color
 
-	x: parent.onR ? parent.width / 2 - width / 2 : (parent.width - width * parent.nbButton) / (parent.nbButton + 1) * (idx + 1) + width * idx
-	y: parent.onR ? Math.min((parent.height - height * parent.nbButton) / (parent.nbButton + 1), height /  2) * (idx + 1) + height * idx : height / 2
+	signal close()
+	function setStats(obj) { stats.setStats(obj) }
+
+	HeaderBack {
+		id: header
+	}
+
+	Stats {
+		id: stats
+	}
+
+	Component.onCompleted: {
+		header.close.connect(close)
+	}
 }
