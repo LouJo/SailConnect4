@@ -71,6 +71,11 @@ QtObject {
 	property color conf_button_inside: phone_link_color
 	property color conf_field_bg_color: "#666666"
 
+  // stat page
+  property color stat_color_equal: "blue"
+  property color stat_color_player1: "green"
+  property color stat_color_player2: "red"
+
 	// system font size
 	property var defaultFont: DefaultText.font
 }

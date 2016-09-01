@@ -14,6 +14,8 @@
 <file>board/Case.qml</file>
 <file>board/LocalLine.qml</file>
 <file>stats/Stats.qml</file>
+<file>stats/StatsBar.qml</file>
+<file>stats/StatsName.qml</file>
 <file alias="main/Controller.js">main/noController.js</file>
 </qresource>
 </RCC>

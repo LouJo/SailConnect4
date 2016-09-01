@@ -1,4 +1,4 @@
-/* Copyright 2015 (C) Louis-Joseph Fournier 
+/* Copyright 2015 (C) Louis-Joseph Fournier
  * louisjoseph.fournier@gmail.com
  *
  * This file is part of SailConnect4.
@@ -16,18 +16,18 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
 
-import "../stats"
+import "../main"
 
-ApplicationWindow {
-	width: 500
-	height: 600
+Rectangle {
+	property int nb: 0
+	property double widthPerWin: 0
 
-	Stats {
-		id: stats
-		fontColor: "black"
-	}
+	anchors.top: parent.top
+	anchors.bottom: parent.bottom
+	anchors.topMargin: parent.height / 3
+	anchors.bottomMargin: anchors.topMargin
 
-	function setStats(s) { stats.setStats(s); }
+	width: nb * widthPerWin
 }
+
