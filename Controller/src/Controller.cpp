@@ -22,6 +22,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
 
 #include <QDebug>
 #include <QStandardPaths>
@@ -548,6 +549,48 @@ void array2player(std::vector<std::string>::const_iterator it,
   ret.force = ret.type == Controller::TypeIA ? stoi(*(it + 2)) : 0;
 }
 
+/*
+ * functor to sort podium
+ */
+class SortFunc {
+public:
+  SortFunc(const std::map<std::string, int>& nameOrder_) :
+      nameOrder(nameOrder_) {}
+
+  bool operator()
+      (const Controller::Podium& a, const Controller::Podium& b) const
+  {
+    // assume that players[0] are both human
+    if (a.players[0].name != b.players[0].name) {
+      return cmpNames(a.players[0].name, b.players[0].name);
+    } else if (a.players[1].type == Controller::TypeHuman) {
+      if (b.players[1].type == Controller::TypeHuman)
+        // both human vs human
+        return cmpNames(a.players[1].name, b.players[1].name);
+      else
+        // a human, b IA
+        return false;
+    } else {
+      if (b.players[1].type == Controller::TypeHuman)
+        return true;
+      else // both against IA
+        return a.players[1].force < b.players[1].force;
+    }
+  }
+
+  bool cmpNames(const std::string& a, const std::string& b) const
+  {
+    auto ac = nameOrder.find(a);
+    auto bc = nameOrder.find(b);
+
+    if (ac == nameOrder.end()) return false;
+    else if (bc == nameOrder.end()) return true;
+    else return ac->second > bc->second;
+  }
+
+  const std::map<std::string, int>& nameOrder;
+};
+
 std::vector<Controller::Podium> Controller::GameStats()
 {
   std::vector<Podium> stats;
@@ -556,11 +599,15 @@ std::vector<Controller::Podium> Controller::GameStats()
   Podium current;
   bool found;
   int i, j;
+  std::map<std::string, int> nameOrder;
+  int nameIndex = 0;
 
+  // open file
   ifstream f(logFilePath, ios::in);
   if (!f.is_open())
     return stats;
 
+  // retrieve logs
   while ( std::getline(f, line)) {
     cols = split(line, csv_sep);
 
@@ -571,17 +618,26 @@ std::vector<Controller::Podium> Controller::GameStats()
     for (i = 0; i < 2; i++)
       current.players[i].winNb = winner == (i + 1) ? 1 : 0;
 
+    // put human first
+    if (current.players[0].type == TypeIA) {
+      auto s = current.players[0];
+      current.players[0] = current.players[1];
+      current.players[1] = s;
+    }
+    // drop if IA vs IA
+    if (current.players[0].type == TypeIA)
+      continue;
+
     found = false;
 
     for (auto& podium : stats) {
-      for (i = 0; i < 2; i++) {
-        if (samePlayer(podium.players[i], current.players[i])) {
-          podium.gamesNb++;
-          found = true;
-          for (j = 0; j < 2; j++)
-            podium.players[j].winNb += current.players[j].winNb;
-          break;
-        }
+      if (podium.players[0].name == current.players[1].name &&
+          samePlayer(podium.players[1], current.players[1])) {
+        podium.gamesNb++;
+        found = true;
+        for (j = 0; j < 2; j++)
+          podium.players[j].winNb += current.players[j].winNb;
+        break;
       }
       if (found)
         break;
@@ -589,10 +645,21 @@ std::vector<Controller::Podium> Controller::GameStats()
     if (!found) {
       current.gamesNb = 1;
       stats.push_back(current);
+      // put name index for reverse order
+      for (j = 0; j < 2; j++) {
+        auto name = nameOrder.find(current.players[j].name);
+        if (name == nameOrder.end()) {
+          nameOrder.insert(
+              std::pair<std::string, int>(current.players[j].name, nameIndex++));
+        }
+      }
     }
   }
 
   f.close();
+
+  SortFunc sortFunc(nameOrder);
+  std::sort(stats.begin(), stats.end(), sortFunc);
   return stats;
 }
 

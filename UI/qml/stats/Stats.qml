@@ -24,6 +24,9 @@ Item {
 
 	function setStats(s) {
 		page.stats = s;
-		console.log(page.stats.length, page.stats[0].gamesNb);
+    for (var i = 0; i < s.length; i++) {
+      var st = s[i];
+      console.log(st.players[0].name, st.players[1].name);
+    }
 	}
 }
