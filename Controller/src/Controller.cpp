@@ -23,6 +23,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <string>
 
 #include <QDebug>
 #include <QStandardPaths>
@@ -545,8 +546,8 @@ void array2player(std::vector<std::string>::const_iterator it,
     Controller::PodiumPlayer& ret)
 {
   ret.name = *it;
-  ret.type = static_cast<Controller::PlayerType_t>(stoi(*(it + 1)));
-  ret.force = ret.type == Controller::TypeIA ? stoi(*(it + 2)) : 0;
+  ret.type = static_cast<Controller::PlayerType_t>(atoi((*(it + 1)).c_str()));
+  ret.force = ret.type == Controller::TypeIA ? atoi((*(it + 2)).c_str()) : 0;
 }
 
 /*
@@ -611,7 +612,7 @@ std::vector<Controller::Podium> Controller::GameStats()
   while ( std::getline(f, line)) {
     cols = split(line, csv_sep);
 
-    int winner = stoi(cols[8]);
+    int winner = atoi(cols[8].c_str());
     array2player(cols.begin(), current.players[0]);
     array2player(cols.begin() + 4, current.players[1]);
 
