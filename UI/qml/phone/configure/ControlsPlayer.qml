@@ -130,6 +130,7 @@ Column {
 		id: colorDialog
 		title: qsTr("Choose a color")
 		onAccepted: controls.userColor = currentColor
+		color: controls.userColor
 		visible: false
 	}
 

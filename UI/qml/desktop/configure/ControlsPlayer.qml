@@ -97,6 +97,7 @@ GroupBox {
 		title: qsTr("Choose a color")
 		onAccepted: controlPlayer.userColor = currentColor
 		visible: false
+		color: controlPlayer.userColor
 	}
 
 	function submitAll() {
