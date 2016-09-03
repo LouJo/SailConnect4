@@ -1,3 +1,19 @@
+Version 0.3.1
+-------------
+
+- Player colors are configurable
+
+- When won, the 4 aligned balls rotate
+
+- When playing, AI name rotates
+
+- AI forces have names (beginner, strong, ..)
+
+- Statistic page with the number of games won for each player name and AI force, never reseted.
+
+- Android support
+
+
 Version 0.2.1
 -------------
 
