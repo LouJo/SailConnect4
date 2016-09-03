@@ -29,7 +29,7 @@ QtObject {
 
 	property string program_author: "Louis-Joseph Fournier"
 	property string program_date: "10-2015"
-	property string program_version: "0.2.1"
+	property string program_version: "0.3.1"
 	property string program_licence: "GPL v3"
 	property string program_code_url: "https://github.com/LouJo/SailConnect4"
 	property string program_author_url: "http://legolas.vefblog.net"

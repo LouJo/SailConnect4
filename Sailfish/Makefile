@@ -38,8 +38,8 @@ SSH_EMULATOR = ssh -p 2223 -i $(SSH_KEY_EMULATOR) $(SSH_LOGIN_EMULATOR)
 
 SCP_EMULATOR = scp -P 2223 -i $(SSH_KEY_EMULATOR)
 
-RPM_I486 = harbour-sailconnect4-0.2-1.i486.rpm
-RPM_JOLLA = harbour-sailconnect4-0.2-1.armv7hl.rpm
+RPM_I486 = harbour-sailconnect4-0.3-1.i486.rpm
+RPM_JOLLA = harbour-sailconnect4-0.3-1.armv7hl.rpm
 
 MB2 = mb2 -p $(SOURCE_DIR_ENGINE) 
 
