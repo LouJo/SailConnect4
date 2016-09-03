@@ -31,7 +31,7 @@
     <message>
         <location filename="../qml/sailfish/Apropos.qml" line="31"/>
         <source>About</source>
-        <translation>angemessen</translation>
+        <translation>Angemessen</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/Apropos.qml" line="51"/>
@@ -39,16 +39,24 @@
         <translation>Connect 4 mit starken künstlichen Intelligenz und konfigurierbar</translation>
     </message>
     <message>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="56"/>
+        <source>Connect4 game, originally for Sailfish OS with strong and configurable AI</source>
+        <translation>Connect 4 mit starken künstlichen Intelligenz und konfigurierbar</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="64"/>
         <location filename="../qml/sailfish/Apropos.qml" line="62"/>
         <source>Copyright</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="74"/>
         <location filename="../qml/sailfish/Apropos.qml" line="78"/>
         <source>licence</source>
         <translation>lizenz</translation>
     </message>
     <message>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="78"/>
         <location filename="../qml/sailfish/Apropos.qml" line="83"/>
         <source>Links</source>
         <translation>Link</translation>
@@ -63,6 +71,8 @@
     <message>
         <location filename="../qml/desktop/configure/Configure.qml" line="44"/>
         <location filename="../qml/desktop/configure/Configure.qml" line="60"/>
+        <location filename="../qml/phone/configure/Configure.qml" line="50"/>
+        <location filename="../qml/phone/configure/Configure.qml" line="68"/>
         <source>Player %1</source>
         <translation>Spieler %1</translation>
     </message>
@@ -75,6 +85,19 @@
         <location filename="../qml/desktop/configure/Configure.qml" line="86"/>
         <source>Submit</source>
         <translation>Validieren</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigureHeader</name>
+    <message>
+        <location filename="../qml/phone/configure/ConfigureHeader.qml" line="32"/>
+        <source>Cancel</source>
+        <translation>Stornieren</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/configure/ConfigureHeader.qml" line="39"/>
+        <source>Accept</source>
+        <translation>Akzeptieren</translation>
     </message>
 </context>
 <context>
@@ -129,26 +152,31 @@
     <name>ControlsPlayer</name>
     <message>
         <location filename="../qml/desktop/configure/ControlsPlayer.qml" line="42"/>
+        <location filename="../qml/phone/configure/ControlsPlayer.qml" line="64"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
         <location filename="../qml/desktop/configure/ControlsPlayer.qml" line="54"/>
+        <location filename="../qml/phone/configure/ControlsPlayer.qml" line="83"/>
         <source>Human</source>
         <translation>Menschliche</translation>
     </message>
     <message>
         <location filename="../qml/desktop/configure/ControlsPlayer.qml" line="60"/>
+        <location filename="../qml/phone/configure/ControlsPlayer.qml" line="90"/>
         <source>AI</source>
         <translation>IA</translation>
     </message>
     <message>
         <location filename="../qml/desktop/configure/ControlsPlayer.qml" line="79"/>
+        <location filename="../qml/phone/configure/ControlsPlayer.qml" line="113"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
         <location filename="../qml/desktop/configure/ControlsPlayer.qml" line="97"/>
+        <location filename="../qml/phone/configure/ControlsPlayer.qml" line="131"/>
         <source>Choose a color</source>
         <translation>wählen Sie eine Farbe</translation>
     </message>
@@ -191,6 +219,27 @@
     </message>
 </context>
 <context>
+    <name>HeaderBack</name>
+    <message>
+        <location filename="../qml/phone/header/HeaderBack.qml" line="33"/>
+        <source>Back</source>
+        <translation>Rückkehr</translation>
+    </message>
+</context>
+<context>
+    <name>MainPage</name>
+    <message>
+        <location filename="../qml/phone/MainPage.qml" line="91"/>
+        <source>New game</source>
+        <translation>Neues Spiel</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/MainPage.qml" line="92"/>
+        <source>Are you sure to stop current game ?</source>
+        <translation>Sind Sie sicher, dass aktuelle Spiel zu stoppen?</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="../../Android/mainwindow.ui" line="13"/>
@@ -207,11 +256,13 @@
     </message>
     <message>
         <location filename="../qml/desktop/menu/Menu.qml" line="49"/>
+        <location filename="../qml/phone/menu/Menu.qml" line="70"/>
         <source>Configuration</source>
         <translation>Konfiguration</translation>
     </message>
     <message>
         <location filename="../qml/desktop/menu/Menu.qml" line="61"/>
+        <location filename="../qml/phone/menu/Menu.qml" line="80"/>
         <source>Stats</source>
         <translation>Statistiken</translation>
     </message>
@@ -222,8 +273,25 @@
     </message>
     <message>
         <location filename="../qml/desktop/menu/Menu.qml" line="83"/>
+        <location filename="../qml/phone/menu/Menu.qml" line="90"/>
         <source>Exit</source>
         <translation>Verlassen</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/menu/Menu.qml" line="75"/>
+        <location filename="../qml/phone/menu/Menu.qml" line="103"/>
+        <source>Reset scores</source>
+        <translation>Löschen Partituren</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/menu/Menu.qml" line="85"/>
+        <source>About</source>
+        <translation>Angemessen</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/menu/Menu.qml" line="104"/>
+        <source>Are you sure to reset scores ?</source>
+        <translation>Sind Sie sicher, dass Werte zurücksetzen?</translation>
     </message>
 </context>
 <context>
@@ -246,7 +314,7 @@
     <message>
         <location filename="../qml/sailfish/Sailfish.qml" line="58"/>
         <source>About</source>
-        <translation>angemessen</translation>
+        <translation>Angemessen</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/Sailfish.qml" line="62"/>

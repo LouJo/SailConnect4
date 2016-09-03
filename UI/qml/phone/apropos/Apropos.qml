@@ -53,7 +53,7 @@ Rectangle {
 		AText {
 			width: parent.width
 			wrapMode: Text.WordWrap
-			text: qsTr("Connect4 game for Sailfish OS with strong and configurable AI")
+			text: qsTr("Connect4 game, originally for Sailfish OS with strong and configurable AI")
 		}
 
 		AText {

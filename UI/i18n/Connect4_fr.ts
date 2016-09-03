@@ -47,6 +47,10 @@
         <source>Connect4 game for Sailfish OS with strong and configurable AI</source>
         <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
     </message>
+    <message>
+        <source>Connect4 game, originally for Sailfish OS with strong and configurable AI</source>
+        <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
+    </message>
 </context>
 <context>
     <name>Configure</name>
@@ -69,6 +73,17 @@
     <message>
         <source>Player %1</source>
         <translation>Joueur %1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigureHeader</name>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>Accepter</translation>
     </message>
 </context>
 <context>
@@ -167,6 +182,24 @@
     </message>
 </context>
 <context>
+    <name>HeaderBack</name>
+    <message>
+        <source>Back</source>
+        <translation>Retour</translation>
+    </message>
+</context>
+<context>
+    <name>MainPage</name>
+    <message>
+        <source>New game</source>
+        <translation>Nouvelle partie</translation>
+    </message>
+    <message>
+        <source>Are you sure to stop current game ?</source>
+        <translation>Voulez-vous arrêter la partie en cours ?</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>MainWindow</source>
@@ -194,6 +227,18 @@
     <message>
         <source>Stats</source>
         <translation>Statistiques</translation>
+    </message>
+    <message>
+        <source>Reset scores</source>
+        <translation>Effacer les scores</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>A propos</translation>
+    </message>
+    <message>
+        <source>Are you sure to reset scores ?</source>
+        <translation>Etes-vous sûrs de vouloir effacer les scores ?</translation>
     </message>
 </context>
 <context>
@@ -239,7 +284,7 @@
     <name>StatsPage</name>
     <message>
         <source>Stats</source>
-        <translation>Stats</translation>
+        <translation>Statistiques</translation>
     </message>
 </context>
 </TS>

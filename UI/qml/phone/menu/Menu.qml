@@ -35,7 +35,7 @@ Item {
 	signal launchConfigure()
 	signal launchStats()
 
-	property int wantedWidth: Style.defaultFont.pixelSize * 8
+	property int wantedWidth: Style.defaultFont.pixelSize * (qsTr("Reset scores").length + 2 ) * 0.6
 	width: displayed ? wantedWidth : 0
 
 	anchors.top: header.bottom

@@ -54,7 +54,7 @@ sailfish {
   RESOURCES += \
 	  UI/qml/sailfish/sailfish.qrc
 }
-else: android {
+else: android || linux {
   SOURCES += \
 	  Controller/src/main.cpp
 
@@ -82,14 +82,20 @@ else {
 
 lupdate_only {
   SOURCES = \
+		UI/qml/desktop/*.qml \
 		UI/qml/desktop/menu/*.qml \
 		UI/qml/desktop/apropos/*.qml \
 		UI/qml/desktop/configure/*.qml \
-		UI/qml/desktop/*.qml \
 		UI/qml/board/*.qml \
 		UI/qml/config/*.qml \
 		UI/qml/sailfish/*.qml \
 		UI/qml/sailfish/configure/*.qml \
+		UI/qml/main/*.qml \
+		UI/qml/phone/*.qml \
+		UI/qml/phone/menu/*.qml \
+		UI/qml/phone/apropos/*.qml \
+		UI/qml/phone/header/*.qml \
+		UI/qml/phone/configure/*.qml \
 		UI/qml/*.qml \
 }
 
