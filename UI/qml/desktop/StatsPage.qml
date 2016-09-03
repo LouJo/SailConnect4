@@ -27,6 +27,7 @@ ApplicationWindow {
 	Stats {
 		id: stats
 		fontColor: "black"
+		anchors.fill: parent
 	}
 
 	function setStats(s) { stats.setStats(s); }

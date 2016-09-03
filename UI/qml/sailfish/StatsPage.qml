@@ -26,7 +26,16 @@ Page {
 
 	function setStats(obj) { stats.setStats(obj) }
 
+	PageHeader {
+		id: header
+		title: qsTr("Stats")
+	}
+
 	Stats {
 		id: stats
+		anchors.top: header.bottom
+		anchors.topMargin: Theme.fontSizeSmall
+		anchors.left: parent.left
+		anchors.right: parent.right
 	}
 }

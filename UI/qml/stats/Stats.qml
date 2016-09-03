@@ -18,6 +18,7 @@
 import QtQuick 2.0
 
 import "."
+import "../config"
 import "../main"
 
 Item {
@@ -27,12 +28,11 @@ Item {
 	property int winMax: 0
 
 	property color fontColor: Style.phone_font_color
-	property double widthPerWin: width / 3 * winMax
-
-	anchors.fill: parent
+	property double widthPerWin: width / 6 / winMax
 
 	Column {
 		width: parent.width
+		spacing: Style.defaultFont.pixelSize * 0.2
 
 	Repeater {
 		model: page.stats ? page.stats.length : 0
@@ -62,7 +62,7 @@ Item {
 					id: barLeft
 					nb: pod.players[0].winNb
 					widthPerWin: page.widthPerWin
-					color: Style.stat_color_player1
+					color: Config.player1_color
 					anchors.right: barEqual.left
 				}
 
@@ -70,7 +70,7 @@ Item {
 					id: barRight
 					nb: pod.players[1].winNb
 					widthPerWin: page.widthPerWin
-					color: Style.stat_color_player2
+					color: Config.player2_color
 					anchors.left: barEqual.right
 				}
 
@@ -85,10 +85,16 @@ Item {
 	}
 
 	function setStats(s) {
-		for (var i = 0; i < s.length; i++)
+		for (var i = 0; i < s.length; i++) {
+			var pod = s[i];
+			var p1 = pod.players[1];
+			if (p1.type == 1)
+				p1.name = qsTr("IA") + " " + DefaultConfig.forceNames[p1.force];
+
 			for (var j = 0; j < 2; j++)
 				if (s[i].players[j].winNb > winMax)
 					winMax = s[i].players[j].winNb;
+		}
 
 		console.log("win max:", winMax);
 		page.stats = s;

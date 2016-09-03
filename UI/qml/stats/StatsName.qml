@@ -21,8 +21,9 @@ import "../main"
 
 Text {
 	width: parent.width / 3
-	height: parent.heigth
 	verticalAlignment: Text.AlignVCenter
 	anchors.leftMargin: 10
 	anchors.rightMargin: 10
+	anchors.top: parent.top
+	anchors.topMargin: parent.height / 3
 }

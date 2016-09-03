@@ -19,15 +19,30 @@ import QtQuick 2.0
 
 import "../main"
 
-Rectangle {
+Item {
 	property int nb: 0
 	property double widthPerWin: 0
+	property color color
+	visible: nb
 
 	anchors.top: parent.top
 	anchors.bottom: parent.bottom
-	anchors.topMargin: parent.height / 3
-	anchors.bottomMargin: anchors.topMargin
 
 	width: nb * widthPerWin
-}
 
+	Text {
+		color: parent.color
+		horizontalAlignment: Text.AlignCenter
+		text: parent.nb
+		anchors.horizontalCenter: parent.horizontalCenter
+	}
+
+	Rectangle {
+		color: parent.color
+		anchors.top: parent.top
+		anchors.bottom: parent.bottom
+		anchors.topMargin: parent.height * 0.6
+		anchors.left: parent.left
+		anchors.right: parent.right
+	}
+}

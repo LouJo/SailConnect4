@@ -35,6 +35,10 @@ Rectangle {
 
 	Stats {
 		id: stats
+		anchors.top: header.bottom
+		anchors.topMargin: Style.defaultFont.pixelSize * 0.6
+		anchors.left: parent.left
+		anchors.right: parent.right
 	}
 
 	Component.onCompleted: {

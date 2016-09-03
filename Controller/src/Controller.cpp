@@ -617,7 +617,7 @@ std::vector<Controller::Podium> Controller::GameStats()
     array2player(cols.begin() + 4, current.players[1]);
 
     for (i = 0; i < 2; i++)
-      current.players[i].winNb = winner == (i + 1) ? 1 : 0;
+      current.players[i].winNb = (winner == i) ? 1 : 0;
 
     // put human first
     if (current.players[0].type == TypeIA) {
@@ -632,7 +632,7 @@ std::vector<Controller::Podium> Controller::GameStats()
     found = false;
 
     for (auto& podium : stats) {
-      if (podium.players[0].name == current.players[1].name &&
+      if (podium.players[0].name == current.players[0].name &&
           samePlayer(podium.players[1], current.players[1])) {
         podium.gamesNb++;
         found = true;
