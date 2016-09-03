@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>Apropos</name>
     <message>
@@ -43,6 +43,10 @@
         <source>Links</source>
         <translation>Liens</translation>
     </message>
+    <message>
+        <source>Connect4 game for Sailfish OS with strong and configurable AI</source>
+        <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
+    </message>
 </context>
 <context>
     <name>Configure</name>
@@ -56,11 +60,11 @@
     </message>
     <message>
         <source>Player %i</source>
-        <translation type="vanished">Joueur %i</translation>
+        <translation>Joueur %i</translation>
     </message>
     <message>
         <source>configuration</source>
-        <translation type="vanished">configuration</translation>
+        <translation>configuration</translation>
     </message>
     <message>
         <source>Player %1</source>
@@ -99,6 +103,14 @@
         <source>IA force</source>
         <translation>IA force</translation>
     </message>
+    <message>
+        <source>Color</source>
+        <translation>Couleur</translation>
+    </message>
+    <message>
+        <source>AI</source>
+        <translation>IA</translation>
+    </message>
 </context>
 <context>
     <name>ControlsPlayer</name>
@@ -114,12 +126,51 @@
         <source>IA force</source>
         <translation>IA force</translation>
     </message>
+    <message>
+        <source>Color</source>
+        <translation>Couleur</translation>
+    </message>
+    <message>
+        <source>Choose a color</source>
+        <translation>Choisir une couleur</translation>
+    </message>
+    <message>
+        <source>AI</source>
+        <translation>IA</translation>
+    </message>
 </context>
 <context>
     <name>DefaultConfig</name>
     <message>
         <source>Connect4</source>
         <translation>Puissance 4</translation>
+    </message>
+    <message>
+        <source>Beginner</source>
+        <translation>Débutant</translation>
+    </message>
+    <message>
+        <source>Capable</source>
+        <translation>Capable</translation>
+    </message>
+    <message>
+        <source>Strong</source>
+        <translation>Fort</translation>
+    </message>
+    <message>
+        <source>Expert</source>
+        <translation>Expert</translation>
+    </message>
+    <message>
+        <source>Vicious</source>
+        <translation>Vicieux</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <source>MainWindow</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -140,6 +191,10 @@
         <source>Apropos</source>
         <translation>A propos</translation>
     </message>
+    <message>
+        <source>Stats</source>
+        <translation>Statistiques</translation>
+    </message>
 </context>
 <context>
     <name>Sailfish</name>
@@ -157,7 +212,7 @@
     </message>
     <message>
         <source>Connect 4</source>
-        <translation type="vanished">Puissance 4</translation>
+        <translation>Puissance 4</translation>
     </message>
     <message>
         <source>Reset scores</source>
@@ -174,6 +229,17 @@
     <message>
         <source>About</source>
         <translation>A propos</translation>
+    </message>
+    <message>
+        <source>Stats</source>
+        <translation>Statistiques</translation>
+    </message>
+</context>
+<context>
+    <name>StatsPage</name>
+    <message>
+        <source>Stats</source>
+        <translation>Stats</translation>
     </message>
 </context>
 </TS>

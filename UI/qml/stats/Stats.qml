@@ -89,7 +89,7 @@ Item {
 			var pod = s[i];
 			var p1 = pod.players[1];
 			if (p1.type == 1)
-				p1.name = qsTr("IA") + " " + DefaultConfig.forceNames[p1.force];
+				p1.name = qsTr("AI") + " " + DefaultConfig.forceNames[p1.force];
 
 			for (var j = 0; j < 2; j++)
 				if (s[i].players[j].winNb > winMax)

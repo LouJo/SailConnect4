@@ -26,14 +26,14 @@ Column {
 
 	TextSwitch {
 		id: ia
-		text: qsTr("IA") + ": " + DefaultConfig.forceNames[sliderForce.value]
+		text: qsTr("AI") + ": " + DefaultConfig.forceNames[sliderForce.value]
 		checked: controlPlayer.type == 1
 		width: parent.width
 	}
 
 	Slider {
 			id: sliderForce
-//			label: qsTr("IA force")
+//			label: qsTr("AI force")
 			stepSize: 1
 			minimumValue: 0
 			maximumValue: 4

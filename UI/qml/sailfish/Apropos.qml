@@ -48,7 +48,7 @@ Page {
 			wrapMode: Text.WordWrap
 			horizontalAlignment: Text.AlignHCenter
 			color: Theme.primaryColor
-			text: qsTr("Connect4 game for Sailfish OS with strong and configurable IA")
+			text: qsTr("Connect4 game for Sailfish OS with strong and configurable AI")
 		}
 
 		Label {

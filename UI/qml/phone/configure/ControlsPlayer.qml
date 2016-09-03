@@ -87,7 +87,7 @@ Column {
 		}
 		RadioButton {
 			id: ia
-			text: qsTr("IA") + ": " + DefaultConfig.forceNames[sliderForce.value]
+			text: qsTr("AI") + ": " + DefaultConfig.forceNames[sliderForce.value]
 			checked: controls.type == 1
 			exclusiveGroup: player
 			style: radio_style

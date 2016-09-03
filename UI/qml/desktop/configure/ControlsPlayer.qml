@@ -57,7 +57,7 @@ GroupBox {
 			}
 			RadioButton {
 				id: ia
-				text: qsTr("IA") + ": " + DefaultConfig.forceNames[sliderForce.value]
+				text: qsTr("AI") + ": " + DefaultConfig.forceNames[sliderForce.value]
 				checked: controlPlayer.type == 1
 				exclusiveGroup: player
 			}
