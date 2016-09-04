@@ -12,6 +12,9 @@ sailfish {
 else: android {
   message("Build for Android")
 }
+else: ios {
+  message("Build for iOS")
+}
 else {
   message("Build for desktop")
   TARGET = Connect4
@@ -54,7 +57,7 @@ sailfish {
   RESOURCES += \
 	  UI/qml/sailfish/sailfish.qrc
 }
-else: android || linux {
+else: android || ios {
   SOURCES += \
 	  Controller/src/main.cpp
 
@@ -117,4 +120,10 @@ android {
     Android/gradlew.bat
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
+}
+
+ios {
+  QMAKE_INFO_PLIST = IOS/Info.plist
+  ios_icon.files = $$files($$PWD/IOS/icons/AppIcon*.png)
+  QMAKE_BUNDLE_DATA += ios_icon
 }
