@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons/bg">
+<file>bg_header.png</file>
+<file>bg_page.png</file>
+</qresource>
+</RCC>

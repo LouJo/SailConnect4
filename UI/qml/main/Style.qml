@@ -53,12 +53,14 @@ QtObject {
 	property color phone_bg_color: "#444444"
 	property color phone_title_color: "#f6e396"
 	property color phone_link_color: "blue"
+	property url phone_bg_page: "../../icons/bg/bg_page.png"
+	//property url phone_bg_header: "" //"../../icons/bg/bg_header.png"
 
 	// phone header
-	property color header_bg_color: "#AAAAAA"
-	property color header_bg_color_activated: "#999999"
+	property color header_bg_color: "#c6ccd2"
+	property color header_bg_color_activated: "#eaeef1"
 	property color header_font_color: "#333333"
-	property color header_border_color: "#777777"
+	property color header_border_color: "#7b8a9a"
 
 	// phone menu
 	property color menu_bg_color: header_bg_color
@@ -71,8 +73,8 @@ QtObject {
 	property color conf_button_inside: phone_link_color
 	property color conf_field_bg_color: "#666666"
 
-  // stat page
-  property color stat_color_equal: "#dddddd"
+	// stat page
+	property color stat_color_equal: "#dddddd"
 
 	// system font size
 	property var defaultFont: DefaultText.font

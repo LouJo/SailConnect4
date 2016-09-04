@@ -49,7 +49,11 @@ ControllerInterface::Config Controller::defaultConfig = {
 	{ { "Bob", 2, ControllerInterface::TypeHuman, "#C48C09"},
 	  { "Nemo", 1, ControllerInterface::TypeIA, "#AE1A22"} },
 	6, 7, 4,
+#ifdef MOBILE
+	true,
+#else
 	false, // not transparent
+#endif
 };
 
 Controller::Controller(FactoryInterface *factory)
@@ -364,7 +368,9 @@ bool Controller::LoadConfig()
 	int t;
 	f >> t;
 	// to avoid false detection on old files, 12 = true
+#ifndef MOBILE
 	config.board_transparent = (t == 12);
+#endif
 
 	for (int i = 0; i < 2; i++) {
 		f >> sample;

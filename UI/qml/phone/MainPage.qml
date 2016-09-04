@@ -20,19 +20,18 @@ import QtQuick.Dialogs 1.2
 
 import "../main/Controller.js" as Controller
 
+import "."
 import "../main"
 import "../board"
 import "menu"
 import "header"
 
-Rectangle {
+SamplePage {
 	id: main
 	objectName: "main"
 
 	width: 400
 	height: 640
-
-	color: Style.phone_bg_color
 
 	signal launchApropos()
 	signal launchConfigure()

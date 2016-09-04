@@ -103,4 +103,8 @@ StackView {
 		stack.pop()
 		stack.mainPage.menuVisible = false
 	}
+
+	Component.onCompleted: {
+		Config.board_transparent = true;
+	}
 }

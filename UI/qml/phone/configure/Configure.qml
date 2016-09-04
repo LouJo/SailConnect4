@@ -23,7 +23,7 @@ import ".."
 import "../../config"
 import "../../main"
 
-Rectangle {
+SamplePage {
 	width: 400
 	height: 640
 

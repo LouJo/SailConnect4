@@ -1,4 +1,4 @@
-/* Copyright 2015 (C) Louis-Joseph Fournier 
+/* Copyright 2015 (C) Louis-Joseph Fournier
  * louisjoseph.fournier@gmail.com
  *
  * This file is part of SailConnect4.
@@ -17,29 +17,14 @@
 
 import QtQuick 2.0
 
-import ".."
-import "../../main"
+import "../main"
 
 Rectangle {
-	color: Style.header_bg_color
+	color: Style.phone_bg_color
 
-	anchors.top: parent.top
-	anchors.left: parent.left
-	anchors.right: parent.right
-	anchors.topMargin: -1
-	anchors.leftMargin: -1
-	anchors.rightMargin: -1
-
-	height: Math.min(parent.width, parent.height) * 0.12
-
-	border.color: Style.header_border_color
-	border.width: 1
-/*
 	Image {
-		visible: Style.phone_bg_header
-		source: Style.phone_bg_header
+		source: Style.phone_bg_page
 		fillMode: Image.Tile
 		anchors.fill: parent
 	}
-*/
 }

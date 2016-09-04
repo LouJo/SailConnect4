@@ -21,14 +21,13 @@ import "../../config"
 import "../header"
 import "../../main"
 import "."
+import ".."
 
-Rectangle {
+SamplePage {
 	implicitWidth: 400
 	implicitHeight: 640
 
 	signal close()
-
-	color: Style.phone_bg_color
 
 	HeaderBack {
 		id: header

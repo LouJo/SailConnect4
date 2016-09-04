@@ -11,9 +11,13 @@ sailfish {
 }
 else: android {
   message("Build for Android")
+  TARGET = Connect4
+  DEFINES += MOBILE
 }
 else: ios {
   message("Build for iOS")
+  TARGET = Connect4
+  DEFINES += MOBILE
 }
 else {
   message("Build for desktop")
@@ -62,6 +66,7 @@ else: android || ios {
 	  Controller/src/main.cpp
 
   RESOURCES += \
+	  UI/icons/bg/bg.qrc \
 	  UI/icons/menu/menu.qrc \
 	  UI/qml/phone/phone.qrc
 

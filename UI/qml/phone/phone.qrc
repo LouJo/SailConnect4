@@ -2,6 +2,7 @@
 <qresource prefix="/qml/platform">
 <file>Main.qml</file>
 <file>MainPage.qml</file>
+<file>SamplePage.qml</file>
 <file>StatsPage.qml</file>
 <file>apropos/Apropos.qml</file>
 <file>apropos/AText.qml</file>

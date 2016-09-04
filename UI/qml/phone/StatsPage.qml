@@ -20,8 +20,9 @@ import QtQuick 2.0
 import "header"
 import "../main"
 import "../stats"
+import "."
 
-Rectangle {
+SamplePage {
 	implicitWidth: 400
 	implicitHeight: 640
 	color: Style.phone_bg_color
