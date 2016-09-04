@@ -73,10 +73,7 @@ SamplePage {
 		enabled: menuVisible
 		onClicked: menuVisible = false
 
-		anchors.top: parent.top
-		anchors.bottom: parent.bottom
-		anchors.left: parent.left
-		anchors.right: menu.left
+		anchors.fill: parent
 	}
 
 	Menu {
