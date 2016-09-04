@@ -124,6 +124,6 @@ android {
 
 ios {
   QMAKE_INFO_PLIST = IOS/Info.plist
-  ios_icon.files = $$files($$PWD/IOS/icons/AppIcon*.png)
-  QMAKE_BUNDLE_DATA += ios_icon
+  assets_catalogs.files = $$files($$PWD/IOS/*.xcassets)
+  QMAKE_BUNDLE_DATA += assets_catalogs
 }
