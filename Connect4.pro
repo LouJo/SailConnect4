@@ -113,17 +113,6 @@ android {
   CONFIG += mobility
   MOBILITY =
 
-  DISTFILES += \
-    Android/AndroidManifest.xml \
-    Android/appTheme.xml \
-    Android/splash.xml \
-    Android/gradle/wrapper/gradle-wrapper.jar \
-    Android/gradlew \
-    Android/res/values/libs.xml \
-    Android/build.gradle \
-    Android/gradle/wrapper/gradle-wrapper.properties \
-    Android/gradlew.bat
-
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
 }
 
