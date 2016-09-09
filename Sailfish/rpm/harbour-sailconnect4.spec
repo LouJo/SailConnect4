@@ -14,7 +14,7 @@ Name:       harbour-sailconnect4
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Connect 4 Game
 Version:    0.3
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    GPLv3
 URL:        http://legolas.vefblog.net/
