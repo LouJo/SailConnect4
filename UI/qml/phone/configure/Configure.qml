@@ -24,28 +24,27 @@ import "../../config"
 import "../../main"
 
 SamplePage {
+	id: page
 	width: 400
 	height: 640
 
-  color: Style.phone_bg_color
+	color: Style.phone_bg_color
 
 	signal exit()
 
-  ConfigureHeader {
-    id: header
-  }
+	ConfigureHeader {
+		id: header
+	}
 
-	Column {
-		spacing: 15
-		
+	ScrollContent {
+		id: scroll
 		anchors.top: header.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-		anchors.topMargin: 10
-		anchors.leftMargin: 10
-		anchors.rightMargin: 10
 
-		ControlsPlayer {
+		Column {
+			spacing: 15
+			width: scroll.width
+
+			ControlsPlayer {
 				id: p1
 				title: qsTr("Player %1").arg(1)
 				name: Config.player1_name
@@ -53,17 +52,17 @@ SamplePage {
 				type: Config.player1_type
 				userColor: Config.player1_color
 
-        width: parent.width
-	
+				width: parent.width
+
 				onNameEdited: Config.player1_name = new_name
 				onSubmit: {
 					Config.player1_force = force
 					Config.player1_type = getType()
 					Config.player1_color = userColor
 				}
-		}
-	
-		ControlsPlayer {
+			}
+
+			ControlsPlayer {
 				id: p2
 				title: qsTr("Player %1").arg(2)
 				name: Config.player2_name
@@ -71,14 +70,15 @@ SamplePage {
 				type: Config.player2_type
 				userColor: Config.player2_color
 
-        width: parent.width
-	
+				width: parent.width
+
 				onNameEdited: Config.player2_name = new_name
 				onSubmit: {
 					Config.player2_force = force
 					Config.player2_type = getType()
 					Config.player2_color = userColor
 				}
+			}
 		}
 	}
 

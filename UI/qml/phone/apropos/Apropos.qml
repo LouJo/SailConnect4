@@ -24,6 +24,7 @@ import "."
 import ".."
 
 SamplePage {
+	id: page
 	implicitWidth: 400
 	implicitHeight: 640
 
@@ -33,56 +34,59 @@ SamplePage {
 		id: header
 	}
 
-	Column {
+	ScrollContent {
+		id: scroll
 		anchors.top: header.bottom
-		anchors.topMargin: Style.defaultFont.pixelSize
-		width: parent.width * 0.9
-		anchors.horizontalCenter: parent.horizontalCenter
-		spacing: Style.defaultFont.pixelSize * 0.9
 
-		Image {
-			source: "../../../icons/icon_100.png" 
-			anchors.horizontalCenter: parent.horizontalCenter
-		}
+		Column {
+			id: column
+			spacing: Style.defaultFont.pixelSize * 0.9
+			width: scroll.width
 
-		Title {
-			text: "SailConnect4"
-		}
+			Image {
+				source: "../../../icons/icon_100.png"
+				anchors.horizontalCenter: parent.horizontalCenter
+			}
 
-		AText {
-			width: parent.width
-			wrapMode: Text.WordWrap
-			text: qsTr("Connect4 game, originally for Sailfish OS with strong and configurable AI")
-		}
+			Title {
+				text: "SailConnect4"
+			}
 
-		AText {
-			text: "version " + Config.program_version
-		}
+			AText {
+				width: parent.width
+				wrapMode: Text.WordWrap
+				text: qsTr("Connect4 game, originally for Sailfish OS with strong and configurable AI")
+			}
 
-		Title {
-			text: qsTr("Copyright")
-		}
+			AText {
+				text: "version " + Config.program_version
+			}
 
-		AText {
-			text: Config.program_author
-		}
-		AText {
-			text: Config.program_date
-		}
-		AText {
-			text: qsTr("licence") + ": " + Config.program_licence
-		}
+			Title {
+				text: qsTr("Copyright")
+			}
 
-		Title {
-			text: qsTr("Links")
-		}
-		AText {
-			text: "<a href=\"" + Config.program_code_url + "\">" +  Config.program_code_url + "<\a>"
-			onLinkActivated: Qt.openUrlExternally(link)
-		}
-		AText {
-			text: "<a href=\"" + Config.program_author_url + "\">" +  Config.program_author_url + "<\a>"
-			onLinkActivated: Qt.openUrlExternally(link)
+			AText {
+				text: Config.program_author
+			}
+			AText {
+				text: Config.program_date
+			}
+			AText {
+				text: qsTr("licence") + ": " + Config.program_licence
+			}
+
+			Title {
+				text: qsTr("Links")
+			}
+			AText {
+				text: "<a href=\"" + Config.program_code_url + "\">" +  Config.program_code_url + "<\a>"
+				onLinkActivated: Qt.openUrlExternally(link)
+			}
+			AText {
+				text: "<a href=\"" + Config.program_author_url + "\">" +  Config.program_author_url + "<\a>"
+				onLinkActivated: Qt.openUrlExternally(link)
+			}
 		}
 	}
 
