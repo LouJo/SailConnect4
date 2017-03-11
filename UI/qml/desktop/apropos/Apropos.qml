@@ -1,14 +1,14 @@
 /* Copyright 2015 (C) Louis-Joseph Fournier 
  * louisjoseph.fournier@gmail.com
  *
- * This file is part of SailConnect4.
+ * This file is part of uAlign4.
  *
- * SailConnect4 is free software: you can redistribute it and/or modify
+ * uAlign4 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * SailConnect4 is distributed in the hope that it will be useful,
+ * uAlign4 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -47,13 +47,13 @@ ApplicationWindow {
 
 		ColumnLayout {
 			Text {
-				text: qsTr("Connect 4")
+				text: qsTr("Align 4")
 				font.bold: true
 				font.pixelSize: 32
 				color: "#444444"
 			}
 			Text {
-				text: qsTr("A smart program to play Connect 4 with.")
+				text: qsTr("A smart program to play Align 4 with.")
 			}
 			Text {
 				text: qsTr("Author") + ": " + Config.program_author
@@ -62,7 +62,7 @@ ApplicationWindow {
 				text: qsTr("Date") + ": " + Config.program_date
 			}
 			Text {
-				text: "<a href=\"http://https://github.com/LouJo/SailConnect4\">http://https://github.com/LouJo/SailConnect4</a>"
+				text: "<a href=\"http://https://github.com/LouJo/uAlign4\">http://https://github.com/LouJo/uAlign4</a>"
 				font.pixelSize: 10
 			}
 		}

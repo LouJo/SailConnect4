@@ -1,4 +1,4 @@
-# SailConnect4
+# uAlign4 (SailConnect4)
 
 The famous [Connect4](https://en.wikipedia.org/wiki/Connect_Four) game, written in Qml/Qt/C++.
 
@@ -18,6 +18,8 @@ You can play against it without being boring !
 ### Langs
 
 Translated in french, english, german and spanish.
+
+03/2017: SailConnect4 is renamed to uAlign4 to avoid trademark problems.
 
 ======
 ### Résumé en Français

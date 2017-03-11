@@ -61,7 +61,7 @@ sailfish {
   RESOURCES += \
 	  UI/qml/sailfish/sailfish.qrc
 }
-else: android || ios {
+else: android || ios || linux {
   SOURCES += \
 	  Controller/src/main.cpp
 

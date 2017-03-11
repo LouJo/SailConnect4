@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick 2.0
 
 QtObject {
-	property string programTitle: qsTr("Connect4")
+	property string programTitle: qsTr("uAlign4")
 	property int rows: 6
 	property int columns: 7
 	property int align: 4

@@ -1,14 +1,14 @@
 /* Copyright 2015 (C) Louis-Joseph Fournier 
  * louisjoseph.fournier@gmail.com
  *
- * This file is part of SailConnect4.
+ * This file is part of uAlign4.
  *
- * SailConnect4 is free software: you can redistribute it and/or modify
+ * uAlign4 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * SailConnect4 is distributed in the hope that it will be useful,
+ * uAlign4 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -38,7 +38,7 @@ Page {
 
 		SectionHeader {
 			anchors.horizontalCenter: parent.horizontalCenter
-			text: "SailConnect4"
+			text: "uAlign4"
 		}
 
 		Text {
@@ -48,7 +48,7 @@ Page {
 			wrapMode: Text.WordWrap
 			horizontalAlignment: Text.AlignHCenter
 			color: Theme.primaryColor
-			text: qsTr("Connect4 game for Sailfish OS with strong and configurable AI")
+			text: qsTr("Align 4 game for Sailfish OS with strong and configurable AI")
 		}
 
 		Label {
