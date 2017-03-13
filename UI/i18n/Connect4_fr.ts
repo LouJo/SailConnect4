@@ -51,6 +51,22 @@
         <source>Connect4 game, originally for Sailfish OS with strong and configurable AI</source>
         <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
     </message>
+    <message>
+        <source>Align 4</source>
+        <translation>Puissance 4</translation>
+    </message>
+    <message>
+        <source>A smart program to play Align 4 with.</source>
+        <translation>Un programme intelligent pour jouer au Puissance 4.</translation>
+    </message>
+    <message>
+        <source>Align 4 game, originally for Sailfish OS with strong and configurable AI</source>
+        <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
+    </message>
+    <message>
+        <source>Align 4 game for Sailfish OS with strong and configurable AI</source>
+        <translation>Jeu de Puissance 4 avec une intelligence artificielle forte et configurable</translation>
+    </message>
 </context>
 <context>
     <name>Configure</name>
@@ -179,6 +195,10 @@
     <message>
         <source>Vicious</source>
         <translation>Vicieux</translation>
+    </message>
+    <message>
+        <source>uAlign4</source>
+        <translation type="unfinished">Puissance 4</translation>
     </message>
 </context>
 <context>

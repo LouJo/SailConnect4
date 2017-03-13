@@ -9,14 +9,22 @@
         <translation>angemessen</translation>
     </message>
     <message>
-        <location filename="../qml/desktop/apropos/Apropos.qml" line="50"/>
         <source>Connect 4</source>
         <translation>Connect 4</translation>
     </message>
     <message>
-        <location filename="../qml/desktop/apropos/Apropos.qml" line="56"/>
         <source>A smart program to play Connect 4 with.</source>
         <translation>ein intelligentes Connect 4 Programm zum Spielen.</translation>
+    </message>
+    <message>
+        <location filename="../qml/desktop/apropos/Apropos.qml" line="50"/>
+        <source>Align 4</source>
+        <translation>Align 4</translation>
+    </message>
+    <message>
+        <location filename="../qml/desktop/apropos/Apropos.qml" line="56"/>
+        <source>A smart program to play Align 4 with.</source>
+        <translation>ein intelligentes Align 4 Programm zum Spielen.</translation>
     </message>
     <message>
         <location filename="../qml/desktop/apropos/Apropos.qml" line="59"/>
@@ -35,28 +43,36 @@
     </message>
     <message>
         <location filename="../qml/sailfish/Apropos.qml" line="51"/>
+        <source>Align 4 game for Sailfish OS with strong and configurable AI</source>
+        <translation>Ausrichten 4 mit starken künstlichen Intelligenz und konfigurierbar</translation>
+    </message>
+    <message>
         <source>Connect4 game for Sailfish OS with strong and configurable AI</source>
         <translation>Connect 4 mit starken künstlichen Intelligenz und konfigurierbar</translation>
     </message>
     <message>
-        <location filename="../qml/phone/apropos/Apropos.qml" line="56"/>
         <source>Connect4 game, originally for Sailfish OS with strong and configurable AI</source>
         <translation>Connect 4 mit starken künstlichen Intelligenz und konfigurierbar</translation>
     </message>
     <message>
-        <location filename="../qml/phone/apropos/Apropos.qml" line="64"/>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="58"/>
+        <source>Align 4 game, originally for Sailfish OS with strong and configurable AI</source>
+        <translation>Align 4 mit starken künstlichen Intelligenz und konfigurierbar</translation>
+    </message>
+    <message>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="66"/>
         <location filename="../qml/sailfish/Apropos.qml" line="62"/>
         <source>Copyright</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/phone/apropos/Apropos.qml" line="74"/>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="76"/>
         <location filename="../qml/sailfish/Apropos.qml" line="78"/>
         <source>licence</source>
         <translation>lizenz</translation>
     </message>
     <message>
-        <location filename="../qml/phone/apropos/Apropos.qml" line="78"/>
+        <location filename="../qml/phone/apropos/Apropos.qml" line="80"/>
         <location filename="../qml/sailfish/Apropos.qml" line="83"/>
         <source>Links</source>
         <translation>Link</translation>
@@ -71,8 +87,8 @@
     <message>
         <location filename="../qml/desktop/configure/Configure.qml" line="44"/>
         <location filename="../qml/desktop/configure/Configure.qml" line="60"/>
-        <location filename="../qml/phone/configure/Configure.qml" line="50"/>
-        <location filename="../qml/phone/configure/Configure.qml" line="68"/>
+        <location filename="../qml/phone/configure/Configure.qml" line="49"/>
+        <location filename="../qml/phone/configure/Configure.qml" line="67"/>
         <source>Player %1</source>
         <translation>Spieler %1</translation>
     </message>
@@ -188,9 +204,13 @@
 <context>
     <name>DefaultConfig</name>
     <message>
-        <location filename="../qml/config/DefaultConfig.qml" line="5"/>
         <source>Connect4</source>
         <translation>Connect4</translation>
+    </message>
+    <message>
+        <location filename="../qml/config/DefaultConfig.qml" line="5"/>
+        <source>uAlign4</source>
+        <translation>uAlign4</translation>
     </message>
     <message>
         <location filename="../qml/config/DefaultConfig.qml" line="30"/>
@@ -229,12 +249,12 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/phone/MainPage.qml" line="91"/>
+        <location filename="../qml/phone/MainPage.qml" line="87"/>
         <source>New game</source>
         <translation>Neues Spiel</translation>
     </message>
     <message>
-        <location filename="../qml/phone/MainPage.qml" line="92"/>
+        <location filename="../qml/phone/MainPage.qml" line="88"/>
         <source>Are you sure to stop current game ?</source>
         <translation>Sind Sie sicher, dass aktuelle Spiel zu stoppen?</translation>
     </message>
@@ -278,6 +298,7 @@
         <translation>Verlassen</translation>
     </message>
     <message>
+        <location filename="../qml/phone/menu/Menu.qml" line="38"/>
         <location filename="../qml/phone/menu/Menu.qml" line="75"/>
         <location filename="../qml/phone/menu/Menu.qml" line="103"/>
         <source>Reset scores</source>
