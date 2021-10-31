@@ -25,9 +25,11 @@ PkgConfigBR:
   - Qt5Core
   - Qt5Qml
   - Qt5Quick
+  - Qt5Concurrent
+  - Qt5Xml
 
 # Build dependencies without a pkgconfig setup can be listed here
-# PkgBR:
+#PkgBR:
 #   - package-needed-to-build
 
 # Runtime dependencies which are not automatically detected

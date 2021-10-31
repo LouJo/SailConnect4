@@ -1,4 +1,5 @@
-QT += core qml quick gui concurrent svg
+QT += core qml quick gui concurrent
+#svg
 
 CONFIG += sailfish
 CONFIG += c++11
