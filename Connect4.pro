@@ -124,5 +124,4 @@ ios {
 }
 
 DISTFILES += \
-    rpm/harbour-sailconnect4.spec \
-    rpm/harbour-sailconnect4.yaml
+    rpm/harbour-sailconnect4.spec

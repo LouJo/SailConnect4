@@ -13,13 +13,12 @@ Name:       harbour-sailconnect4
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Connect 4 Game
-Version:    0.4
+Version:    0.5
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
 URL:        http://legolas.vefblog.net/
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  harbour-sailconnect4.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
@@ -28,10 +27,30 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  desktop-file-utils
+BuildRequires:  qt5-qttools-linguist
 
 %description
 Smart Connect 4 game with configurable IA
 
+%if "%{?vendor}" == "chum"
+PackageName: SailDBMeter
+Type: desktop-application
+Categories:
+ - Audio
+ - Utility
+DeveloperName: Louis-Joseph Fournier (LouJou)
+PackagerName: Mark Washeim (poetaster)
+Custom:
+ - Repo: https://github.com/LouJou/SailConnect4
+ - PackagingRepo: https://github.com/poetaster/SailConnect4
+Icon: https://github.com/poetaster/SailConnect4/blob/master/UI/icons/icon.png
+Screenshots:
+ - https://github.com/poetaster/SailConnect4/raw/master/screenshots/SailConnect4.png
+ - https://github.com/poetaster/SailConnect4/raw/master/screenshots/SailCoverComplete.png
+ - https://github.com/poetaster/SailConnect4/raw/master/screenshots/TabletGameWin_en.png
+Url:
+ - HomePage: http://legolas.vefblog.net/
+%endif
 
 %prep
 %setup -q -n %{name}-%{version}
