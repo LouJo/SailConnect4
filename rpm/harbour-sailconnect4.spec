@@ -33,21 +33,20 @@ BuildRequires:  qt5-qttools-linguist
 Smart Connect 4 game with configurable IA
 
 %if "%{?vendor}" == "chum"
-PackageName: SailDBMeter
+PackageName: SailConnect4
 Type: desktop-application
 Categories:
- - Audio
- - Utility
+ - Game
 DeveloperName: Louis-Joseph Fournier (LouJou)
 PackagerName: Mark Washeim (poetaster)
 Custom:
  - Repo: https://github.com/LouJou/SailConnect4
- - PackagingRepo: https://github.com/poetaster/SailConnect4
-Icon: https://github.com/poetaster/SailConnect4/blob/master/UI/icons/icon.png
+ - PackagingRepo: https://github.com/LouJou/SailConnect4
+Icon: https://raw.githubusercontent.com/LouJou/SailConnect4/master/UI/icons/icon.png
 Screenshots:
- - https://github.com/poetaster/SailConnect4/raw/master/screenshots/SailConnect4.png
- - https://github.com/poetaster/SailConnect4/raw/master/screenshots/SailCoverComplete.png
- - https://github.com/poetaster/SailConnect4/raw/master/screenshots/TabletGameWin_en.png
+ - https://github.com/LouJou/SailConnect4/raw/master/screenshots/SailConnect4.png
+ - https://github.com/LouJou/SailConnect4/raw/master/screenshots/SailCoverComplete.png
+ - https://github.com/LouJou/SailConnect4/raw/master/screenshots/TabletGameWin_en.png
 Url:
  - HomePage: http://legolas.vefblog.net/
 %endif
