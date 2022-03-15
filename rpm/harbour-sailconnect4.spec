@@ -40,13 +40,12 @@ Categories:
 DeveloperName: Louis-Joseph Fournier (LouJou)
 PackagerName: Mark Washeim (poetaster)
 Custom:
- - Repo: https://github.com/LouJou/SailConnect4
- - PackagingRepo: https://github.com/LouJou/SailConnect4
-Icon: https://raw.githubusercontent.com/LouJou/SailConnect4/master/UI/icons/icon.png
+ - Repo: https://github.com/poetaster/SailConnect4
+Icon: https://raw.githubusercontent.com/poetaster/SailConnect4/master/UI/icons/icon.png
 Screenshots:
- - https://github.com/LouJou/SailConnect4/raw/master/screenshots/SailConnect4.png
- - https://github.com/LouJou/SailConnect4/raw/master/screenshots/SailCoverComplete.png
- - https://github.com/LouJou/SailConnect4/raw/master/screenshots/TabletGameWin_en.png
+ - https://github.com/poetaster/SailConnect4/raw/master/screenshots/SailConnect4.png
+ - https://github.com/poetaster/SailConnect4/raw/master/screenshots/SailCoverComplete.png
+ - https://github.com/poetaster/SailConnect4/raw/master/screenshots/TabletGameWin_en.png
 Url:
   HomePage: http://legolas.vefblog.net/
 %endif
