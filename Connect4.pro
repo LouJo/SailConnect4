@@ -1,6 +1,7 @@
+QT += core qml quick gui concurrent
+#svg
 
-QT += core qml quick gui concurrent svg
-
+CONFIG += sailfish
 CONFIG += c++11
 
 sailfish {
@@ -59,7 +60,7 @@ sailfish {
 	  Controller/src/sailfish.cpp
 
   RESOURCES += \
-	  UI/qml/sailfish/sailfish.qrc
+          UI/qml/sailfish/sailfish.qrc \
 }
 else: android || ios || linux {
   SOURCES += \
@@ -121,3 +122,6 @@ ios {
   assets_catalogs.files = $$files($$PWD/IOS/*.xcassets)
   QMAKE_BUNDLE_DATA += assets_catalogs
 }
+
+DISTFILES += \
+    rpm/harbour-sailconnect4.spec

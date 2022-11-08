@@ -4,10 +4,11 @@ Icon=harbour-sailconnect4
 Exec=harbour-sailconnect4
 X-Nemo-Application-Type=silica-qt5
 Name=SailConnect4
-# translation example:
-# your app name in German locale (de)
-#
-# Remember to comment out the following line, if you do not want to use
-# a different app name in German locale (de).
 
 Name[fr]=Puissance4
+
+
+[X-Sailjail]
+OrganizationName=de.poetaster
+ApplicationName=harbour-sailconnect4
+Permissions=UserDirs
